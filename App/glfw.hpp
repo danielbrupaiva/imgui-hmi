@@ -1,35 +1,22 @@
 #pragma once
 
 #include <memory>
+#include "spec.hpp"
 #include "imgui.h"
 #include "GLFW/glfw3.h"
 #include "GLFW/glfw3native.h"
 
 namespace App{
 
-struct Spec{
-    std::string title;
-    ImVec2 window_size;
-    ImVec4 bg_color;
-    int enable_vsync;
-};
+class GLFW : public std::enable_shared_from_this<GLFW> {
 
-class GLFW {
-    // Custom deleter for Window
-    struct WindowDeleter{
-        void operator()(GLFWwindow *window) const {
-            if (window) { glfwDestroyWindow(window); }
-            glfwTerminate();
-        };
-    };
-
-    App::Spec m_spec;
+    Spec& m_spec;
     GLFWwindow* m_window;
 
     /*
- * WindowHints
- * Code from glfwpp lib at glfwpp/windows.h
- * */
+     * WindowHints
+     * Code from glfwpp lib at glfwpp/windows.h
+     * */
     static constexpr int dontCare = GLFW_DONT_CARE;
     enum class ClientApi;
     enum class ContextCreationApi;
@@ -52,6 +39,13 @@ public:
     explicit GLFW(const GLFWwindow &mWindow);
     GLFW &operator=(const GLFW &) = delete;
 
+    std::shared_ptr<GLFW> get() { return shared_from_this(); };
+
+    [[nodiscard]] inline GLFWwindow* get_window() const { return m_window; }
+    inline bool is_close() { return glfwWindowShouldClose(m_window); };
+    inline void close() { glfwSetWindowShouldClose(m_window, GLFW_TRUE); };
+
+private:
     int8_t init();
     void shutdown();
     static void glfw_error_callback(int errorCode_, const char *what_);
@@ -79,9 +73,6 @@ public:
     GLFWPP_ERROR_CLASS(PlatformError, Error);
     GLFWPP_ERROR_CLASS(FormatUnavailableError, Error);
 
-    [[nodiscard]] inline GLFWwindow* get_window() const { return m_window; }
-    inline bool is_close() { return glfwWindowShouldClose(m_window); };
-    inline void close() { glfwSetWindowShouldClose(m_window, GLFW_TRUE); };
 };
 
 } //App namespace
