@@ -1,3 +1,12 @@
+option(OPENGL3 "OPENGL3" ON)
+message("${BoldYellow}-- OPENGL3: ${OPENGL3}${ColourReset}")
+#---------------------
+option(VULKAN "VULKAN" OFF)
+message("${BoldYellow}-- VULKAN: ${VULKAN}${ColourReset}")
+#---------------------
+option(GLFW "GLFW" ON)
+message("${BoldYellow}-- GLFW: ${GLFW}${ColourReset}")
+#---------------------
 include(FetchContent)
 #---------------------
 FetchContent_Declare(
