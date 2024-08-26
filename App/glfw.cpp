@@ -225,7 +225,7 @@ int8_t App::GLFW::init()
     if (nullptr == m_window) { throw std::runtime_error("GLFW window not created"); }
     glfwMakeContextCurrent(m_window);
 
-    glfwSwapInterval(m_spec.enable_vsync); // Enable vsync
+    glfwSwapInterval(m_spec.vsync); // Enable vsync
 
     return EXIT_SUCCESS;
 }
