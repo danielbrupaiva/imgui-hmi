@@ -18,6 +18,9 @@ message("${BoldGreen}-- ${PROJECT_NAME} BUILD ${ColourReset}")
 #---------------------
 add_executable(${PROJECT_NAME}
         main.cpp
+        globals.hpp
+        spec.hpp
+        glfw.hpp glfw.cpp
 )
 #---------------------
 include(core)
