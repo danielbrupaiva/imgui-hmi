@@ -1,12 +1,18 @@
 #pragma once
 
 #include <memory>
-#include "spec.hpp"
 #include "imgui.h"
 #include "GLFW/glfw3.h"
 #include "GLFW/glfw3native.h"
 
 namespace App{
+
+struct Spec{
+    std::string title;
+    ImVec2 window_size;
+    ImVec4 bg_color;
+    int enable_vsync;
+};
 
 class GLFW {
     // Custom deleter for Window
@@ -16,13 +22,14 @@ class GLFW {
             glfwTerminate();
         };
     };
-    std::unique_ptr<GLFWwindow, WindowDeleter> m_window;
-    std::unique_ptr<App::Spec> m_spec;
+
+    App::Spec m_spec;
+    GLFWwindow* m_window;
 
     /*
-     * WindowHints
-     * Code from glfwpp lib at glfwpp/windows.h
-     * */
+ * WindowHints
+ * Code from glfwpp lib at glfwpp/windows.h
+ * */
     static constexpr int dontCare = GLFW_DONT_CARE;
     enum class ClientApi;
     enum class ContextCreationApi;
@@ -33,22 +40,20 @@ class GLFW {
     struct WindowHints;
 
 public:
-    ~GLFW() = default;
-    explicit GLFW(App::Spec& spec)
-        : m_spec{std::make_unique<App::Spec>(spec)}, m_window{nullptr}
+    ~GLFW(){
+        shutdown();
+    }
+    explicit GLFW(App::Spec& spec): m_spec{spec}, m_window{nullptr}
     {
         init();
     }
     // Prevent copying
     GLFW(const GLFW &) = delete;
+    explicit GLFW(const GLFWwindow &mWindow);
     GLFW &operator=(const GLFW &) = delete;
 
-    [[nodiscard]] inline GLFWwindow* get_window() const { return m_window.get(); }
-    inline bool is_close() { return glfwWindowShouldClose(m_window.get()); };
-    inline void close() { glfwSetWindowShouldClose(m_window.get(), GLFW_TRUE); };
-
-private:
     int8_t init();
+    void shutdown();
     static void glfw_error_callback(int errorCode_, const char *what_);
 
     /*
@@ -74,6 +79,9 @@ private:
     GLFWPP_ERROR_CLASS(PlatformError, Error);
     GLFWPP_ERROR_CLASS(FormatUnavailableError, Error);
 
+    [[nodiscard]] inline GLFWwindow* get_window() const { return m_window; }
+    inline bool is_close() { return glfwWindowShouldClose(m_window); };
+    inline void close() { glfwSetWindowShouldClose(m_window, GLFW_TRUE); };
 };
 
 } //App namespace
