@@ -1,23 +1,22 @@
 #pragma once
 
 #include <memory>
-
+#include "spec.hpp"
+#include "glfw.hpp"
 #include "imgui.h"
 #include "imgui_stdlib.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
 #include "imgui_internal.h"
 
-#include "backend.hpp"
 // Emedded font
 #include "../resources/fonts/Roboto-Regular.embed"
 
 namespace App{
 
-class IMGUI{
-    App::Spec m_spec;
+class IMGUI {
+    std::unique_ptr<App::Spec> m_spec;
     std::unique_ptr<GLFW> m_api;
-    std::unique_ptr<Backend> m_backend;
     bool m_entire_viewport = true;
     std::unique_ptr<bool> m_open = nullptr;
     ImVec2 m_position = ImVec2(0,0);
@@ -26,19 +25,17 @@ class IMGUI{
                                 | ImGuiWindowFlags_NoMove;
 //                                | ImGuiWindowFlags_NoBackground;
 public:
-    ~UI(){
+    ~IMGUI(){
         shutdown();
     };
-    explicit UI(App::Spec &spec, const eBackend backend, const std::string& shader_version) :
-        m_spec{spec},
-        m_api{std::make_unique<GLFW>(m_spec)},
-        m_backend{std::make_unique<Backend>(backend, shader_version)}
+    explicit IMGUI(App::Spec& spec)
+        : m_spec{std::make_unique<App::Spec>(spec)}, m_api{std::make_unique<GLFW>(spec)}
     {
         init();
     };
     // Prevent copying
-    UI(const UI &) = delete;
-    UI &operator=(const UI &) = delete;
+    IMGUI(const IMGUI &) = delete;
+    IMGUI &operator=(const IMGUI &) = delete;
     // Render method
     template<typename Func>
     void run(Func&& Render);
@@ -167,7 +164,7 @@ private:
     int8_t setup_render_backend()
     {   // Setup Platform/Renderer backends
         ImGui_ImplGlfw_InitForOpenGL( get_glfw_window_from_api(), true );
-        ImGui_ImplOpenGL3_Init( m_backend->get_version().c_str() );
+        ImGui_ImplOpenGL3_Init( m_spec->shader_version.c_str() );
         return EXIT_SUCCESS;
     };
 
@@ -175,7 +172,7 @@ private:
 };
 
 template<typename Func>
-void UI::run(Func&& Render) {
+void IMGUI::run(Func&& Render) {
     glfwPollEvents();
     // Start the Dear ImGui frame
     ImGui_ImplOpenGL3_NewFrame();
@@ -187,7 +184,7 @@ void UI::run(Func&& Render) {
 //    ImGui::SetNextWindowSize(m_entire_viewport ? viewport->WorkSize : viewport->Size);
     // Hardcoded position and window size
     ImGui::SetNextWindowPos(m_position);
-    ImGui::SetNextWindowSize(m_spec.window_size, ImGuiCond_Always);
+    ImGui::SetNextWindowSize(m_spec->window_size, ImGuiCond_Always);
 
     if (ImGui::Begin("MAIN", m_open.get(), m_flags)) {
         Render();
@@ -197,9 +194,9 @@ void UI::run(Func&& Render) {
     int32_t display_w, display_h;
     glfwGetFramebufferSize( get_glfw_window_from_api(), &display_w, &display_h);
     glViewport(0, 0, display_w, display_h);
-    glClearColor(m_spec.bg_color.x * m_spec.bg_color.w,
-                 m_spec.bg_color.y * m_spec.bg_color.w,
-                 m_spec.bg_color.z * m_spec.bg_color.w, m_spec.bg_color.w);
+    glClearColor(m_spec->bg_color.x * m_spec->bg_color.w,
+                 m_spec->bg_color.y * m_spec->bg_color.w,
+                 m_spec->bg_color.z * m_spec->bg_color.w, m_spec->bg_color.w);
 
     glClear(GL_COLOR_BUFFER_BIT);
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
