@@ -21,6 +21,7 @@ add_executable(${PROJECT_NAME}
         globals.hpp
         spec.hpp
         glfw.hpp glfw.cpp
+        imgui.hpp
 )
 #---------------------
 include(core)
