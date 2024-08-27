@@ -8,10 +8,16 @@
 
 namespace App{
 
-class GLFW : public std::enable_shared_from_this<GLFW> {
-
-    Spec& m_spec;
-    GLFWwindow* m_window;
+class GLFW {
+    // Custom deleter for Window
+    struct WindowDeleter{
+        void operator()(GLFWwindow *window) const {
+            if (window) { glfwDestroyWindow(window); }
+            glfwTerminate();
+        };
+    };
+    std::unique_ptr<GLFWwindow, WindowDeleter> m_window;
+    std::unique_ptr<App::Spec> m_spec;
 
     /*
      * WindowHints
@@ -27,27 +33,22 @@ class GLFW : public std::enable_shared_from_this<GLFW> {
     struct WindowHints;
 
 public:
-    ~GLFW(){
-        shutdown();
-    }
-    explicit GLFW(App::Spec& spec): m_spec{spec}, m_window{nullptr}
+    ~GLFW() = default;
+    explicit GLFW(App::Spec& spec)
+        : m_spec{std::make_unique<App::Spec>(spec)}, m_window{nullptr}
     {
         init();
     }
     // Prevent copying
     GLFW(const GLFW &) = delete;
-    explicit GLFW(const GLFWwindow &mWindow);
     GLFW &operator=(const GLFW &) = delete;
 
-    std::shared_ptr<GLFW> get() { return shared_from_this(); };
-
-    [[nodiscard]] inline GLFWwindow* get_window() const { return m_window; }
-    inline bool is_close() { return glfwWindowShouldClose(m_window); };
-    inline void close() { glfwSetWindowShouldClose(m_window, GLFW_TRUE); };
+    [[nodiscard]] inline GLFWwindow* get_window() const { return m_window.get(); }
+    inline bool is_close() { return glfwWindowShouldClose(m_window.get()); };
+    inline void close() { glfwSetWindowShouldClose(m_window.get(), GLFW_TRUE); };
 
 private:
     int8_t init();
-    void shutdown();
     static void glfw_error_callback(int errorCode_, const char *what_);
 
     /*
