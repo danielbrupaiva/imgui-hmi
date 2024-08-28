@@ -9,32 +9,37 @@ namespace App
 class IWidget
 {
 public:
-	IWidget(uint32_t id, const std::string &label, const ImVec2 &size, const ImVec2 &position)
-		: id(id), label(label), size(size), position(position)
+	IWidget(bool m_visible, const ImVec2 &m_position, const ImVec2 &m_size, const std::string &m_label, uint32_t m_id)
+		: m_visible(m_visible), m_position(m_position), m_size(m_size), m_label(m_label), m_id(m_id)
 	{}
 
 private:
-	uint32_t id;
-	std::string label;
-	ImVec2 size;
-	ImVec2 position;
+	uint32_t m_id;
+	std::string m_label;
+	ImVec2 m_size;
+	ImVec2 m_position;
+	bool m_visible;
 
 public:
 	inline uint32_t get_id() const
-	{ return id; }
+	{ return m_id; }
 	inline void set_id(uint32_t id)
-	{ IWidget::id = id; }
+	{ m_id = id; }
 	inline const std::string &get_label() const
-	{ return label; }
+	{ return m_label; }
 	inline void set_label(const std::string &label)
-	{ IWidget::label = label; }
+	{ m_label = label; }
 	inline const ImVec2 &get_size() const
-	{ return size; }
+	{ return m_size; }
 	inline void set_size(const ImVec2 &size)
-	{ IWidget::size = size; }
+	{ m_size = size; }
 	inline const ImVec2 &get_position() const
-	{ return position; }
+	{ return m_position; }
 	inline void set_position(const ImVec2 &position)
-	{ IWidget::position = position; }
+	{ m_position = position; }
+	inline bool is_visible() const
+	{ return m_visible; }
+	inline void set_visible(bool visible)
+	{ m_visible = visible; }
 };
 } // App
