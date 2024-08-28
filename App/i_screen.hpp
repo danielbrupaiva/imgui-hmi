@@ -19,7 +19,6 @@ private:
 	std::string title;
 	ImVec2 size;
 
-
 public:
 	inline uint32_t get_id() const
 	{ return id; }
