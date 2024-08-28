@@ -22,6 +22,7 @@ add_executable(${PROJECT_NAME}
         spec.hpp
         glfw.hpp glfw.cpp
         imgui.hpp
+        i_widget.hpp
 )
 #---------------------
 include(core)
