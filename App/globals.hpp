@@ -13,7 +13,7 @@ namespace Global
 static Logger logger{"App", spdlog::level::debug};
 
 static Spec hmi_spec = {
-	.backend_type       = eBackend::OPENGLES,
+	.backend_type       = BackendType::OPENGLES,
 	.shader_version     = GLSL_VERSION["ES 3.0"],
 	.title              = "IMGUI HMI",
 	.window_size        = ImVec2(1280, 720),

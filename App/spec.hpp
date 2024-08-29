@@ -11,7 +11,7 @@
 namespace App
 {
 
-enum class eBackend
+enum class BackendType
 {
 	OPENGL, OPENGLES, VULKAN
 };
@@ -34,7 +34,7 @@ static std::map<std::string, std::string> GLSL_VERSION = {
 
 struct Spec
 {
-	eBackend backend_type;
+	BackendType backend_type;
 	std::string shader_version = GLSL_VERSION["2.0"];
 	std::string title;
 	ImVec2 window_size;
