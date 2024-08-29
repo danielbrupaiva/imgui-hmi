@@ -19,6 +19,8 @@ add_subdirectory(tests)
 #---------------------
 message("${BoldGreen}-- Copy external resources to build folder ${ColourReset}")
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/resources/images/logo.png
+        ${CMAKE_CURRENT_SOURCE_DIR}/resources/images/morpheus.png
+        ${CMAKE_CURRENT_SOURCE_DIR}/resources/images/tux.png
         ${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/profile.png
         ${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/restricted_person.png
         ${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/verify_person.png
