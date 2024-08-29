@@ -9,7 +9,11 @@ namespace App
 class IWidget
 {
 public:
-	IWidget(bool m_visible, const ImVec2 &m_position, const ImVec2 &m_size, const std::string &m_label, uint32_t m_id)
+	IWidget(bool m_visible,
+			const ImVec2 &m_position,
+			const ImVec2 &m_size,
+			const std::string_view m_label,
+			uint32_t m_id)
 		: m_visible(m_visible), m_position(m_position), m_size(m_size), m_label(m_label), m_id(m_id)
 	{}
 
