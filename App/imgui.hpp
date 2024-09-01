@@ -98,7 +98,7 @@ private:
 	{
 		ImGuiStyle *style = &ImGui::GetStyle();
 		/* Rounding */
-		style->WindowRounding = 12.0f;
+		style->WindowRounding = 6.0f;
 		style->FrameRounding = 6.0f;
 		style->ChildRounding = 6.0f;
 		style->PopupRounding = 6.0f;
