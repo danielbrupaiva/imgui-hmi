@@ -8,7 +8,7 @@
 #include <map>
 #include "imgui.h"
 
-namespace App
+namespace Core
 {
 
 enum class BackendType
@@ -41,4 +41,4 @@ struct Spec
 	ImVec4 bg_color;
 	int8_t vsync;
 };
-} // App
+}

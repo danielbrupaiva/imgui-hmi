@@ -105,3 +105,5 @@ public:
 	{ m_filename = _filename; };
 };
 };//Core namespace
+
+static Core::Logger logger{"App", spdlog::level::debug};

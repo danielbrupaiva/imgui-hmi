@@ -11,6 +11,11 @@ message("${BoldGreen}-- ${PROJECT_NAME} BUILD ${ColourReset}")
 set(SOURCES
         logger.hpp
         utils.hpp
+        spec.hpp
+        glfw.hpp glfw.cpp
+        imgui.hpp
+        i_widget.hpp
+        image.hpp
 )
 #---------------------
 add_library(${PROJECT_NAME} STATIC)

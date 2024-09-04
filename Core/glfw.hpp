@@ -6,10 +6,8 @@
 #include "GLFW/glfw3.h"
 #include "GLFW/glfw3native.h"
 
-namespace App
+namespace Core
 {
-
-
 class GLFW
 {
 	// Custom deleter for Window
@@ -22,7 +20,7 @@ class GLFW
 		};
 	};
 	std::unique_ptr<GLFWwindow, WindowDeleter> m_window;
-	std::unique_ptr<App::Spec> m_spec;
+	std::unique_ptr<Spec> m_spec;
 
 	/*
 	 * WindowHints
@@ -39,8 +37,8 @@ class GLFW
 
 public:
 	~GLFW() = default;
-	explicit GLFW(App::Spec &spec)
-		: m_spec{std::make_unique<App::Spec>(spec)}, m_window{nullptr}
+	explicit GLFW(Spec &spec)
+		: m_spec{std::make_unique<Spec>(spec)}, m_window{nullptr}
 	{
 		init();
 	}
@@ -83,5 +81,4 @@ private:
 	GLFWPP_ERROR_CLASS(FormatUnavailableError, Error);
 
 };
-
-} //App namespace
+}

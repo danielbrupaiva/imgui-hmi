@@ -12,12 +12,12 @@
 // Emedded font
 #include "../resources/fonts/Roboto-Regular.embed"
 
-namespace App
+namespace Core
 {
 
 class IMGUI
 {
-	std::unique_ptr<App::Spec> m_spec;
+	std::unique_ptr<Spec> m_spec;
 	std::unique_ptr<GLFW> m_api;
 	bool m_entire_viewport = true;
 	std::unique_ptr<bool> m_open = nullptr;
@@ -31,8 +31,8 @@ public:
 	{
 		shutdown();
 	};
-	explicit IMGUI(App::Spec &spec)
-		: m_spec{std::make_unique<App::Spec>(spec)}, m_api{std::make_unique<GLFW>(spec)}
+	explicit IMGUI(Spec &spec)
+		: m_spec{std::make_unique<Spec>(spec)}, m_api{std::make_unique<GLFW>(spec)}
 	{
 		init();
 	};
