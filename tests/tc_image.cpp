@@ -15,38 +15,36 @@ TEST_CASE("Image class")
 	int32_t width = 1920;
 	int32_t height = 1080;
 
-	SECTION("Load a image from memory")
-	{
-	}
-
 	SECTION("Load image from a file")
 	{
-		REQUIRE(image.get_id() != 0);
+		REQUIRE(image.ID() != 0);
 		REQUIRE(image.get_width() == width);
 		REQUIRE(image.get_height() == height);
 		REQUIRE(image.get_label() == "morpheus");
 	}
 
-	SECTION("Load image from a file with a given size")
-	{
-		const float factor = 0.80f;
-		float new_width = (float)width * factor;
-		float new_height = (float)height * factor;
-
-		Core::Image small_image{filename, ImVec2(new_width, new_height)};
-		REQUIRE(small_image.get_id() != 0);
-		REQUIRE(small_image.get_width() == new_width);
-		REQUIRE(small_image.get_height() == new_height);
-		REQUIRE(small_image.get_label() == "morpheus");
-	}
-
 	SECTION("Resize a image")
 	{
 		const float factor = 0.80f;
-		const ImVec2 new_size{ImVec2((float)width * factor, (float)height * factor)};
+		ImVec2 new_size = ImVec2((float)width * factor, (float)height * factor);
+
 		image.resize(new_size);
-		REQUIRE(image.get_width() == static_cast<int32_t>(std::floor(new_size.x)));
-		REQUIRE(image.get_height() == static_cast<int32_t>(std::floor(new_size.y)));
+
+		REQUIRE(image.get_width() == new_size.x);
+		REQUIRE(image.get_size().x == new_size.x);
+		REQUIRE(image.get_height() == new_size.y);
+		REQUIRE(image.get_size().y == new_size.y);
+	}
+
+	SECTION("Load image from a file with a given size")
+	{
+		ImVec2 size{1280, 720};
+		Core::Image image1{filename, size};
+
+		REQUIRE(image1.ID() != 0);
+		REQUIRE(image1.get_width() == size.x);
+		REQUIRE(image1.get_height() == size.y);
+		REQUIRE(image1.get_label() == "morpheus");
 	}
 
 }

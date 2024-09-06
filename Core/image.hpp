@@ -35,13 +35,28 @@ public:
 		set_label(m_filename.stem().string());
 	};
 
-	explicit Image(const std::string_view filename, const ImVec2& size)
+	explicit Image(const std::string_view filename, const ImVec2 &size)
+		: m_filename(filename)
 	{
-		Image(filename.data());
-
+		set_id(load_texture_from_file(m_filename));
+		set_label(m_filename.stem().string());
+		set_size(size);
 	};
 
-	ImVec2 resize(const ImVec2 &size)
+	Image &operator()()
+	{
+		ImGui::SetCursorPos(get_position());
+		ImGui::Image(ID(), get_size());
+	}
+
+	Image &operator()(const ImVec2 &size)
+	{
+		set_size(size);
+		ImGui::SetCursorPos(get_position());
+		ImGui::Image(ID(), get_size());
+	}
+
+	void resize(const ImVec2 &size)
 	{
 		// Calculate resize ratio
 		float width_ratio = (float)size.x / (float)get_width();
@@ -52,7 +67,7 @@ public:
 		float target_width = (float)m_width * resize_ratio;
 		float target_height = (float)m_height * resize_ratio;
 
-		return ImVec2(std::floor(target_width), std::floor(target_height));
+		set_size(ImVec2(std::floor(target_width), std::floor(target_height)));
 	}
 private:
 	uint32_t load_texture_from_file(const std::filesystem::path &filename)
@@ -97,5 +112,10 @@ public:
 	{
 		m_format = format;
 	}
+	[[nodiscard]] inline ImTextureID ID() const
+	{
+		return reinterpret_cast<ImTextureID>(get_id());
+	}
+
 };
 }

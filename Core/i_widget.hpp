@@ -25,7 +25,7 @@ public:
 	{}
 
 public:
-	[[nodiscard]] const std::string &get_label() const
+	[[nodiscard]] const std::string &get_label()
 	{
 		return m_label;
 	}
@@ -41,35 +41,44 @@ public:
 	{
 		m_id = id;
 	}
-	[[nodiscard]] virtual int32_t get_width() const
+	[[nodiscard]] int32_t get_width() const
 	{
 		return m_width;
 	}
-	void virtual set_width(const int32_t width)
+	[[nodiscard]] ImVec2 get_size() const
+	{
+		return {static_cast<float>(m_width), static_cast<float>(m_height)};
+	}
+	void set_size(const ImVec2 &size)
+	{
+		m_width = static_cast<int32_t>(std::floor(size.x));
+		m_height = static_cast<int32_t>(std::floor(size.y));
+	}
+	void set_width(const int32_t width)
 	{
 		m_width = width;
 	}
-	[[nodiscard]] virtual int32_t get_height() const
+	[[nodiscard]] int32_t get_height() const
 	{
 		return m_height;
 	}
-	void virtual set_height(const int32_t height)
+	void set_height(const int32_t height)
 	{
 		m_height = height;
 	}
-	[[nodiscard]] virtual const ImVec2 &get_position() const
+	[[nodiscard]] const ImVec2 &get_position()
 	{
 		return m_position;
 	}
-	void virtual set_position(const ImVec2 &position)
+	void set_position(const ImVec2 &position)
 	{
 		m_position = position;
 	}
-	[[nodiscard]] virtual bool is_visible() const
+	[[nodiscard]] bool is_visible() const
 	{
 		return m_visible;
 	}
-	virtual void set_visible(bool visible)
+	void set_visible(bool visible)
 	{
 		m_visible = visible;
 	}
