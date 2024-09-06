@@ -38,7 +38,7 @@ int main()
 		try {
 			hmi.run([&]()
 					{
-						image();
+						image(ImGui::GetContentRegionAvail());
 //						ImGui::Image(GL_Textures["morpheus"]->ID(), GL_Textures["morpheus"]->get_size());
 						debug_screen(&hmi);
 					});
