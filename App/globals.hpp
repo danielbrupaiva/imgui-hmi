@@ -3,14 +3,12 @@
 #include "logger.hpp"
 #include "spec.hpp"
 #include "imgui.hpp"
+#include "image.hpp"
 
-using namespace App;
 using namespace Core;
-
 
 namespace Global
 {
-static Logger logger{"App", spdlog::level::debug};
 
 static Spec hmi_spec = {
 	.backend_type       = BackendType::OPENGLES,
@@ -22,5 +20,7 @@ static Spec hmi_spec = {
 };
 
 static IMGUI hmi{hmi_spec};
+
+static std::map<std::string, std::unique_ptr<Image> > GL_Textures;
 
 };//namespace Global
