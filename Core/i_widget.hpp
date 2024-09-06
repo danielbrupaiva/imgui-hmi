@@ -7,23 +7,25 @@ namespace Core
 {
 class IWidget
 {
-private:
+protected:
 	std::string m_label;
-	int32_t m_id = 0;
-	ImVec2 m_size = ImVec2(0, 0);
+	uint32_t m_id = 0;
+	int32_t m_width = 0;
+	int32_t m_height = 0;
 	ImVec2 m_position = ImVec2(0, 0);
 	bool m_visible = true;
 
 public:
 	explicit IWidget() = default;
 	explicit IWidget(const std::string_view label,
-					 const ImVec2 &size,
+					 const int32_t &width,
+					 const int32_t &height,
 					 const ImVec2 &position)
-		: m_label(label), m_size(size), m_position(position)
+		: m_label(label), m_width(width), m_height(height), m_position(position)
 	{}
 
 public:
-	const std::string &get_label() const
+	[[nodiscard]] const std::string &get_label() const
 	{
 		return m_label;
 	}
@@ -31,51 +33,43 @@ public:
 	{
 		m_label = label;
 	}
-	uint32_t get_id() const
+	[[nodiscard]] uint32_t get_id() const
 	{
 		return m_id;
 	}
-	void set_id(int32_t id)
+	void set_id(uint32_t id)
 	{
 		m_id = id;
 	}
-	const float get_width() const
+	[[nodiscard]] virtual int32_t get_width() const
 	{
-		return m_size.x;
+		return m_width;
 	}
-	void set_width(const float width)
+	void virtual set_width(const int32_t width)
 	{
-		m_size.x = width;
+		m_width = width;
 	}
-	const float get_height() const
+	[[nodiscard]] virtual int32_t get_height() const
 	{
-		return m_size.y;
+		return m_height;
 	}
-	void set_height(const float height)
+	void virtual set_height(const int32_t height)
 	{
-		m_size.y = height;
+		m_height = height;
 	}
-	const ImVec2 &get_size() const
-	{
-		return m_size;
-	}
-	void set_size(const ImVec2 &size)
-	{
-		m_size = size;
-	}
-	const ImVec2 &get_position() const
+	[[nodiscard]] virtual const ImVec2 &get_position() const
 	{
 		return m_position;
 	}
-	void set_position(const ImVec2 &position)
+	void virtual set_position(const ImVec2 &position)
 	{
 		m_position = position;
 	}
-	bool is_visible() const
+	[[nodiscard]] virtual bool is_visible() const
 	{
 		return m_visible;
 	}
-	void set_visible(bool visible)
+	virtual void set_visible(bool visible)
 	{
 		m_visible = visible;
 	}

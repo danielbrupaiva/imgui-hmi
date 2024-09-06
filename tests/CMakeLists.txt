@@ -12,7 +12,7 @@ endif ()
 #---------------------
 set(SOURCES
         main.cpp
-        test_cases.cpp
+        tc_image.cpp
 )
 add_executable(${PROJECT_NAME} ${SOURCES})
 #---------------------
