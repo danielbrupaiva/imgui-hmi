@@ -3,7 +3,7 @@
 #include "logger.hpp"
 #include "spec.hpp"
 #include "imgui.hpp"
-#include "image.hpp"
+#include "widgets/image.hpp"
 
 using namespace Core;
 

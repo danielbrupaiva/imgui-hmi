@@ -1,6 +1,6 @@
 #include <catch2/catch_test_macros.hpp>
 
-#include "image.hpp"
+#include "widgets/image.hpp"
 
 CATCH_REGISTER_ENUM(Core::Image::Format,
 					Core::Image::Format::None,
@@ -10,7 +10,7 @@ CATCH_REGISTER_ENUM(Core::Image::Format,
 TEST_CASE("Image class")
 {
 	// Setup
-	std::string filename = "/home/daniel/CLionProjects/cpp_template/resources/images/morpheus.jpg";
+	std::string filename = "./resources/morpheus.jpg";
 	Core::Image image{filename};
 	int32_t width = 1920;
 	int32_t height = 1080;
