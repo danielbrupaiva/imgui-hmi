@@ -109,11 +109,11 @@ private:
 
 public:
 
-	[[nodiscard]] Format get_format() const
+	[[nodiscard]] inline Format get_format() const
 	{
 		return m_format;
 	}
-	void set_format(Format format)
+	inline void set_format(Format format)
 	{
 		m_format = format;
 	}

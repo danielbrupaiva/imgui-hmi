@@ -25,60 +25,60 @@ public:
 	{}
 
 public:
-	[[nodiscard]] const std::string &get_label()
+	[[nodiscard]] inline std::string &get_label()
 	{
 		return m_label;
 	}
-	void set_label(const std::string &label)
+	inline void set_label(const std::string &label)
 	{
 		m_label = label;
 	}
-	[[nodiscard]] uint32_t get_id() const
+	[[nodiscard]] inline uint32_t get_id() const
 	{
 		return m_id;
 	}
-	void set_id(uint32_t id)
+	inline void set_id(uint32_t id)
 	{
 		m_id = id;
 	}
-	[[nodiscard]] int32_t get_width() const
+	[[nodiscard]] inline int32_t get_width() const
 	{
 		return m_width;
 	}
-	[[nodiscard]] ImVec2 get_size() const
+	[[nodiscard]] inline ImVec2 get_size() const
 	{
 		return {static_cast<float>(m_width), static_cast<float>(m_height)};
 	}
-	void set_size(const ImVec2 &size)
+	inline void set_size(const ImVec2 &size)
 	{
 		m_width = static_cast<int32_t>(std::floor(size.x));
 		m_height = static_cast<int32_t>(std::floor(size.y));
 	}
-	void set_width(const int32_t width)
+	inline void set_width(const int32_t width)
 	{
 		m_width = width;
 	}
-	[[nodiscard]] int32_t get_height() const
+	[[nodiscard]] inline int32_t get_height() const
 	{
 		return m_height;
 	}
-	void set_height(const int32_t height)
+	inline void set_height(const int32_t height)
 	{
 		m_height = height;
 	}
-	[[nodiscard]] const ImVec2 &get_position()
+	[[nodiscard]] inline const ImVec2 &get_position()
 	{
 		return m_position;
 	}
-	void set_position(const ImVec2 &position)
+	inline void set_position(const ImVec2 &position)
 	{
 		m_position = position;
 	}
-	[[nodiscard]] bool is_visible() const
+	[[nodiscard]] inline bool is_visible() const
 	{
 		return m_visible;
 	}
-	void set_visible(bool visible)
+	inline void set_visible(bool visible)
 	{
 		m_visible = visible;
 	}
