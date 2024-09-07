@@ -38,8 +38,9 @@ int main()
 		try {
 			hmi.run([&]()
 					{
-						image(ImGui::GetContentRegionAvail());
-//						ImGui::Image(GL_Textures["morpheus"]->ID(), GL_Textures["morpheus"]->get_size());
+						static ImVec2 size = ImGui::GetContentRegionAvail();
+						static ImVec2 position = ImGui::GetCursorPos();
+						image(size, position);
 						debug_screen(&hmi);
 					});
 		}

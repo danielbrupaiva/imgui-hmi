@@ -43,17 +43,22 @@ public:
 		set_size(size);
 	};
 
-	Image &operator()()
+	void operator()()
 	{
 		ImGui::SetCursorPos(get_position());
 		ImGui::Image(ID(), get_size());
 	}
 
-	Image &operator()(const ImVec2 &size)
+	void operator()(const ImVec2 &size)
 	{
 		set_size(size);
-		ImGui::SetCursorPos(get_position());
-		ImGui::Image(ID(), get_size());
+		operator()();
+	}
+
+	void operator()(const ImVec2 &size, const ImVec2 &position)
+	{
+		set_position(position);
+		operator()(size);
 	}
 
 	void resize(const ImVec2 &size)
