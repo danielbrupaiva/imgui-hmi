@@ -32,3 +32,9 @@ catch_discover_tests(${PROJECT_NAME})
 #---------------------
 target_link_libraries(${PROJECT_NAME} PRIVATE Catch2::Catch2WithMain)
 include(core)
+
+#---------------------
+message("${BoldGreen}-- Copy external resources to build folder ${ColourReset}")
+file(COPY $ENV{RESOURCES_FOLDER}/images/morpheus.jpg
+        DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/resources)
+#---------------------
