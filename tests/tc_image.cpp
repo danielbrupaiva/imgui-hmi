@@ -47,6 +47,12 @@ TEST_CASE("Image class")
 		REQUIRE(image1.get_label() == "morpheus");
 	}
 
+	SECTION("Invalid file name")
+	{
+		std::string invalid_filename = "logo.png";
+		REQUIRE_THROWS_AS(Core::Image{invalid_filename}, std::runtime_error);
+	}
+
 }
 
 
