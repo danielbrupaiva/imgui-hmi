@@ -10,28 +10,28 @@ class IScreen
 {
 public:
 	IScreen(uint32_t id, const std::string &title, const ImVec2 &size)
-		: id(id), title(title), size(size)
+		: m_id(id), m_title(title), m_size(size)
 	{}
 	virtual void render() = 0;
 
 private:
-	uint32_t id;
-	std::string title;
-	ImVec2 size;
+	uint32_t m_id;
+	std::string m_title;
+	ImVec2 m_size;
 
 public:
 	inline uint32_t get_id() const
-	{ return id; }
+	{ return m_id; }
 	inline void set_id(uint32_t id)
-	{ IScreen::id = id; }
+	{ m_id = id; }
 	inline const std::string &get_title() const
-	{ return title; }
+	{ return m_title; }
 	inline void set_title(const std::string &title)
-	{ IScreen::title = title; }
+	{ m_title = title; }
 	inline const ImVec2 &get_size() const
-	{ return size; }
+	{ return m_size; }
 	inline void set_size(const ImVec2 &size)
-	{ IScreen::size = size; }
+	{ m_size = size; }
 };
 
 } // App
