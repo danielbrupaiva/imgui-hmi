@@ -16,6 +16,7 @@ set(SOURCES
         imgui.hpp
         widgets/i_widget.hpp
         widgets/image.hpp
+        widgets/button.hpp
 )
 #---------------------
 add_library(${PROJECT_NAME} STATIC
