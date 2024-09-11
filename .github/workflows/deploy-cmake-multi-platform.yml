@@ -5,7 +5,7 @@ name: Deploy new version
 on:
   # deploy when new tag is pushed
   push:
-#    branches: [ "main" ]
+   branches: [ "imgui-hmi" ]
     tags:
       - "v*.*.*"
 env:
