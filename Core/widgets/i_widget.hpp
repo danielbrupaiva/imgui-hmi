@@ -25,6 +25,7 @@ public:
 	{}
 
 public:
+	virtual void render() = 0;
 	[[nodiscard]] inline std::string &get_label()
 	{
 		return m_label;

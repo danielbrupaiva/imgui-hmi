@@ -45,8 +45,7 @@ public:
 
 	void operator()()
 	{
-		ImGui::SetCursorPos(get_position());
-		ImGui::Image(ID(), get_size());
+		render();
 	}
 
 	void operator()(const ImVec2 &size)
@@ -74,6 +73,13 @@ public:
 
 		set_size(ImVec2(std::floor(target_width), std::floor(target_height)));
 	}
+
+	void render() override
+	{
+		ImGui::SetCursorPos(get_position());
+		ImGui::Image(ID(), get_size());
+	}
+
 private:
 	uint32_t load_texture_from_file(const std::filesystem::path &filename)
 	{
@@ -108,7 +114,6 @@ private:
 	};
 
 public:
-
 	[[nodiscard]] inline Format get_format() const
 	{
 		return m_format;
@@ -121,6 +126,5 @@ public:
 	{
 		return reinterpret_cast<ImTextureID>(get_id());
 	}
-
 };
 }
