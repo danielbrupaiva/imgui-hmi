@@ -14,30 +14,16 @@ class Button: public IWidget
 	std::function<void()> m_callback = nullptr;
 
 public:
-	Button(const std::string_view &label, const ImVec2 &size, const ImVec2 &position)
-		: IWidget(label, static_cast<int32_t>(size.x), static_cast<int32_t>(size.y), position)
-	{
-		set_id();
-	}
-
-	Button(const std::string_view &label,
-		   const ImVec2 &size,
-		   const ImVec2 &position,
-		   bool m_state,
-		   const std::function<void()> &m_callback)
+	explicit Button(const std::string_view &label,
+					const ImVec2 &size,
+					const ImVec2 &position,
+					bool m_state,
+					const std::function<void()> &m_callback)
 		: IWidget(label, static_cast<int32_t>(size.x), static_cast<int32_t>(size.y), position),
 		  m_state(m_state),
 		  m_callback(m_callback)
 	{
-		set_id();
-	}
-
-	void render()
-	{
-		if (ImGui::Button(get_label().c_str(), get_size())) {
-			TOGGLE(m_state);
-			m_callback();
-		}
+		m_id = m_nextID++;
 	}
 
 	bool operator()()
@@ -45,10 +31,29 @@ public:
 		render();
 		return m_state;
 	}
-private:
-	void set_id()
+
+	void render() override
 	{
-		m_id = m_nextID++;
+		if (ImGui::Button(get_label().c_str(), get_size())) {
+			toggle_state();
+			m_callback();
+		}
+	}
+
+public:
+	[[nodiscard]] inline bool get_state() const
+	{
+		return m_state;
+	}
+
+	inline void set_state(bool state)
+	{
+		m_state = state;
+	}
+
+	inline void toggle_state()
+	{
+		m_state = !m_state;
 	}
 
 };
