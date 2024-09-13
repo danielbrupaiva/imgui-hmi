@@ -57,6 +57,8 @@ add_custom_target(
 add_dependencies(${PROJECT_NAME} fix_fakeit_catch_header)
 #---------------------
 message("${BoldGreen}-- Copy external resources to build folder ${ColourReset}")
+message("${BoldGreen}-- Resources folder: ${CMAKE_CURRENT_BINARY_DIR}/resources ${ColourReset}")
+
 file(COPY $ENV{RESOURCES_FOLDER}/images/morpheus.jpg
         DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/resources)
 #---------------------
