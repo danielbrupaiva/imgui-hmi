@@ -14,8 +14,8 @@ class IScreen
 	ImVec2 m_size;
 
 public:
-	explicit IScreen(uint32_t id, const std::string_view title, const ImVec2 &size)
-		: m_id(id), m_title(title), m_size(size)
+	explicit IScreen(const std::string_view title, const ImVec2 &size)
+		: m_title(title), m_size(size)
 	{
 		m_id = m_nextID++;
 	}
@@ -37,3 +37,5 @@ public:
 };
 
 } // Core
+
+uint32_t Core::IScreen::m_nextID = 0;
