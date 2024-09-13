@@ -14,7 +14,6 @@
 
 namespace App
 {
-
 class IMGUI
 {
 	std::unique_ptr<Spec> m_spec;
@@ -42,12 +41,18 @@ public:
 	// Render method
 	template<typename Func>
 	void run(Func &&Render);
+
 	/*Getter and Setters*/
 	[[nodiscard]] inline bool is_close() const
 	{ return m_api->is_close(); }
+
 	inline void close()
 	{ m_api->close(); }
 
+	inline const std::unique_ptr<Spec> &get_spec()
+	{
+		return m_spec;
+	}
 private:
 	int8_t init()
 	{
@@ -181,6 +186,7 @@ private:
 
 	[[nodiscard]] inline GLFWwindow *get_glfw_window_from_api() const
 	{ return m_api->get_window(); }
+
 };
 
 template<typename Func>

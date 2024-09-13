@@ -1,6 +1,6 @@
 #include "fakeit.hpp"
 #include <catch2/catch_test_macros.hpp>
-#include "widgets/button.hpp"
+#include "button.hpp"
 
 using namespace fakeit;
 

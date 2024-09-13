@@ -3,7 +3,7 @@
 #include <functional>
 #include "logger.hpp"
 #include "utils.hpp"
-#include "widgets/i_widget.hpp"
+#include "i_widget.hpp"
 
 namespace App
 {

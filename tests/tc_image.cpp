@@ -1,6 +1,6 @@
 #include <catch2/catch_test_macros.hpp>
 
-#include "widgets/image.hpp"
+#include "image.hpp"
 
 CATCH_REGISTER_ENUM(App::Image::Format,
 					App::Image::Format::None,
