@@ -2,13 +2,12 @@
 //https://github.com/ocornut/imgui/wiki/Image-Loading-and-Displaying-Examples#example-for-opengl-users
 #include <iostream>
 #include <filesystem>
-#include <GLFW/glfw3.h>
-#include <imgui.h>
-#include <imgui_impl_glfw.h>
-#include <imgui_impl_opengl3.h>
 
+#ifndef STB_IMAGE_IMPLEMENTATION
+#define STB_IMAGE_STATIC
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
+#endif
 
 #include "logger.hpp"
 #include "i_widget.hpp"
@@ -28,6 +27,7 @@ private:
 	std::filesystem::path m_filename;
 
 public:
+	Image() = default;
 	explicit Image(const std::string_view filename)
 		: m_filename(filename)
 	{
