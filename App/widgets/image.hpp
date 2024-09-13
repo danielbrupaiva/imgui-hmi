@@ -13,7 +13,7 @@
 #include "logger.hpp"
 #include "i_widget.hpp"
 
-namespace Core
+namespace App
 {
 class Image: public IWidget
 {

@@ -11,16 +11,9 @@ message("${BoldGreen}-- ${PROJECT_NAME} BUILD ${ColourReset}")
 set(SOURCES
         logger.hpp
         utils.hpp
-        spec.hpp
-        glfw.hpp glfw.cpp
-        imgui.hpp
-        widgets/i_widget.hpp
-        widgets/image.hpp
-        widgets/button.hpp
 )
 #---------------------
-add_library(${PROJECT_NAME} STATIC
-        widgets/button.hpp)
+add_library(${PROJECT_NAME} STATIC)
 target_sources(${PROJECT_NAME} PRIVATE ${SOURCES})
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 #---------------------

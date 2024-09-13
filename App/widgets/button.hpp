@@ -5,7 +5,7 @@
 #include "utils.hpp"
 #include "widgets/i_widget.hpp"
 
-namespace Core
+namespace App
 {
 class Button: public IWidget
 {
@@ -59,4 +59,4 @@ public:
 };
 }
 
-uint32_t Core::Button::m_nextID = 0;
+uint32_t App::Button::m_nextID = 0;

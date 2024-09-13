@@ -12,7 +12,7 @@
 // Emedded font
 #include "../resources/fonts/Roboto-Regular.embed"
 
-namespace Core
+namespace App
 {
 
 class IMGUI

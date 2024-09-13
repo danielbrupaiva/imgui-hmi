@@ -34,8 +34,12 @@ catch_discover_tests(${PROJECT_NAME})
 #---------------------
 target_link_libraries(${PROJECT_NAME} PRIVATE Catch2::Catch2WithMain)
 #---------------------
-include_directories($ENV{APP_FOLDER}
+include_directories(
+        $ENV{APP_FOLDER}
+        $ENV{APP_FOLDER}/widgets
         $ENV{APP_FOLDER}/screens
+        $ENV{APP_FOLDER}/imgui
+        $ENV{APP_FOLDER}/backend
 )
 include(core)
 #---------------------

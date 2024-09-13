@@ -24,6 +24,7 @@ void debug_screen(IMGUI *app)
 }
 static void load_gl_textures_resources(std::map<std::string, std::unique_ptr<Image> > &textures)
 {
+	GL_Textures.insert({"morpheus", std::make_unique<Image>("./resources/morpheus.jpg")});
 	//https://www.flaticon.com/br/packs/functional-ui
 	GL_Textures.insert({"profile", std::make_unique<Image>("./resources/profile.png")});
 	GL_Textures.insert({"maintenance_person", std::make_unique<Image>("./resources/maintenance_person.png")});

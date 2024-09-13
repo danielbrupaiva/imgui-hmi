@@ -3,7 +3,7 @@
 #include <iostream>
 #include "imgui.hpp"
 
-namespace Core
+namespace App
 {
 class IWidget
 {

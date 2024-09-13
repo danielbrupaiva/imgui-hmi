@@ -8,7 +8,7 @@
 #include <map>
 #include "imgui.h"
 
-namespace Core
+namespace App
 {
 
 enum class BackendType

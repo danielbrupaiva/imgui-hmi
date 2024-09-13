@@ -19,6 +19,13 @@ message("${BoldGreen}-- ${PROJECT_NAME} BUILD ${ColourReset}")
 add_executable(${PROJECT_NAME}
         main.cpp
         globals.hpp
+        backend/glfw.hpp
+        backend/glfw.cpp
+        imgui/imgui.hpp
+        imgui/spec.hpp
+        widgets/i_widget.hpp
+        widgets/image.hpp
+        widgets/button.hpp
         screens/screen_manager.hpp
         screens/i_screen.hpp
         screens/screen_1.hpp
@@ -26,6 +33,14 @@ add_executable(${PROJECT_NAME}
         screens/screen_3.hpp
         screens/screen_4.hpp
         screens/screen_5.hpp
+)
+#---------------------
+include_directories(
+        $ENV{APP_FOLDER}
+        $ENV{APP_FOLDER}/backend
+        $ENV{APP_FOLDER}/imgui
+        $ENV{APP_FOLDER}/screens
+        $ENV{APP_FOLDER}/widgets
 )
 #---------------------
 include(core)

@@ -3,9 +3,9 @@
 #include "logger.hpp"
 #include "spec.hpp"
 #include "imgui.hpp"
-#include "widgets/image.hpp"
+#include "image.hpp"
 
-using namespace Core;
+using namespace App;
 
 namespace Global
 {
