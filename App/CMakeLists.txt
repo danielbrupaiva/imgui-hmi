@@ -19,9 +19,13 @@ message("${BoldGreen}-- ${PROJECT_NAME} BUILD ${ColourReset}")
 add_executable(${PROJECT_NAME}
         main.cpp
         globals.hpp
-        screens/fsm.hpp
+        screens/screen_manager.hpp
         screens/i_screen.hpp
         screens/screen_1.hpp
+        screens/screen_2.hpp
+        screens/screen_3.hpp
+        screens/screen_4.hpp
+        screens/screen_5.hpp
 )
 #---------------------
 include(core)

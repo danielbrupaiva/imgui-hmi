@@ -14,7 +14,7 @@ set(SOURCES
         main.cpp
         tc_image.cpp
         tc_button.cpp
-        tc_fsm.cpp
+        tc_screen_manager.cpp
 )
 add_executable(${PROJECT_NAME} ${SOURCES})
 #---------------------

@@ -9,10 +9,14 @@
 
 #include "imgui.hpp"
 #include "screen_1.hpp"
+#include "screen_2.hpp"
+#include "screen_3.hpp"
+#include "screen_4.hpp"
+#include "screen_5.hpp"
 
 namespace App
 {
-class FSM
+class ScreenManager
 {
 public:
 	//FSM definition
@@ -25,10 +29,9 @@ private:
 	std::vector<std::unique_ptr<App::IScreen>> m_FSM;
 
 public:
-	explicit FSM(eSystemState initial_state)
-		: m_current_state(initial_state)
+	explicit ScreenManager(const eSystemState initial_state, std::vector<std::unique_ptr<App::IScreen>> &fsm)
+		: m_current_state(initial_state), m_FSM{std::move(fsm)}
 	{
-		m_FSM.push_back(std::make_unique<App::Screen1>("Screen1", ImVec2(1280, 720)));
 	}
 
 	void render()

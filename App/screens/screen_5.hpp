@@ -5,10 +5,10 @@
 
 namespace App
 {
-class Screen1: public IScreen
+class Screen5: public IScreen
 {
 public:
-	Screen1(const std::string_view &title, const ImVec2 &size)
+	Screen5(const std::string_view &title, const ImVec2 &size)
 		: IScreen(title, size)
 	{}
 	void render() override
