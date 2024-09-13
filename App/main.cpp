@@ -49,14 +49,13 @@ static void load_gl_textures_resources(std::map<std::string, std::unique_ptr<Ima
 int main()
 {
 	logger.debug("IMGUI HMI is running...");
-	load_gl_textures_resources(GL_Textures);
-	auto splash = Image("./resources/morpheus.jpg");
+
 	// Main thread
 	while (!hmi.is_close())
 		try {
 			hmi.run([&]()
 					{
-						splash(ImGui::GetContentRegionAvail(), ImGui::GetCursorPos());
+						screen_manager.render();
 						debug_screen(&hmi);
 					});
 		}

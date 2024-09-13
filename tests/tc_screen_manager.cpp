@@ -20,11 +20,9 @@ TEST_CASE("ScreenManager class")
 	auto screen5 = std::make_unique<App::Screen5>("Screen5", ImVec2(1280, 720));
 	screens_container.push_back(std::move(screen5));
 
-	App::ScreenManager app{App::ScreenManager::eSystemState::SCREEN1, screens_container};
-	app.render();
-	REQUIRE(app.get_current_state() == App::ScreenManager::eSystemState::SCREEN1);
+	App::ScreenManager app{App::ScreenManager::eState::SCREEN1, screens_container};
+	REQUIRE(app.get_current_state() == App::ScreenManager::eState::SCREEN1);
 
-	app.set_current_state(App::ScreenManager::eSystemState::SCREEN4);
-	app.render();
-	REQUIRE(app.get_current_state() == App::ScreenManager::eSystemState::SCREEN4);
+	app.set_current_state(App::ScreenManager::eState::SCREEN4);
+	REQUIRE(app.get_current_state() == App::ScreenManager::eState::SCREEN4);
 }

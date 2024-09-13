@@ -1,7 +1,3 @@
-//
-// Created by daniel on 9/13/24.
-//
-
 #pragma once
 
 #include <vector>
@@ -19,33 +15,45 @@ namespace App
 class ScreenManager
 {
 public:
-	//FSM definition
-	enum class eSystemState
+	enum class eState
 	{
 		INVALID = -1, SCREEN1, SCREEN2, SCREEN3, SCREEN4, SCREEN5
 	};
 private:
-	eSystemState m_current_state = eSystemState::INVALID;
-	std::vector<std::unique_ptr<App::IScreen>> m_FSM;
+	eState m_current_state = eState::INVALID;
+	std::vector<std::unique_ptr<App::IScreen>> m_screens;
 
 public:
-	explicit ScreenManager(const eSystemState initial_state, std::vector<std::unique_ptr<App::IScreen>> &fsm)
-		: m_current_state(initial_state), m_FSM{std::move(fsm)}
+	explicit ScreenManager(IMGUI &ui, const eState initial_state)
+		: m_current_state(initial_state)
 	{
-	}
+		m_screens.push_back(std::make_unique<App::Screen1>("Screen1", ui.get_spec()->window_size));
+		m_screens.push_back(std::make_unique<App::Screen2>("Screen2", ui.get_spec()->window_size));
+		m_screens.push_back(std::make_unique<App::Screen3>("Screen3", ui.get_spec()->window_size));
+		m_screens.push_back(std::make_unique<App::Screen4>("Screen4", ui.get_spec()->window_size));
+		m_screens.push_back(std::make_unique<App::Screen5>("Screen5", ui.get_spec()->window_size));
+	};
+
+	explicit ScreenManager(const eState initial_state, std::vector<std::unique_ptr<App::IScreen>> &screens)
+		: m_current_state(initial_state), m_screens{std::move(screens)}
+	{}
 
 	void render()
 	{
-		if (!m_FSM.empty()) {
-			m_FSM[static_cast<int32_t>(m_current_state)]->render();
+		if (m_screens.empty()) {
+			logger.error("No screen available to render");
+			throw std::runtime_error("No screen available to render");
+		}
+		else {
+			m_screens[static_cast<int32_t>(m_current_state)]->render();
 		}
 	}
 
-	[[nodiscard]] inline eSystemState get_current_state() const
+	[[nodiscard]] inline eState get_current_state() const
 	{
 		return m_current_state;
 	}
-	inline void set_current_state(eSystemState current_state)
+	inline void set_current_state(eState current_state)
 	{
 		m_current_state = current_state;
 	}
