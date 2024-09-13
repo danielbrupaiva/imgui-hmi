@@ -49,5 +49,5 @@ TEST_CASE("Button class")
 	When(Method(mockBtn0, render)).AlwaysDo(callback3);
 	mockBtn0.get().operator()();
 	REQUIRE(mockBtn0.get().get_state() == true);
-
+	Verify(Method(mockBtn0, render)).Exactly(1);
 }
