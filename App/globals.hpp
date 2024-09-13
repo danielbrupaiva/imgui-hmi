@@ -3,6 +3,7 @@
 #include "logger.hpp"
 #include "spec.hpp"
 #include "imgui.hpp"
+#include "screen_manager.hpp"
 #include "image.hpp"
 
 using namespace App;
@@ -20,6 +21,8 @@ static Spec hmi_spec = {
 };
 
 static IMGUI hmi{hmi_spec};
+
+static ScreenManager screen_manager(hmi, ScreenManager::eState::SCREEN1);
 
 static std::map<std::string, std::unique_ptr<Image> > GL_Textures;
 
