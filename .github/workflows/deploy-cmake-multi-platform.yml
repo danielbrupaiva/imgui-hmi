@@ -11,7 +11,7 @@ on:
     # - "v*.*.*"
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
-  BUILD_TYPE: Release
+  BUILD_TYPE: Debug
   # Must match the project() name in CMakeLists.txt
   APP_NAME: App
 
