@@ -3,9 +3,8 @@
 #include <iostream>
 #include "imgui.hpp"
 
-namespace Core
+namespace App
 {
-
 class IScreen
 {
 	uint32_t m_id;
@@ -36,6 +35,6 @@ public:
 	{ m_size = size; }
 };
 
-} // Core
+} // App
 
-uint32_t Core::IScreen::m_nextID = 0;
+uint32_t App::IScreen::m_nextID = 0;

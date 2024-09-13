@@ -34,6 +34,9 @@ catch_discover_tests(${PROJECT_NAME})
 #---------------------
 target_link_libraries(${PROJECT_NAME} PRIVATE Catch2::Catch2WithMain)
 #---------------------
+include_directories($ENV{APP_FOLDER}
+        $ENV{APP_FOLDER}/screens
+)
 include(core)
 #---------------------
 FetchContent_Declare(
