@@ -26,6 +26,9 @@ add_executable(${PROJECT_NAME}
         widgets/i_widget.hpp
         widgets/image.hpp
         widgets/button.hpp
+        widgets/image_button.hpp
+        widgets/text_input.hpp
+        widgets/text_view.hpp
         screens/screen_manager.hpp
         screens/i_screen.hpp
         screens/screen_1.hpp
