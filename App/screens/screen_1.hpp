@@ -8,10 +8,7 @@ namespace App
 {
 class Screen1: public IScreen
 {
-	std::map<std::string, App::Image> m_textures = {
-		std::make_pair("splash", Image("./resources/morpheus.jpg"))
-	};
-
+	Image splash{"./resources/morpheus.jpg"};
 public:
 	Screen1(const std::string_view &title, const ImVec2 &size)
 		: IScreen(title, size)
@@ -20,7 +17,7 @@ public:
 	}
 	void render() override
 	{
-		m_textures["splash"].operator()(ImGui::GetContentRegionAvail(), ImGui::GetCursorPos());
+		splash(ImGui::GetContentRegionAvail(), ImGui::GetCursorPos());
 	}
 };
 }
