@@ -23,8 +23,9 @@ class IMGUI
 	ImVec2 m_position = ImVec2(0, 0);
 	ImGuiWindowFlags m_flags = ImGuiWindowFlags_NoDecoration
 		| ImGuiWindowFlags_NoCollapse
-		| ImGuiWindowFlags_NoMove;
-//                                | ImGuiWindowFlags_NoBackground;
+		| ImGuiWindowFlags_NoMove
+		| ImGuiWindowFlags_NoBringToFrontOnFocus;
+//		| ImGuiWindowFlags_NoBackground;
 public:
 	~IMGUI()
 	{
