@@ -16,10 +16,22 @@ public:
 	explicit IScreen(const std::string_view title, const ImVec2 &size)
 		: m_title(title), m_size(size)
 	{
+		assert(get_imgui_context());
 		m_id = m_nextID++;
 	}
 	virtual void render() = 0;
-
+	
+private:
+	[[nodiscard]] static ImGuiContext *get_imgui_context()
+	{
+		ImGuiContext * context = ImGui::GetCurrentContext();
+		if (context == nullptr) {
+			std::string msg = "No current imgui context";
+			logger.error("{}", msg);
+			throw std::runtime_error(msg);
+		}
+		return context;
+	}
 public:
 	[[nodiscard]] inline uint32_t get_id() const
 	{ return m_id; }
