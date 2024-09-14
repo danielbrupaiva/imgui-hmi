@@ -20,10 +20,11 @@ public:
 		INVALID = -1, SCREEN1, SCREEN2, SCREEN3, SCREEN4, SCREEN5
 	};
 private:
-	eState m_current_state = eState::INVALID;
+	volatile eState m_current_state = eState::INVALID;
 	std::vector<std::unique_ptr<App::IScreen>> m_screens;
 
 public:
+	//TODO: Improve constructor
 	explicit ScreenManager(IMGUI &ui, const eState initial_state)
 		: m_current_state(initial_state)
 	{

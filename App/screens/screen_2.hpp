@@ -15,7 +15,15 @@ public:
 	}
 	void render() override
 	{
-		logger.debug("Render {}", get_title());
+		ImGuiIO &io = ImGui::GetIO();
+		(void)io;
+		ImGui::PushFont(io.Fonts->Fonts[3]);
+		std::string text = fmt::format("{}", get_title());
+		ImVec2 text_size = ImGui::CalcTextSize(text.c_str());
+		ImGui::SetCursorPos({(ImGui::GetWindowSize().x - text_size.x) * 0.5f,
+							 (ImGui::GetWindowSize().y - text_size.y) * 0.5f});
+		ImGui::Text("%s", text.c_str());
+		ImGui::PopFont();
 	}
 };
 }
