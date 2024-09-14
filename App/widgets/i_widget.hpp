@@ -30,7 +30,7 @@ public:
 	{
 		return m_label;
 	}
-	inline void set_label(const std::string &label)
+	inline void set_label(const std::string_view label)
 	{
 		m_label = label;
 	}
