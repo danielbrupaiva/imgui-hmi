@@ -17,8 +17,8 @@ public:
 	explicit Button(const std::string_view &label,
 					const ImVec2 &size,
 					const ImVec2 &position,
-					bool m_state,
-					const std::function<void()> &m_callback)
+					bool m_state = false,
+					const std::function<void()> &m_callback = nullptr)
 		: IWidget(label, static_cast<int32_t>(size.x), static_cast<int32_t>(size.y), position),
 		  m_state(m_state),
 		  m_callback(m_callback)
