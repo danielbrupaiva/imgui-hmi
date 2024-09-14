@@ -207,18 +207,18 @@ int8_t App::GLFW::init()
 	glfwSetErrorCallback(glfw_error_callback);
 	if (!glfwInit()) { throw GLFW::Error("Could not initialize GLFW"); }
 
-	WindowHints hints = {
-		.clientApi = ClientApi::OpenGles,
-		.contextCreationApi = ContextCreationApi::Native,
-		.contextVersionMajor = 3,
-		.contextVersionMinor = 0,
-	};
+	WindowHints hints;
+	hints.clientApi = ClientApi::OpenGles;
+	hints.contextCreationApi = ContextCreationApi::Native;
+	hints.contextVersionMajor = 3;
+	hints.contextVersionMinor = 0;
+	hints.decorated = false;
 	hints.apply();
 
 	m_window = std::unique_ptr<GLFWwindow, WindowDeleter>(glfwCreateWindow((int32_t)m_spec->window_size.x,
 																		   (int32_t)m_spec->window_size.y,
 																		   m_spec->title.c_str(),
-																		   glfwGetPrimaryMonitor(),
+																		   NULL,//glfwGetPrimaryMonitor(),
 																		   nullptr), WindowDeleter());
 	if (nullptr == m_window) { throw std::runtime_error("GLFW window not created"); }
 	glfwMakeContextCurrent(m_window.get());
