@@ -9,13 +9,15 @@ Key features:
 - [x] Native (x86_64) and Cross (arm64) compilation
 - [x] App-Core architecture
 - [x] Immediate-mode GUI (Dear IMGUI)
-- [x] OpenGL ES3.0 + GLFW3 renderer graphics backend
+- [x] GLFW3 renderer graphics backend
+- [x] OpenGL ES3.0
+- [ ] Vulkan
 - [ ] PostgreSQL database (PQXX)
-- [ ] Modbus TCP/IP connection (to be implemented)
+- [ ] Modbus TCP/IP connection
 - [ ] CAN-BUS connection (to be implemented)
-- [ ] Remote access via OpenVPN (to be implemented)
-- [ ] Embedded Linux Preempt-RT patch
+- [ ] Custom Linux Preempt-RT patch
 - [ ] zRAM enabled
+- [ ] Remote access via OpenVPN (to be implemented)
 
 ## Targets
 
