@@ -16,7 +16,6 @@ Key features:
 - [ ] Remote access via OpenVPN (to be implemented)
 - [ ] Embedded Linux Preempt-RT patch
 - [ ] zRAM enabled
-- [ ] 
 
 ## Targets
 
