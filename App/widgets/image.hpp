@@ -27,7 +27,6 @@ private:
 	std::filesystem::path m_filename;
 
 public:
-	Image() = default;
 	explicit Image(const std::string_view filename)
 		: m_filename(filename)
 	{
