@@ -1,4 +1,7 @@
 #include <catch2/catch_test_macros.hpp>
+#include "fakeit.hpp"
+
+using namespace fakeit;
 
 #include "widgets/image.hpp"
 
@@ -53,6 +56,22 @@ TEST_CASE("Image class")
 		REQUIRE_THROWS_AS(Core::Image{invalid_filename}, std::runtime_error);
 	}
 
+	SECTION("Render image")
+	{
+		Mock<App::Image> mockImage;
+		Fake(Method(mockImage, render));
+		auto &img = mockImage.get();
+		img.operator()();
+		img.operator()(ImVec2(100, 200));
+		img.operator()(ImVec2(100, 200), ImVec2(50.0, 25.0));
+		Verify(Method(mockImage, render)).Exactly(3);
+
+		REQUIRE(img.get_width() == 100);
+		REQUIRE(img.get_height() == 200);
+		REQUIRE(img.get_position().x == 50.0);
+		REQUIRE(img.get_position().y == 25.0);
+
+	}
 }
 
 
