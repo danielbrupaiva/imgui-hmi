@@ -18,22 +18,6 @@ set(SOURCES
 )
 add_executable(${PROJECT_NAME} ${SOURCES})
 #---------------------
-include(FetchContent)
-#---------------------
-FetchContent_Declare(Catch2                                     # name of the content
-        GIT_REPOSITORY https://github.com/catchorg/Catch2.git   # the repository
-        GIT_TAG v3.4.0                                   # the tag
-)
-FetchContent_MakeAvailable(Catch2)
-FetchContent_GetProperties(Catch2)
-#---------------------
-list(APPEND CMAKE_MODULE_PATH ${catch2_SOURCE_DIR}/extras)
-include(CTest)
-include(Catch)
-catch_discover_tests(${PROJECT_NAME})
-#---------------------
-target_link_libraries(${PROJECT_NAME} PRIVATE Catch2::Catch2WithMain)
-#---------------------
 include_directories(
         $ENV{APP_FOLDER}
         $ENV{APP_FOLDER}/widgets
@@ -43,18 +27,9 @@ include_directories(
 )
 include(core)
 #---------------------
-FetchContent_Declare(
-        FakeIt
-        GIT_REPOSITORY https://github.com/eranpeer/FakeIt.git
-)
-FetchContent_MakeAvailable(FakeIt)
-target_include_directories(${PROJECT_NAME} PRIVATE "${fakeit_SOURCE_DIR}/single_header/catch")
-# Fix reference to header that was renamed in Catch2 v3.x
-add_custom_target(
-        fix_fakeit_catch_header
-        COMMAND sed -i 's,catch2/catch\.hpp,catch2/catch_all.hpp,' "${fakeit_SOURCE_DIR}/single_header/catch/fakeit.hpp"
-)
-add_dependencies(${PROJECT_NAME} fix_fakeit_catch_header)
+include(catch2)
+#---------------------
+include(fakeit)
 #---------------------
 message("${BoldGreen}-- Copy external resources to build folder ${ColourReset}")
 message("${BoldGreen}-- Resources folder: ${CMAKE_CURRENT_BINARY_DIR}/resources ${ColourReset}")
