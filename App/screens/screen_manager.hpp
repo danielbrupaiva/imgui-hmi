@@ -3,6 +3,7 @@
 #include <vector>
 #include <memory>
 
+#include "logger.hpp"
 #include "imgui.hpp"
 #include "screen_1.hpp"
 #include "screen_2.hpp"
