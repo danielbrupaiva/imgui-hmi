@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include "imgui.hpp"
+#include "logger.hpp"
 
 namespace App
 {
@@ -20,11 +21,11 @@ public:
 		m_id = m_nextID++;
 	}
 	virtual void render() = 0;
-	
+
 private:
 	[[nodiscard]] static ImGuiContext *get_imgui_context()
 	{
-		ImGuiContext * context = ImGui::GetCurrentContext();
+		ImGuiContext *context = ImGui::GetCurrentContext();
 		if (context == nullptr) {
 			std::string msg = "No current imgui context";
 			logger.error("{}", msg);
