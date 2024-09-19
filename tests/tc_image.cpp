@@ -5,16 +5,16 @@ using namespace fakeit;
 
 #include "widgets/image.hpp"
 
-CATCH_REGISTER_ENUM(Core::Image::Format,
-					Core::Image::Format::None,
-					Core::Image::Format::RGBA,
-					Core::Image::Format::RGBA32F)
+CATCH_REGISTER_ENUM(App::Image::Format,
+					App::Image::Format::None,
+					App::Image::Format::RGBA,
+					App::Image::Format::RGBA32F)
 
 TEST_CASE("Image class")
 {
 	// Setup
 	std::string filename = "./resources/morpheus.jpg";
-	Core::Image image{filename};
+	App::Image image{filename};
 	int32_t width = 1920;
 	int32_t height = 1080;
 
@@ -42,7 +42,7 @@ TEST_CASE("Image class")
 	SECTION("Load image from a file with a given size")
 	{
 		ImVec2 size{1280, 720};
-		Core::Image image1{filename, size};
+		App::Image image1{filename, size};
 
 		REQUIRE(image1.ID() != 0);
 		REQUIRE(image1.get_width() == size.x);
@@ -53,7 +53,7 @@ TEST_CASE("Image class")
 	SECTION("Invalid file name")
 	{
 		std::string invalid_filename = "logo.png";
-		REQUIRE_THROWS_AS(Core::Image{invalid_filename}, std::runtime_error);
+		REQUIRE_THROWS_AS(App::Image{invalid_filename}, std::runtime_error);
 	}
 
 	SECTION("Render image")
