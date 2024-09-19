@@ -67,9 +67,23 @@ Key features:
 
 # Build
 
+Install dependencies [Dependencies](_docs/dependencies.md)
+
+    $ git clone --recursive https://github.com/danielbrupaiva/cpp-dev-garden.git -b imgui-hmi 
+    $ cd /path/to/src
+    $ mkdir /path/to/build_folder
+
+    [HOST]
     $ cmake -G Ninja -S /path/to/src -B /path/to/build_folder \
                     -DCMAKE_BUILD_TYPE=Release \
                     -DBUILD_FROM_SRC:BOOL=ON \
+    $ ninja
+
+    [Cross-Compile] 
+    $ cmake -G Ninja -S /path/to/src -B /path/to/build_folder \
+                    -DCMAKE_BUILD_TYPE=Release \
+                    -DBUILD_FROM_SRC:BOOL=ON \
+                    -DCROSS_COMPILER:BOOL=ON \
                     -DCMAKE_TOOLCHAIN_FILE=_cmake/rpi4.cmake                    
     $ ninja
 
