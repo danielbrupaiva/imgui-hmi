@@ -33,3 +33,5 @@
 
 .idea/
 _build/*
+build/*
+vendor/*
