@@ -7,7 +7,7 @@ namespace App
 {
 class TextView: public IWidget
 {
-	int32_t m_font_size = 0;
+	int32_t m_font_size = static_cast<int32_t>(App::IMGUI::FontSize::DEFAULT);
 	static uint32_t m_nextID;
 public:
 

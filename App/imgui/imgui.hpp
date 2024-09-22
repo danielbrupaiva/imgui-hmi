@@ -16,6 +16,12 @@ namespace App
 {
 class IMGUI
 {
+public:
+	enum class FontSize
+	{
+		DEFAULT = 0, _22px, _24px, _36px, _48px, _60px, _96px
+	};
+private:
 	std::unique_ptr<Spec> m_spec;
 	std::unique_ptr<GLFW> m_api;
 	bool m_entire_viewport = true;
