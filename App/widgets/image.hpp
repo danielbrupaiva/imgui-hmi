@@ -27,14 +27,14 @@ private:
 	std::filesystem::path m_filename;
 
 public:
-	explicit Image(const std::string_view filename)
+	explicit Image(const std::filesystem::path &&filename)
 		: m_filename(filename)
 	{
 		set_id(load_texture_from_file(m_filename));
 		set_label(m_filename.stem().string());
 	};
 
-	explicit Image(const std::string_view filename, const ImVec2 &size)
+	explicit Image(const std::filesystem::path &&filename, const ImVec2 &size)
 		: m_filename(filename)
 	{
 		set_id(load_texture_from_file(m_filename));
