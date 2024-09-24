@@ -32,6 +32,8 @@ private:
 		| ImGuiWindowFlags_NoMove
 		| ImGuiWindowFlags_NoBringToFrontOnFocus;
 //		| ImGuiWindowFlags_NoBackground;
+	bool m_is_init = false;
+
 public:
 	~IMGUI()
 	{
@@ -40,7 +42,8 @@ public:
 	explicit IMGUI(Spec &spec)
 		: m_spec{std::make_unique<Spec>(spec)}, m_api{std::make_unique<GLFW>(spec)}
 	{
-		init();
+		m_is_init = init();
+		IM_ASSERT(m_is_init);
 	};
 	// Prevent copying
 	IMGUI(const IMGUI &) = delete;
@@ -60,8 +63,11 @@ public:
 	{
 		return m_spec;
 	}
+	inline bool is_init()
+	{ return m_is_init; }
+
 private:
-	int8_t init()
+	bool init()
 	{
 		if (!m_api) {
 			throw std::runtime_error("No API avaiable! Could not initialize IMGUI");;
@@ -94,16 +100,19 @@ private:
 
 		io.FontDefault = robotoFont22px;
 
-		setup_render_backend();
+		IM_ASSERT(setup_render_backend());
 
-		return EXIT_SUCCESS;
+		IM_ASSERT(get_imgui_context());
+
+		return true;
 	};
 
-	static void shutdown()
+	void shutdown()
 	{
 		ImGui_ImplOpenGL3_Shutdown();
 		ImGui_ImplGlfw_Shutdown();
 		ImGui::DestroyContext();
+		m_is_init = false;
 	};
 	//TODO: Create a project style color
 	static void set_style()
@@ -184,16 +193,26 @@ private:
 		colors[ImGuiCol_ModalWindowDimBg] = ImVec4(0.80f, 0.80f, 0.80f, 0.35f);
 	};
 
-	int8_t setup_render_backend()
+	bool setup_render_backend()
 	{   // Setup Platform/Renderer backends
 		ImGui_ImplGlfw_InitForOpenGL(get_glfw_window_from_api(), true);
 		ImGui_ImplOpenGL3_Init(m_spec->shader_version.c_str());
-		return EXIT_SUCCESS;
+		return true;
 	};
 
 	[[nodiscard]] inline GLFWwindow *get_glfw_window_from_api() const
 	{ return m_api->get_window(); }
 
+	[[nodiscard]] static ImGuiContext *get_imgui_context()
+	{
+		ImGuiContext *context = ImGui::GetCurrentContext();
+		if (context == nullptr) {
+			std::string msg = "No current imgui context";
+			logger.error("{}", msg);
+			throw std::runtime_error(msg);
+		}
+		return context;
+	}
 };
 
 template<typename Func>
