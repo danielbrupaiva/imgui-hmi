@@ -8,16 +8,17 @@ namespace App
 {
 class Screen1: public IScreen
 {
-	Image splash{"./resources/morpheus.jpg"};
+	std::unique_ptr<Image> splash;
 public:
 	Screen1(const std::string_view &title, const ImVec2 &size)
 		: IScreen(title, size)
 	{
 		logger.debug("Constructor {}", get_title());
+		splash = std::make_unique<Image>("./resources/morpheus.jpg");
 	}
 	void render() override
 	{
-		splash(ImGui::GetContentRegionAvail(), ImGui::GetCursorPos());
+		splash->operator()(ImGui::GetContentRegionAvail(), ImGui::GetCursorPos());
 	}
 };
 }
