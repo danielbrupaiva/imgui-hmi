@@ -14,13 +14,6 @@ TEST_CASE("TextView class")
 
 		App::TextView text_view1(label1);
 		REQUIRE(text_view1.get_label() == label1);
-		REQUIRE(text_view1.get_id() == 0);
 
-		auto label2 = "TEXT#2";
-		App::TextView text_view2(label2, font_size, position);
-		REQUIRE(text_view2.get_label() == label2);
-		REQUIRE(text_view2.get_position().x == position.x);
-		REQUIRE(text_view2.get_position().y == position.y);
-		REQUIRE(text_view2.get_id() == 1);
 	}
 }

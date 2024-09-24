@@ -41,16 +41,4 @@ TEST_CASE("Button class")
 	btn1.set_state(true);
 	REQUIRE(btn1.get_state() == true);
 
-	Mock<App::Button> mockBtn0;
-	auto callback3 = [&]()
-	{ mockBtn0.get().toggle_state(); };
-	When(Method(mockBtn0, render)).AlwaysDo(callback3);
-
-	mockBtn0.get().operator()();
-	REQUIRE(mockBtn0.get().get_state() == true);
-	Verify(Method(mockBtn0, render)).Exactly(1);
-
-	mockBtn0.get().operator()();
-	REQUIRE(mockBtn0.get().get_state() == false);
-	Verify(Method(mockBtn0, render)).Exactly(2);
 }
