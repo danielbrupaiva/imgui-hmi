@@ -24,9 +24,9 @@ public:
 	{
 		set_size(size);
 	}
-
-public:
+private:
 	virtual void render() = 0;
+public:
 	[[nodiscard]] inline std::string &get_label()
 	{
 		return m_label;

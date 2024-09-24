@@ -24,12 +24,12 @@ public:
 		set_position(position);
 	}
 
-	bool operator()()
+	virtual bool operator()()
 	{
 		render();
 		return m_state;
 	}
-
+private:
 	void render() override
 	{
 		if (ImGui::Button(get_label().c_str(), get_size())) {
