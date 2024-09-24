@@ -18,11 +18,12 @@ protected:
 public:
 	explicit IWidget() = default;
 	explicit IWidget(const std::string_view label,
-					 const int32_t &width,
-					 const int32_t &height,
+					 const ImVec2 &size,
 					 const ImVec2 &position)
-		: m_label(label), m_width(width), m_height(height), m_position(position)
-	{}
+		: m_label(label), m_position(position)
+	{
+		set_size(size);
+	}
 
 public:
 	virtual void render() = 0;
