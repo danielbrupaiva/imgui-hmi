@@ -8,13 +8,18 @@ namespace App
 class TextView: public IWidget
 {
 	int32_t m_font_size = static_cast<int32_t>(App::IMGUI::FontSize::DEFAULT);
-	static uint32_t m_nextID;
-public:
 
-	TextView(const std::string_view text, const int32_t font_size, const ImVec2 &position)
+public:
+	explicit TextView(const std::string_view text)
 	{
-		m_id = m_nextID++;
 		set_label(text);
+	}
+
+	explicit TextView(const std::string_view text, const int32_t font_size, const ImVec2 &position)
+	{
+		set_label(text);
+		set_font_size(font_size);
+		set_position(position);
 	}
 
 	void operator()()
@@ -31,7 +36,7 @@ private:
 		ImGui::Text("%s", get_label().c_str());
 		ImGui::PopFont();
 	}
-
+public:
 	static void set_font_size(int32_t font_size)
 	{
 		ImGuiIO &io = ImGui::GetIO();
@@ -46,5 +51,3 @@ private:
 	}
 };
 }
-
-uint32_t App::TextView::m_nextID = 0;
