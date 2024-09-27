@@ -8,18 +8,18 @@ namespace App
 {
 class Screen2: public IScreen
 {
-	std::unique_ptr<TextView> text_view;
+	TextView text_view1{get_title(), static_cast<int32_t>(App::IMGUI::FontSize::_36px)};
 
 public:
 	Screen2(const std::string_view &title, const ImVec2 &size)
 		: IScreen(title, size)
 	{
 		logger.debug("Constructor {}", get_title());
-		text_view = std::make_unique<TextView>("SCREEN 2");
 	}
 	void render() override
 	{
-		text_view->operator()();
+		text_view1();
+		text_view1(IWidget::Layout::CENTER);
 	}
 };
 }
