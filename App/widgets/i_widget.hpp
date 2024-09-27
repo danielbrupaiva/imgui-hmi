@@ -32,6 +32,12 @@ public:
 private:
 	virtual void render() = 0;
 public:
+	static ImVec2 center(ImVec2 ctr_position = ImVec2(0.0f, 0.0f))
+	{
+		return {(ImGui::GetWindowSize().x - ctr_position.x) * 0.5f,
+				(ImGui::GetWindowSize().y - ctr_position.y) * 0.5f};
+	}
+
 	[[nodiscard]] inline std::string &get_label()
 	{
 		return m_label;
