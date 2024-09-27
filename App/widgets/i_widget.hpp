@@ -27,7 +27,7 @@ public:
 
 	enum class Layout
 	{
-		NONE = -1, CENTER, TOP, BOTTON, LEFT, RIGHT
+		NONE, CENTER, TOP, BOTTON, LEFT, RIGHT
 	};
 private:
 	virtual void render() = 0;

@@ -8,7 +8,7 @@ namespace App
 {
 class Screen2: public IScreen
 {
-	TextView text_view1{get_title(), static_cast<int32_t>(App::IMGUI::FontSize::_36px)};
+	TextView text_view{get_title(), Font::Size::_36px};
 
 public:
 	Screen2(const std::string_view &title, const ImVec2 &size)
@@ -18,8 +18,7 @@ public:
 	}
 	void render() override
 	{
-		text_view1();
-		text_view1(IWidget::Layout::CENTER);
+		text_view(IWidget::Layout::CENTER);
 	}
 };
 }

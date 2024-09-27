@@ -7,16 +7,17 @@ namespace App
 {
 class TextView: public IWidget
 {
-	int32_t m_font_size = static_cast<int32_t>(App::IMGUI::FontSize::DEFAULT);
+	Font::Size m_font_size = Font::Size::DEFAULT;
+	Layout m_layout = Layout::NONE;
 
 public:
 	explicit TextView(const std::string_view text,
-					  const int32_t font_size = 0,
+					  const Font::Size &font_size = Font::Size::DEFAULT,
 					  const ImVec2 &position = ImVec2(0.0f, 0.0f))
+		: m_font_size(font_size)
 	{
-		set_label(text);
-		set_font_size(font_size);
-		set_position(position);
+		m_label = text;
+		m_position = position;
 	}
 
 	void operator()()
@@ -25,25 +26,26 @@ public:
 	}
 	void operator()(std::string_view text)
 	{
-		set_label(text);
+		m_label = text;
 		operator()();
 	}
 
 	void operator()(const ImVec2 &position)
 	{
-		set_position(position);
+		m_position = position;
 		operator()();
 	}
 
 	void operator()(const Layout layout)
 	{
+		m_layout = layout;
 		operator()();
 	}
 
 	void operator()(std::string_view text, const ImVec2 &position)
 	{
-		set_label(text);
-		set_position(position);
+		m_label = text;
+		m_position = position;
 		operator()();
 	}
 
