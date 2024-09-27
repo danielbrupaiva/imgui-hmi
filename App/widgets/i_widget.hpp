@@ -23,7 +23,12 @@ public:
 		: m_label(label), m_position(position)
 	{
 		set_size(size);
-	}
+	};
+
+	enum class Layout
+	{
+		NONE = -1, CENTER, TOP, BOTTON, LEFT, RIGHT
+	};
 private:
 	virtual void render() = 0;
 public:
