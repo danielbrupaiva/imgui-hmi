@@ -18,6 +18,7 @@ public:
 		: m_title(title), m_size(size)
 	{
 		m_id = m_nextID++;
+		assert(ImGui::GetCurrentContext());
 	}
 	virtual void render() = 0;
 
