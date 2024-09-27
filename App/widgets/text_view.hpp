@@ -54,38 +54,58 @@ private:
 	{
 		auto _render = [&]
 		{
-			ImVec2 text_size = ImGui::CalcTextSize(m_label.c_str());
-			set_position(IWidget::center(text_size));
-			ImGui::SetCursorPos(get_position());
+			set_layout_position(m_layout);
 			ImGui::Text("%s", get_label().c_str());
 		};
 
-		if (m_font_size == static_cast<int32_t>(App::IMGUI::FontSize::DEFAULT)) {
-			_render();
-		}
-		else {
-			ImGuiIO &io = ImGui::GetIO();
-			(void)io;
+		set_font_size();
 
-			if (m_font_size < 0 || m_font_size > io.Fonts->Fonts.size()) {
-				std::string msg = fmt::format("Font size not available");
-				logger.error("{}", msg);
-				throw std::invalid_argument(msg);
-			}
+		_render();
 
-			ImGui::PushFont(io.Fonts->Fonts[m_font_size]);
+		clean_font();
 
-
-			_render();
-
-			ImGui::PopFont();
-
-		}
 	};
 
-	inline void set_font_size(int32_t font_size)
+	inline void set_font_size() const
 	{
-		m_font_size = font_size;
+
+		if (!Font::isValid(m_font_size)) {
+			std::string msg = fmt::format("Font size not available");
+			logger.error("{}", msg);
+			throw std::invalid_argument(msg);
+		}
+
+		if (m_font_size == Font::Size::DEFAULT) {
+			return;
+		}
+
+		ImGuiIO &io = ImGui::GetIO();
+		(void)io;
+		ImGui::PushFont(io.Fonts->Fonts[static_cast<int32_t>(m_font_size)]);
 	};
+
+	inline void clean_font()
+	{
+		if (m_font_size == Font::Size::DEFAULT) {
+			return;
+		}
+		ImGui::PopFont();
+	}
+
+	inline void set_layout_position(const Layout &layout)
+	{
+		ImVec2 text_size = ImGui::CalcTextSize(m_label.c_str());
+
+		switch (m_layout) {
+			case Layout::NONE: ImGui::SetCursorPos(m_position);
+				break;
+			case Layout::CENTER: ImGui::SetCursorPos(IWidget::center(text_size));
+				break;
+			case Layout::TOP:break;
+			case Layout::BOTTON:break;
+			case Layout::LEFT:break;
+			case Layout::RIGHT:break;
+		}
+	}
 };
 }
