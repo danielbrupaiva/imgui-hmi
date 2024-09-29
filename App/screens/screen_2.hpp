@@ -30,11 +30,6 @@ public:
 		text_view4(IWidget::Layout::WINDOW_BOTTON);
 		text_view5(IWidget::Layout::WINDOW_LEFT);
 		text_view6(IWidget::Layout::WINDOW_RIGHT);
-//		text_view2(IWidget::Layout::CENTER);
-//		text_view3(IWidget::Layout::TOP);
-//		text_view4(IWidget::Layout::BOTTON);
-//		text_view5(IWidget::Layout::LEFT);
-//		text_view6(IWidget::Layout::RIGHT);
 	}
 };
 }
