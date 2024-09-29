@@ -27,16 +27,55 @@ public:
 
 	enum class Layout
 	{
-		NONE, CENTER, TOP, BOTTON, LEFT, RIGHT
+		NONE,
+		WINDOW_CENTER,
+		WINDOW_TOP,
+		WINDOW_BOTTON,
+		WINDOW_LEFT,
+		WINDOW_RIGHT,
+		CENTER,
+		TOP,
+		BOTTON,
+		LEFT,
+		RIGHT
 	};
 private:
 	virtual void render() = 0;
 public:
-	static ImVec2 center(ImVec2 ctr_position = ImVec2(0.0f, 0.0f))
+	virtual inline void set_layout_position(const Layout &layout)
 	{
-		return {(ImGui::GetWindowSize().x - ctr_position.x) * 0.5f,
-				(ImGui::GetWindowSize().y - ctr_position.y) * 0.5f};
-	}
+		ImVec2 position;
+		switch (layout) {
+			case Layout::NONE: position = m_position;
+				break;
+			case Layout::WINDOW_CENTER:
+				position = {(ImGui::GetWindowSize().x - get_size().x) * 0.5f,
+							(ImGui::GetWindowSize().y - get_size().y) * 0.5f};
+				break;
+			case Layout::WINDOW_TOP:
+				position = {(ImGui::GetWindowSize().x - get_size().x) * 0.5f,
+							(ImGui::GetWindowSize().y - get_size().y) * 0.0f};
+				break;
+			case Layout::WINDOW_BOTTON:
+				position = {(ImGui::GetWindowSize().x - get_size().x) * 0.5f,
+							(ImGui::GetWindowSize().y - get_size().y) * 1.0f};
+				break;
+			case Layout::WINDOW_LEFT:
+				position = {(ImGui::GetWindowSize().x - get_size().x) * 0.0f,
+							(ImGui::GetWindowSize().y - get_size().y) * 0.5f};
+				break;
+			case Layout::WINDOW_RIGHT:
+				position = {(ImGui::GetWindowSize().x - get_size().x) * 1.0f,
+							(ImGui::GetWindowSize().y - get_size().y) * 0.5f};
+				break;
+			case Layout::CENTER:break;
+			case Layout::TOP:break;
+			case Layout::BOTTON:break;
+			case Layout::LEFT:break;
+			case Layout::RIGHT:break;
+		}
+		ImGui::SetCursorPos(position);
+	};
 
 	[[nodiscard]] inline std::string &get_label()
 	{
