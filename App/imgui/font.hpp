@@ -16,12 +16,12 @@ class Font
 public:
 	enum class Size
 	{
-		DEFAULT = 0, _22px, _24px, _36px, _48px, _60px, _96px
+		DEFAULT = 0, _22px, _24px, _36px, _48px, _60px, _72px
 	};
 
 	static bool isValid(Size font_size)
 	{
-		return font_size >= Size::DEFAULT && font_size <= Size::_96px;
+		return font_size >= Size::DEFAULT && font_size <= Size::_72px;
 	};
 };
 
