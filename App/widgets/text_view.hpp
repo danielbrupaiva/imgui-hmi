@@ -13,8 +13,9 @@ class TextView: public IWidget
 public:
 	explicit TextView(const std::string_view text,
 					  const Font::Size &font_size = Font::Size::DEFAULT,
-					  const ImVec2 &position = ImVec2(0.0f, 0.0f))
-		: m_font_size(font_size)
+					  const ImVec2 &position = ImVec2(0.0f, 0.0f),
+					  const Layout &layout = Layout::NONE)
+		: m_font_size(font_size), m_layout(layout)
 	{
 		m_label = text;
 		m_position = position;
@@ -52,60 +53,42 @@ public:
 private:
 	void render() override
 	{
-		auto _render = [&]
-		{
-			set_layout_position(m_layout);
-			ImGui::Text("%s", get_label().c_str());
-		};
-
-		set_font_size();
-
-		_render();
-
-		clean_font();
-
+		set_font_size(m_font_size);
+		set_layout_position(m_layout);
+		ImGui::Text("%s", get_label().c_str());
+		clean_font(m_font_size);
 	};
 
-	inline void set_font_size() const
+	inline void set_font_size(const Font::Size &size)
 	{
-
-		if (!Font::isValid(m_font_size)) {
+		if (!Font::isValid(size)) {
 			std::string msg = fmt::format("Font size not available");
 			logger.error("{}", msg);
 			throw std::invalid_argument(msg);
 		}
 
-		if (m_font_size == Font::Size::DEFAULT) {
-			return;
+		if (m_font_size != Font::Size::DEFAULT) {
+
+			ImGuiIO &io = ImGui::GetIO();
+			(void)io;
+			ImGui::PushFont(io.Fonts->Fonts[static_cast<int32_t>(m_font_size)]);
+			//update widget size
+			set_size(ImGui::CalcTextSize(m_label.c_str()));
+
 		}
 
-		ImGuiIO &io = ImGui::GetIO();
-		(void)io;
-		ImGui::PushFont(io.Fonts->Fonts[static_cast<int32_t>(m_font_size)]);
+		if (get_size().x == 0.0f && get_size().y == 0.0f) {
+			set_size(ImGui::CalcTextSize(m_label.c_str()));
+		}
+
 	};
 
-	inline void clean_font()
+	inline void clean_font(const Font::Size &size)
 	{
-		if (m_font_size == Font::Size::DEFAULT) {
+		if (size == Font::Size::DEFAULT) {
 			return;
 		}
 		ImGui::PopFont();
-	}
-
-	inline void set_layout_position(const Layout &layout)
-	{
-		ImVec2 text_size = ImGui::CalcTextSize(m_label.c_str());
-
-		switch (m_layout) {
-			case Layout::NONE: ImGui::SetCursorPos(m_position);
-				break;
-			case Layout::CENTER: ImGui::SetCursorPos(IWidget::center(text_size));
-				break;
-			case Layout::TOP:break;
-			case Layout::BOTTON:break;
-			case Layout::LEFT:break;
-			case Layout::RIGHT:break;
-		}
 	}
 };
 }
