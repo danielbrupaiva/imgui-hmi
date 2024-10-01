@@ -23,12 +23,12 @@ add_executable(${PROJECT_NAME}
         backend/glfw.cpp
         imgui/imgui.hpp
         imgui/spec.hpp
+        imgui/font.hpp
+        imgui/widgets.hpp
+        imgui/layout.hpp
         widgets/i_widget.hpp
         widgets/image.hpp
         widgets/button.hpp
-        widgets/image_button.hpp
-        widgets/text_input.hpp
-        widgets/text_view.hpp
         screens/screen_manager.hpp
         screens/i_screen.hpp
         screens/screen_1.hpp
@@ -36,7 +36,6 @@ add_executable(${PROJECT_NAME}
         screens/screen_3.hpp
         screens/screen_4.hpp
         screens/screen_5.hpp
-        imgui/font.hpp
 )
 #---------------------
 include_directories(

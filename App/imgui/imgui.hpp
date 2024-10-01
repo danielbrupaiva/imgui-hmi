@@ -10,6 +10,8 @@
 #include "imgui_internal.h"
 
 #include "font.hpp"
+#include "layout.hpp"
+#include "widgets.hpp"
 
 namespace App
 {
