@@ -15,7 +15,6 @@ class Screen2: public IScreen
 	TextView text_view5{"LEFT", Font::Size::_36px};
 	TextView text_view6{"RIGHT", Font::Size::_36px};
 
-
 public:
 	Screen2(const std::string_view &title, const ImVec2 &size)
 		: IScreen(title, size)
