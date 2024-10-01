@@ -7,24 +7,7 @@ namespace App
 {
 class IWidget
 {
-protected:
-	std::string m_label;
-	uint32_t m_id = 0;
-	int32_t m_width = 0;
-	int32_t m_height = 0;
-	ImVec2 m_position = ImVec2(0, 0);
-	bool m_visible = true;
-
 public:
-	explicit IWidget() = default;
-	explicit IWidget(const std::string_view label,
-					 const ImVec2 &size,
-					 const ImVec2 &position)
-		: m_label(label), m_position(position)
-	{
-		set_size(size);
-	};
-
 	enum class Layout
 	{
 		NONE,
@@ -39,9 +22,17 @@ public:
 		LEFT,
 		RIGHT
 	};
-private:
 	virtual void render() = 0;
 public:
+	explicit IWidget() = default;
+	explicit IWidget(const std::string_view label,
+					 const ImVec2 &size,
+					 const ImVec2 &position)
+		: m_label(label), m_position(position)
+	{
+		set_size(size);
+	};
+
 	virtual inline void set_layout_position(const Layout &layout)
 	{
 		ImVec2 position;
@@ -68,6 +59,7 @@ public:
 				position = {(ImGui::GetWindowSize().x - get_size().x) * 1.0f,
 							(ImGui::GetWindowSize().y - get_size().y) * 0.5f};
 				break;
+				//TODO: Implement others strategies
 			case Layout::CENTER:break;
 			case Layout::TOP:break;
 			case Layout::BOTTON:break;
@@ -134,5 +126,14 @@ public:
 	{
 		m_visible = visible;
 	}
+
+protected:
+	std::string m_label;
+	uint32_t m_id = 0;
+	int32_t m_width = 0;
+	int32_t m_height = 0;
+	ImVec2 m_position = ImVec2(0, 0);
+	bool m_visible = true;
+	Layout m_layout = Layout::NONE;
 };
 }
