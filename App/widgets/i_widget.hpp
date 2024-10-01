@@ -5,24 +5,22 @@
 
 namespace App
 {
+enum class Layout
+{
+	NONE,
+	WINDOW_CENTER,
+	WINDOW_TOP,
+	WINDOW_BOTTON,
+	WINDOW_LEFT,
+	WINDOW_RIGHT,
+	CENTER,
+	TOP,
+	BOTTON,
+	LEFT,
+	RIGHT
+};
 class IWidget
 {
-public:
-	enum class Layout
-	{
-		NONE,
-		WINDOW_CENTER,
-		WINDOW_TOP,
-		WINDOW_BOTTON,
-		WINDOW_LEFT,
-		WINDOW_RIGHT,
-		CENTER,
-		TOP,
-		BOTTON,
-		LEFT,
-		RIGHT
-	};
-	virtual void render() = 0;
 public:
 	explicit IWidget() = default;
 	explicit IWidget(const std::string_view label,
@@ -32,12 +30,13 @@ public:
 	{
 		set_size(size);
 	};
-
+	virtual void render() = 0;
 	virtual inline void set_layout_position(const Layout &layout)
 	{
 		ImVec2 position;
 		switch (layout) {
-			case Layout::NONE: position = m_position;
+			case Layout::NONE:
+				position = (m_position.x == 0.0f && m_position.y == 0.0f) ? ImGui::GetCursorPos() : m_position;
 				break;
 			case Layout::WINDOW_CENTER:
 				position = {(ImGui::GetWindowSize().x - get_size().x) * 0.5f,

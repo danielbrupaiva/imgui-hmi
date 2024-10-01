@@ -23,12 +23,12 @@ public:
 	}
 	void render() override
 	{
-		text_view1(IWidget::Layout::NONE);
-		text_view2(IWidget::Layout::WINDOW_CENTER);
-		text_view3(IWidget::Layout::WINDOW_TOP);
-		text_view4(IWidget::Layout::WINDOW_BOTTON);
-		text_view5(IWidget::Layout::WINDOW_LEFT);
-		text_view6(IWidget::Layout::WINDOW_RIGHT);
+		text_view1(Layout::NONE);
+		text_view2(Layout::WINDOW_CENTER);
+		text_view3(Layout::WINDOW_TOP);
+		text_view4(Layout::WINDOW_BOTTON);
+		text_view5(Layout::WINDOW_LEFT);
+		text_view6(Layout::WINDOW_RIGHT);
 	}
 };
 }
