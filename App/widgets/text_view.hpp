@@ -8,17 +8,17 @@ namespace App
 class TextView: public IWidget
 {
 	Font::Size m_font_size = Font::Size::DEFAULT;
-	Layout m_layout = Layout::NONE;
 
 public:
 	explicit TextView(const std::string_view text,
 					  const Font::Size &font_size = Font::Size::DEFAULT,
 					  const ImVec2 &position = ImVec2(0.0f, 0.0f),
 					  const Layout &layout = Layout::NONE)
-		: m_font_size(font_size), m_layout(layout)
+		: m_font_size(font_size)
 	{
 		m_label = text;
 		m_position = position;
+		m_layout = layout;
 	}
 
 	void operator()()
