@@ -15,30 +15,25 @@ namespace App
 {
 class ScreenManager
 {
+	const static uint8_t NUM_SCREENS = 5U;
 public:
 	enum class eState
 	{
 		INVALID = -1, SCREEN1, SCREEN2, SCREEN3, SCREEN4, SCREEN5
 	};
-private:
-	volatile eState m_current_state = eState::INVALID;
-	std::vector<std::unique_ptr<App::IScreen>> m_screens;
 
 public:
 	//TODO: Improve constructor
 	explicit ScreenManager(IMGUI &ui, const eState initial_state)
-		: m_current_state(initial_state)
+		: m_ui(ui), m_current_state(initial_state)
 	{
-		m_screens.push_back(std::make_unique<App::Screen1>("Screen1", ui.get_spec()->window_size));
-		m_screens.push_back(std::make_unique<App::Screen2>("Screen2", ui.get_spec()->window_size));
-		m_screens.push_back(std::make_unique<App::Screen3>("Screen3", ui.get_spec()->window_size));
-		m_screens.push_back(std::make_unique<App::Screen4>("Screen4", ui.get_spec()->window_size));
-		m_screens.push_back(std::make_unique<App::Screen5>("Screen5", ui.get_spec()->window_size));
+		m_screens.reserve(NUM_SCREENS);
+		m_screens.emplace_back(std::make_unique<App::Screen1>("Screen1", m_ui.get_spec()->window_size));
+		m_screens.emplace_back(std::make_unique<App::Screen2>("Screen2", m_ui.get_spec()->window_size));
+		m_screens.emplace_back(std::make_unique<App::Screen3>("Screen3", m_ui.get_spec()->window_size));
+		m_screens.emplace_back(std::make_unique<App::Screen4>("Screen4", m_ui.get_spec()->window_size));
+		m_screens.emplace_back(std::make_unique<App::Screen5>("Screen5", m_ui.get_spec()->window_size));
 	};
-
-	explicit ScreenManager(const eState initial_state, std::vector<std::unique_ptr<App::IScreen>> &screens)
-		: m_current_state(initial_state), m_screens{std::move(screens)}
-	{}
 
 	void render()
 	{
@@ -59,5 +54,10 @@ public:
 	{
 		m_current_state = current_state;
 	}
+
+private:
+	IMGUI &m_ui;
+	volatile eState m_current_state = eState::INVALID;
+	std::vector<std::unique_ptr<App::IScreen>> m_screens;
 };
 } // App
