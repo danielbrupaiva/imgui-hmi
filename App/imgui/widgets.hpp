@@ -20,4 +20,15 @@ static void TextView(const std::string_view label,
 	ImGui::Text("%s", label.data());
 	Font::clean_font(font_size);
 }
+
+static bool InputText(const std::string &label, std::string &text,
+					  const std::string &hint = "", const bool &isView = true,
+					  const ImGuiInputTextFlags flags = ImGuiInputTextFlags_None)
+{
+//	return ImGui::InputText(label.empty() ? "##" : label.c_str(), &text, flags);
+	return ImGui::InputTextWithHint(label.empty() ? "##" : label.c_str(),
+									hint.c_str(),
+									&text,
+									isView ? flags : flags | ImGuiInputTextFlags_Password);
+}
 }
