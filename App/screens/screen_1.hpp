@@ -2,7 +2,7 @@
 
 #include "i_screen.hpp"
 #include "logger.hpp"
-#include "image.hpp"
+#include "widgets.hpp"
 
 namespace App
 {

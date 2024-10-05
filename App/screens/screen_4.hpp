@@ -2,6 +2,7 @@
 
 #include "i_screen.hpp"
 #include "logger.hpp"
+#include "widgets.hpp"
 
 namespace App
 {
@@ -19,5 +20,6 @@ public:
 	}
 private:
 	Widget::TextView text_view{get_title(), Font::Size::_36px};
+
 };
 }
