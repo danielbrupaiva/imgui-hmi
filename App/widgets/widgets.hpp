@@ -25,7 +25,6 @@ static bool InputText(const std::string &label, std::string &text,
 					  const std::string &hint = "", const bool &isView = true,
 					  const ImGuiInputTextFlags flags = ImGuiInputTextFlags_None)
 {
-//	return ImGui::InputText(label.empty() ? "##" : label.c_str(), &text, flags);
 	return ImGui::InputTextWithHint(label.empty() ? "##" : label.c_str(),
 									hint.c_str(),
 									&text,
