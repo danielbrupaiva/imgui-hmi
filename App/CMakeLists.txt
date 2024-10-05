@@ -24,8 +24,8 @@ add_executable(${PROJECT_NAME}
         imgui/imgui.hpp
         imgui/spec.hpp
         imgui/font.hpp
-        imgui/widgets.hpp
         imgui/layout.hpp
+        widgets/widgets.hpp
         widgets/i_widget.hpp
         widgets/image.hpp
         widgets/button.hpp
