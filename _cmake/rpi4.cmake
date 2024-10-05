@@ -66,3 +66,7 @@ set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
 #
 #    _cmake_initialize_per_config_variable(${ARGV})
 #endfunction()
+
+include(opengl)
+include(vulkan)
+include(glfw3)
