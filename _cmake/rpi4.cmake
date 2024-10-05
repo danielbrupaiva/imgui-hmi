@@ -1,7 +1,8 @@
 #-DCMAKE_TOOLCHAIN_FILE=/home/daniel/CLionProjects/BeaglePlay/_cmake/rpi4.cmake
+message("${BoldYellow}-- TOOLCHAIN LOADED${ColourReset}")
 set(CROSS_COMPILER ON)
 option(CROSS_COMPILER "Enable cross compiler?" ON)
-message("${BoldYellow}-- TOOLCHAIN LOADED${ColourReset}")
+message("${BoldYellow}-- CROSS COMPILE: ${CROSS_COMPILER} ${ColourReset}")
 
 set(CMAKE_SYSTEM_NAME Linux)
 set(CMAKE_SYSTEM_PROCESSOR arm)
@@ -66,7 +67,7 @@ set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
 #
 #    _cmake_initialize_per_config_variable(${ARGV})
 #endfunction()
-
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/_cmake)
 include(opengl)
 include(vulkan)
 include(glfw3)
