@@ -14,8 +14,8 @@ class Button: public IWidget
 
 public:
 	explicit Button(const std::string_view &label,
-					const ImVec2 &size,
-					const ImVec2 &position,
+					const ImVec2 &size = ImVec2(0.0f, 0.0f),
+					const ImVec2 &position = ImVec2(0.0f, 0.0f),
 					const std::function<void()> &callback = nullptr)
 	{
 		m_callback = callback;
@@ -34,7 +34,9 @@ private:
 	{
 		if (ImGui::Button(get_label().c_str(), get_size())) {
 			toggle_state();
-			m_callback();
+			if (m_callback) {
+				m_callback();
+			}
 		}
 	}
 
