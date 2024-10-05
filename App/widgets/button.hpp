@@ -1,17 +1,12 @@
 #pragma once
 
 #include <functional>
-#include "logger.hpp"
-#include "utils.hpp"
 #include "i_widget.hpp"
 
-namespace App
+namespace App::Widget
 {
 class Button: public IWidget
 {
-	bool m_state = false;
-	std::function<void()> m_callback = nullptr;
-
 public:
 	explicit Button(const std::string_view &label,
 					const ImVec2 &size = ImVec2(0.0f, 0.0f),
@@ -29,18 +24,7 @@ public:
 		render();
 		return m_state;
 	}
-private:
-	void render() override
-	{
-		if (ImGui::Button(get_label().c_str(), get_size())) {
-			toggle_state();
-			if (m_callback) {
-				m_callback();
-			}
-		}
-	}
 
-public:
 	[[nodiscard]] inline bool get_state() const
 	{
 		return m_state;
@@ -56,5 +40,19 @@ public:
 		m_state = !m_state;
 	}
 
+private:
+	void render() override
+	{
+		if (ImGui::Button(get_label().c_str(), get_size())) {
+			toggle_state();
+			if (m_callback) {
+				m_callback();
+			}
+		}
+	}
+
+private:
+	bool m_state = false;
+	std::function<void()> m_callback = nullptr;
 };
 }

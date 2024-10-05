@@ -11,7 +11,6 @@
 
 #include "font.hpp"
 #include "layout.hpp"
-#include "widgets.hpp"
 
 namespace App
 {
@@ -92,7 +91,7 @@ private:
 		ImFont *robotoFont60px =
 			io.Fonts->AddFontFromMemoryTTF((void *)g_RobotoRegular, sizeof(g_RobotoRegular), 60.0f, &fontConfig);
 		ImFont *robotoFont72px =
-			io.Fonts->AddFontFromMemoryTTF((void *)g_RobotoRegular, sizeof(g_RobotoRegular), 96.0f, &fontConfig);
+			io.Fonts->AddFontFromMemoryTTF((void *)g_RobotoRegular, sizeof(g_RobotoRegular), 72.0f, &fontConfig);
 
 		io.FontDefault = robotoFont22px;
 

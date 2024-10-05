@@ -2,13 +2,12 @@
 
 #include "i_screen.hpp"
 #include "logger.hpp"
+#include "input_text.hpp"
 
 namespace App
 {
 class Screen3: public IScreen
 {
-	std::string username;
-	std::string password;
 public:
 	Screen3(const std::string_view &title, const ImVec2 &size)
 		: IScreen(title, size)
@@ -17,13 +16,12 @@ public:
 	}
 	void render() override
 	{
-		auto font = Font::Size::_36px;
-		Font::set_font_size(font);
-		Widget::TextView(fmt::format("Username: {}", username));
-		Widget::InputText("##username", username, "Username");
-		Widget::TextView("Password:");
-		Widget::InputText("##password", password, "Password", false);
-		Font::clean_font(font);
+		text_view(input_text.get_text());
+		input_text();
 	}
+private:
+	Widget::InputText input_text{"Username", m_username};
+	Widget::TextView text_view{"", Font::Size::_36px};
+	std::string m_username;
 };
 }

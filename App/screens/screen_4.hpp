@@ -1,7 +1,6 @@
 #pragma once
 
 #include "i_screen.hpp"
-#include "widgets.hpp"
 #include "logger.hpp"
 
 namespace App
@@ -16,7 +15,9 @@ public:
 	}
 	void render() override
 	{
-		App::Widget::TextView(get_title(), Font::Size::_36px, Widget::Layout::Position::WINDOW_CENTER);
+		text_view(Widget::Layout::Position::WINDOW_CENTER);
 	}
+private:
+	Widget::TextView text_view{get_title(), Font::Size::_36px};
 };
 }

@@ -2,23 +2,11 @@
 
 #include <iostream>
 #include "imgui.hpp"
+#include "logger.hpp"
+#include "utils.hpp"
 
 namespace App
 {
-enum class Layout
-{
-	NONE,
-	WINDOW_CENTER,
-	WINDOW_TOP,
-	WINDOW_BOTTON,
-	WINDOW_LEFT,
-	WINDOW_RIGHT,
-	CENTER,
-	TOP,
-	BOTTON,
-	LEFT,
-	RIGHT
-};
 class IWidget
 {
 public:
@@ -30,44 +18,9 @@ public:
 	{
 		set_size(size);
 	};
+private:
 	virtual void render() = 0;
-	virtual inline void set_layout_position(const Layout &layout)
-	{
-		ImVec2 position;
-		switch (layout) {
-			case Layout::NONE:
-				position = (m_position.x == 0.0f && m_position.y == 0.0f) ? ImGui::GetCursorPos() : m_position;
-				break;
-			case Layout::WINDOW_CENTER:
-				position = {(ImGui::GetWindowSize().x - get_size().x) * 0.5f,
-							(ImGui::GetWindowSize().y - get_size().y) * 0.5f};
-				break;
-			case Layout::WINDOW_TOP:
-				position = {(ImGui::GetWindowSize().x - get_size().x) * 0.5f,
-							(ImGui::GetWindowSize().y - get_size().y) * 0.0f};
-				break;
-			case Layout::WINDOW_BOTTON:
-				position = {(ImGui::GetWindowSize().x - get_size().x) * 0.5f,
-							(ImGui::GetWindowSize().y - get_size().y) * 1.0f};
-				break;
-			case Layout::WINDOW_LEFT:
-				position = {(ImGui::GetWindowSize().x - get_size().x) * 0.0f,
-							(ImGui::GetWindowSize().y - get_size().y) * 0.5f};
-				break;
-			case Layout::WINDOW_RIGHT:
-				position = {(ImGui::GetWindowSize().x - get_size().x) * 1.0f,
-							(ImGui::GetWindowSize().y - get_size().y) * 0.5f};
-				break;
-				//TODO: Implement others strategies
-			case Layout::CENTER:break;
-			case Layout::TOP:break;
-			case Layout::BOTTON:break;
-			case Layout::LEFT:break;
-			case Layout::RIGHT:break;
-		}
-		ImGui::SetCursorPos(position);
-	};
-
+public:
 	[[nodiscard]] inline std::string &get_label()
 	{
 		return m_label;
@@ -125,6 +78,14 @@ public:
 	{
 		m_visible = visible;
 	}
+	[[nodiscard]] inline Widget::Layout::Position get_layout() const
+	{
+		return m_layout;
+	}
+	inline void set_layout(Widget::Layout::Position layout)
+	{
+		m_layout = layout;
+	}
 
 protected:
 	std::string m_label;
@@ -133,6 +94,6 @@ protected:
 	int32_t m_height = 0;
 	ImVec2 m_position = ImVec2(0, 0);
 	bool m_visible = true;
-	Layout m_layout = Layout::NONE;
+	Widget::Layout::Position m_layout = Widget::Layout::Position::NONE;
 };
 }

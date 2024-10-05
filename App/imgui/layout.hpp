@@ -24,9 +24,7 @@ static void set_layout_position(const Layout::Position &layout, const ImVec2 &ct
 {
 	ImVec2 position{0.0f, 0.0f};
 	switch (layout) {
-		case Layout::Position::NONE:
-			position = (ctr_position.x == 0.0f && ctr_position.y == 0.0f) ? ImGui::GetCursorPos()
-																		  : ctr_position;
+		case Layout::Position::NONE: position = ImGui::GetCursorPos();
 			break;
 		case Layout::Position::WINDOW_CENTER:
 			position = {(ImGui::GetWindowSize().x - size.x) * 0.5f,

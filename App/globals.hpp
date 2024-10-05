@@ -24,6 +24,6 @@ static IMGUI hmi{hmi_spec};
 
 static ScreenManager screen_manager(hmi, ScreenManager::eState::SCREEN1);
 
-static std::map<std::string, std::unique_ptr<Image> > GL_Textures;
+static std::map<std::string, std::unique_ptr<Widget::Image> > GL_Textures;
 
 };//namespace Global

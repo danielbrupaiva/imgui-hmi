@@ -8,7 +8,6 @@ namespace App
 {
 class Screen1: public IScreen
 {
-	Image splash{"./resources/morpheus.jpg"};
 public:
 	Screen1(const std::string_view &title, const ImVec2 &size)
 		: IScreen(title, size)
@@ -19,5 +18,7 @@ public:
 	{
 		splash(ImGui::GetContentRegionAvail(), ImGui::GetCursorPos());
 	}
+private:
+	Widget::Image splash{"./resources/morpheus.jpg"};
 };
 }

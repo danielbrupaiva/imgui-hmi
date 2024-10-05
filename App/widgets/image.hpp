@@ -12,7 +12,7 @@
 #include "logger.hpp"
 #include "i_widget.hpp"
 
-namespace App
+namespace App::Widget
 {
 class Image: public IWidget
 {
