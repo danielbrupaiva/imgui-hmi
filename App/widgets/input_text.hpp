@@ -13,8 +13,11 @@ public:
 		m_label = label;
 	}
 
-	explicit InputText(const std::string_view label, std::string &text, const Font::Size &font_size)
-		: m_font_size(font_size), m_text(text)
+	explicit InputText(const std::string_view label,
+					   std::string &text,
+					   const Font::Size &font_size = Font::Size::DEFAULT,
+					   ImGuiInputTextFlags flags = ImGuiInputTextFlags_None)
+		: m_font_size(font_size), m_text(text), m_flags(flags)
 	{
 		m_label = label;
 	}
