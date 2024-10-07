@@ -1,5 +1,6 @@
 #pragma once
-// Emedded font
+#include "logger.hpp"
+// Embedded font
 #include "../resources/fonts/Roboto-Regular.embed"
 
 namespace App::Font
