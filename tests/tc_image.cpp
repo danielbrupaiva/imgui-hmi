@@ -3,18 +3,18 @@
 
 using namespace fakeit;
 
-#include "image.hpp"
+#include "widgets.hpp"
 
-CATCH_REGISTER_ENUM(App::Image::Format,
-					App::Image::Format::None,
-					App::Image::Format::RGBA,
-					App::Image::Format::RGBA32F)
+CATCH_REGISTER_ENUM(App::Widget::Image::Format,
+					App::Widget::Image::Format::None,
+					App::Widget::Image::Format::RGBA,
+					App::Widget::Image::Format::RGBA32F)
 
 TEST_CASE("Image class")
 {
 	// Setup
 	std::string filename = "./resources/morpheus.jpg";
-	App::Image image{filename};
+	App::Widget::Image image{filename};
 	int32_t width = 1920;
 	int32_t height = 1080;
 
@@ -42,7 +42,7 @@ TEST_CASE("Image class")
 	SECTION("Load image from a file with a given size")
 	{
 		ImVec2 size{1280, 720};
-		App::Image image1{filename, size};
+		App::Widget::Image image1{filename, size};
 
 		REQUIRE(image1.ID() != 0);
 		REQUIRE(image1.get_width() == size.x);
@@ -53,12 +53,12 @@ TEST_CASE("Image class")
 	SECTION("Invalid file name")
 	{
 		std::string invalid_filename = "logo.png";
-		REQUIRE_THROWS_AS(App::Image{invalid_filename}, std::runtime_error);
+		REQUIRE_THROWS_AS(App::Widget::Image{invalid_filename}, std::runtime_error);
 	}
 
 	SECTION("Render image")
 	{
-		Mock<App::Image> mockImage;
+		Mock<App::Widget::Image> mockImage;
 		Fake(Method(mockImage, render));
 		auto &img = mockImage.get();
 		img.operator()();
