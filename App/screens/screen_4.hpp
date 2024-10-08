@@ -16,10 +16,22 @@ public:
 	}
 	void render() override
 	{
-		text_view(Widget::Layout::Position::WINDOW_CENTER);
+		btn0();
+		ImGui::SameLine();
+		btn1();
 	}
 private:
-	Widget::TextView text_view{get_title(), Font::Size::_36px};
 
+	Widget::Button btn0{"btn0", [&]
+	{
+		btn0.toggle_state();
+		logger.info("{} state: {}", btn0.get_label(), btn0.get_state());
+	}};
+
+	Widget::Button btn1{"btn1", [&]
+	{
+		btn1.toggle_state();
+		logger.info("{} state: {}", btn1.get_label(), btn1.get_state());
+	}};
 };
 }
