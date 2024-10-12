@@ -19,19 +19,29 @@ public:
 		btn0();
 		ImGui::SameLine();
 		btn1();
+		ImGui::SameLine();
+		image_button();
 	}
 private:
 
-	Widget::Button btn0{"btn0", [&]
+	Widget::Image icon{"./resources/profile.png"};
+
+	Widget::Button btn0{"btn0", ImVec2(80.0f, 80.0f), ImVec2(), [&]
 	{
 		btn0.toggle_state();
 		logger.info("{} state: {}", btn0.get_label(), btn0.get_state());
 	}};
 
-	Widget::Button btn1{"btn1", [&]
+	Widget::Button btn1{"btn1", ImVec2(80.0f, 80.0f), ImVec2(), [&]
 	{
 		btn1.toggle_state();
 		logger.info("{} state: {}", btn1.get_label(), btn1.get_state());
+	}};
+
+	Widget::ImageButton image_button{"imgBtn0", "./resources/profile.png", ImVec2(72.0f, 72.0f), ImVec2(), [&]
+	{
+		image_button.toggle_state();
+		logger.info("{} state: {}", image_button.get_label(), image_button.get_state());
 	}};
 };
 }

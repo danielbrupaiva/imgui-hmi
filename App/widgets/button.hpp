@@ -1,6 +1,5 @@
 #pragma once
 
-#include <functional>
 #include "i_widget.hpp"
 
 namespace App::Widget
@@ -26,7 +25,7 @@ public:
 		set_position(position);
 	}
 
-	bool operator()()
+	virtual bool operator()()
 	{
 		render();
 		return m_state;
@@ -53,19 +52,23 @@ public:
 	{
 		m_state = !m_state;
 	}
+	[[nodiscard]] inline const std::function<void()> &get_callback() const
+	{
+		return m_callback;
+	}
 
 private:
 	void render() override
 	{
 		if (ImGui::Button(get_label().c_str(), get_size())) {
-			assert(m_callback);
-			m_callback();
+			if (m_callback) {
+				m_callback();
+			}
 		}
 	}
 
-private:
+protected:
 	bool m_state = false;
 	std::function<void()> m_callback = nullptr;
-	ImTextureID m_id = nullptr;
 };
 }
