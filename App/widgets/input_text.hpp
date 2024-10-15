@@ -22,19 +22,14 @@ public:
 		m_label = label;
 	}
 
-	void operator()()
+	virtual void operator()()
 	{
 		render();
 	}
 
-	void operator()(const Layout::Gravity &layout)
+	virtual bool operator()(const ImVec2 &size, const ImVec2 &position)
 	{
-		set_gravity(layout);
-		operator()();
-	}
-
-	void operator()(const ImVec2 &position)
-	{
+		set_size(size);
 		set_position(position);
 		operator()();
 	}
@@ -45,6 +40,15 @@ public:
 	}
 
 private:
+	void render() override
+	{
+		Font::set_font_size(m_font_size);
+		calculate_size();
+		Layout::set_layout_position(get_layout(), m_position, get_size());
+		ImGui::InputTextWithHint(fmt::format("##{}", m_label).c_str(), m_hint.c_str(), &m_text, m_flags);
+		Font::clean_font(m_font_size);
+	}
+
 	inline void calculate_size()
 	{
 		// If size not init
@@ -57,14 +61,6 @@ private:
 		}
 		// Update size according new font size
 		set_size(ImGui::CalcTextSize(get_label().c_str()));
-	}
-	void render() override
-	{
-		Font::set_font_size(m_font_size);
-		calculate_size();
-		Layout::set_layout_position(get_layout(), m_position, get_size());
-		ImGui::InputTextWithHint(fmt::format("##{}", m_label).c_str(), m_hint.c_str(), &m_text, m_flags);
-		Font::clean_font(m_font_size);
 	}
 
 private:

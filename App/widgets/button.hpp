@@ -16,13 +16,11 @@ public:
 
 	explicit Button(const std::string_view &label,
 					const ImVec2 &size = ImVec2(0.0f, 0.0f),
-					const ImVec2 &position = ImVec2(0.0f, 0.0f),
 					const std::function<void()> &callback = nullptr)
 	{
 		m_callback = callback;
 		set_label(label);
 		set_size(size);
-		set_position(position);
 	}
 
 	virtual bool operator()()
@@ -31,7 +29,7 @@ public:
 		return m_state;
 	}
 
-	bool operator()(const ImVec2 &size, const ImVec2 &position)
+	virtual bool operator()(const ImVec2 &size, const ImVec2 &position)
 	{
 		set_size(size);
 		set_position(position);
@@ -60,6 +58,7 @@ public:
 private:
 	void render() override
 	{
+		Layout::set_layout_position(m_gravity, m_position, get_size());
 		if (ImGui::Button(get_label().c_str(), get_size())) {
 			if (m_callback) {
 				m_callback();

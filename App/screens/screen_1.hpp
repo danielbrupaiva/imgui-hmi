@@ -16,9 +16,15 @@ public:
 	}
 	void render() override
 	{
+//		splash_button(Widget::Layout::Gravity::WINDOW_CENTER);
 		splash(ImGui::GetContentRegionAvail(), ImGui::GetCursorPos());
 	}
 private:
 	Widget::Image splash{"./resources/morpheus.jpg"};
+	Widget::ImageButton splash_button{"splash", "./resources/morpheus.jpg", [&]
+	{
+		splash_button.toggle_state();
+		logger.info("{} state: {}", splash_button.get_label(), splash_button.get_state());
+	}};
 };
 }

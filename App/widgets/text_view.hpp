@@ -18,35 +18,46 @@ public:
 		m_label = label;
 	}
 
-	void operator()()
+	virtual void operator()()
 	{
 		render();
 	}
 
-	void operator()(const Layout::Gravity &layout)
+	virtual void operator()(const Layout::Gravity &layout)
 	{
 		set_gravity(layout);
 		operator()();
 	}
 
-	void operator()(const ImVec2 &position)
+	virtual void operator()(const ImVec2 &position)
 	{
 		set_position(position);
 		operator()();
 	}
 
-	void operator()(const std::string &text)
+	virtual void operator()(const std::string &text)
 	{
 		set_label(text);
 		operator()();
 	}
 
-	void operator()(const std::string &text, const Font::Size &font_size)
+	virtual void operator()(const std::string &text, const Font::Size &font_size)
 	{
 		m_font_size = font_size;
 		set_label(text);
 		operator()();
 	}
+
+private:
+	void render() override
+	{
+		Font::set_font_size(m_font_size);
+		calculate_size();
+		Layout::set_layout_position(m_gravity, m_position, get_size());
+		ImGui::Text("%s", get_label().c_str());
+		Font::clean_font(m_font_size);
+	}
+
 	inline void calculate_size()
 	{
 		// If size not init
@@ -60,17 +71,7 @@ public:
 		// Update size according new font size
 		set_size(ImGui::CalcTextSize(get_label().c_str()));
 	}
-
-private:
-	void render() override
-	{
-		Font::set_font_size(m_font_size);
-		calculate_size();
-		Layout::set_layout_position(m_gravity, m_position, get_size());
-		ImGui::Text("%s", get_label().c_str());
-		Font::clean_font(m_font_size);
-	}
-
+	
 private:
 	Font::Size m_font_size = Font::Size::DEFAULT;
 };
