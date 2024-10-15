@@ -21,10 +21,6 @@ public:
 	{
 		None, RGBA, RGBA32F
 	};
-private:
-	Format m_format = Format::None;
-	int32_t m_channels = STBI_rgb_alpha;
-	std::filesystem::path m_filename;
 
 public:
 	explicit Image(const std::filesystem::path &&filename)
@@ -42,23 +38,19 @@ public:
 		set_size(size);
 	};
 
-	void operator()()
+	virtual void operator()()
 	{
 		render();
 	}
 
-	void operator()(const ImVec2 &size)
+	virtual void operator()(const ImVec2 &size, const ImVec2 &position)
 	{
+		set_position(position);
 		set_size(size);
 		operator()();
 	}
 
-	void operator()(const ImVec2 &size, const ImVec2 &position)
-	{
-		set_position(position);
-		operator()(size);
-	}
-
+private:
 	void resize(const ImVec2 &size)
 	{
 		// Calculate resize ratio
@@ -67,10 +59,8 @@ public:
 		// Choose the smaller ratio to maintain aspect ratio
 		float resize_ratio = (width_ratio < height_ratio) ? width_ratio : height_ratio;
 		// Calculate new dimensions
-		float target_width = (float)m_width * resize_ratio;
-		float target_height = (float)m_height * resize_ratio;
-
-		set_size(ImVec2(std::floor(target_width), std::floor(target_height)));
+		m_size.x *= resize_ratio;
+		m_size.y *= resize_ratio;
 	}
 
 	void render() override
@@ -79,15 +69,19 @@ public:
 		ImGui::Image(ID(), get_size());
 	}
 
-private:
 	uint32_t load_texture_from_file(const std::filesystem::path &filename)
 	{
-		unsigned char *image_data = stbi_load(filename.string().c_str(), &m_width, &m_height, NULL, m_channels);
+		int32_t width = 0;
+		int32_t height = 0;
+
+		unsigned char *image_data = stbi_load(filename.string().c_str(), &width, &height, NULL, m_channels);
 		if (!image_data) {
 			std::string msg = "STBI_LOAD FAILS TO LOAD THE IMAGE";
 			logger.error("{}", msg);
 			throw std::runtime_error(msg);
 		}
+		ImVec2 size{static_cast<float>(width), static_cast<float>(height)};
+		set_size(size);
 		// Create a OpenGL texture identifier
 		uint32_t textureID;
 		glGenTextures(1, &textureID);
@@ -105,7 +99,7 @@ private:
 #if defined(GL_UNPACK_ROW_LENGTH) && !defined(__EMSCRIPTEN__)
 		glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
 #endif
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_width, m_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image_data);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image_data);
 		// Free image_data*
 		stbi_image_free(image_data);
 
@@ -125,5 +119,10 @@ public:
 	{
 		return reinterpret_cast<ImTextureID>(get_id());
 	}
+
+private:
+	Format m_format = Format::None;
+	int32_t m_channels = STBI_rgb_alpha;
+	std::filesystem::path m_filename;
 };
 }

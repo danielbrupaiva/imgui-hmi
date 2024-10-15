@@ -37,30 +37,21 @@ public:
 	{
 		m_id = id;
 	}
-	[[nodiscard]] inline int32_t get_width() const
+	[[nodiscard]] inline float get_width() const
 	{
-		return m_width;
+		return m_size.x;
 	}
 	[[nodiscard]] inline ImVec2 get_size() const
 	{
-		return {static_cast<float>(m_width), static_cast<float>(m_height)};
+		return m_size;
 	}
 	inline void set_size(const ImVec2 &size)
 	{
-		m_width = static_cast<int32_t>(std::floor(size.x));
-		m_height = static_cast<int32_t>(std::floor(size.y));
+		m_size = size;
 	}
-	inline void set_width(const int32_t width)
+	[[nodiscard]] inline float get_height() const
 	{
-		m_width = width;
-	}
-	[[nodiscard]] inline int32_t get_height() const
-	{
-		return m_height;
-	}
-	inline void set_height(const int32_t height)
-	{
-		m_height = height;
+		return m_size.y;
 	}
 	[[nodiscard]] inline const ImVec2 &get_position()
 	{
@@ -82,7 +73,7 @@ public:
 	{
 		return m_gravity;
 	}
-	inline void set_gravity(Widget::Layout::Gravity gravity)
+	inline void set_gravity(const Widget::Layout::Gravity &gravity)
 	{
 		m_gravity = gravity;
 	}
@@ -90,9 +81,8 @@ public:
 protected:
 	std::string m_label;
 	uint32_t m_id = 0;
-	int32_t m_width = 0;
-	int32_t m_height = 0;
-	ImVec2 m_position = ImVec2(0, 0);
+	ImVec2 m_size = ImVec2(0.0f, 0.0f);
+	ImVec2 m_position = ImVec2(0.0f, 0.0f);
 	bool m_visible = true;
 	Widget::Layout::Gravity m_gravity = Widget::Layout::Gravity::NONE;
 };
