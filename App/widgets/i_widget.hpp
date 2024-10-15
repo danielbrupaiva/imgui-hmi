@@ -78,13 +78,13 @@ public:
 	{
 		m_visible = visible;
 	}
-	[[nodiscard]] inline Widget::Layout::Position get_layout() const
+	[[nodiscard]] inline Widget::Layout::Gravity get_layout() const
 	{
-		return m_layout;
+		return m_gravity;
 	}
-	inline void set_layout(Widget::Layout::Position layout)
+	inline void set_gravity(Widget::Layout::Gravity gravity)
 	{
-		m_layout = layout;
+		m_gravity = gravity;
 	}
 
 protected:
@@ -94,6 +94,6 @@ protected:
 	int32_t m_height = 0;
 	ImVec2 m_position = ImVec2(0, 0);
 	bool m_visible = true;
-	Widget::Layout::Position m_layout = Widget::Layout::Position::NONE;
+	Widget::Layout::Gravity m_gravity = Widget::Layout::Gravity::NONE;
 };
 }

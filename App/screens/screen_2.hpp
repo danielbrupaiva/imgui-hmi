@@ -17,11 +17,11 @@ public:
 	void render() override
 	{
 		text_view1();
-		text_view2(Widget::Layout::Position::WINDOW_CENTER);
-		text_view3(Widget::Layout::Position::WINDOW_LEFT);
-		text_view4(Widget::Layout::Position::WINDOW_RIGHT);
-		text_view5(Widget::Layout::Position::WINDOW_TOP);
-		text_view6(Widget::Layout::Position::WINDOW_BOTTON);
+		text_view2(Widget::Layout::Gravity::WINDOW_CENTER);
+		text_view3(Widget::Layout::Gravity::WINDOW_LEFT);
+		text_view4(Widget::Layout::Gravity::WINDOW_RIGHT);
+		text_view5(Widget::Layout::Gravity::WINDOW_TOP);
+		text_view6(Widget::Layout::Gravity::WINDOW_BOTTON);
 	}
 private:
 	Widget::TextView text_view1{get_title()};

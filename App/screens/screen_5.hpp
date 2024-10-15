@@ -16,7 +16,7 @@ public:
 	}
 	void render() override
 	{
-		text_view(Widget::Layout::Position::WINDOW_CENTER);
+		text_view(Widget::Layout::Gravity::WINDOW_CENTER);
 	}
 private:
 	Widget::TextView text_view{get_title(), Font::Size::_36px};

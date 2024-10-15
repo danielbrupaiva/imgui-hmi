@@ -27,9 +27,9 @@ public:
 		render();
 	}
 
-	void operator()(const Layout::Position &layout)
+	void operator()(const Layout::Gravity &layout)
 	{
-		set_layout(layout);
+		set_gravity(layout);
 		operator()();
 	}
 

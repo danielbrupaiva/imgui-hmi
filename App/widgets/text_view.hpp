@@ -23,9 +23,9 @@ public:
 		render();
 	}
 
-	void operator()(const Layout::Position &layout)
+	void operator()(const Layout::Gravity &layout)
 	{
-		set_layout(layout);
+		set_gravity(layout);
 		operator()();
 	}
 
@@ -66,7 +66,7 @@ private:
 	{
 		Font::set_font_size(m_font_size);
 		calculate_size();
-		Layout::set_layout_position(get_layout(), m_position, get_size());
+		Layout::set_layout_position(m_gravity, m_position, get_size());
 		ImGui::Text("%s", get_label().c_str());
 		Font::clean_font(m_font_size);
 	}
