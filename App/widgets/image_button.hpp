@@ -44,7 +44,7 @@ private:
 	void render() override
 	{
 		Layout::set_layout_position(m_gravity, m_position, get_size());
-		if (ImGui::ImageButton(m_texture->ID(), get_size())) {
+		if (ImGui::ImageButton(m_label.c_str(), m_texture->ID(), get_size())) {
 			if (m_callback) {
 				m_callback();
 			}

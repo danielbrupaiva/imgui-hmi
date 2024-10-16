@@ -29,7 +29,7 @@ public:
 	{
 		m_label = label;
 	}
-	[[nodiscard]] inline uint32_t get_id() const
+	[[nodiscard]] inline uint32_t ID() const
 	{
 		return m_id;
 	}

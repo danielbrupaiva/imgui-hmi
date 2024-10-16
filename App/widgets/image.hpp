@@ -115,10 +115,6 @@ public:
 	{
 		m_format = format;
 	}
-	[[nodiscard]] inline ImTextureID ID() const
-	{
-		return reinterpret_cast<ImTextureID>(get_id());
-	}
 
 private:
 	Format m_format = Format::None;
