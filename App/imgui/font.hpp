@@ -39,4 +39,26 @@ static void clean_font(const Font::Size &font_size)
 	}
 	ImGui::PopFont();
 }
+
+static void init(ImGuiIO &io)
+{
+	// Load default font
+	ImFontConfig fontConfig;
+	fontConfig.FontDataOwnedByAtlas = false;
+	ImFont *robotoFont22px =
+		io.Fonts->AddFontFromMemoryTTF((void *)g_RobotoRegular, sizeof(g_RobotoRegular), 22.0f, &fontConfig);
+	ImFont *robotoFont24px =
+		io.Fonts->AddFontFromMemoryTTF((void *)g_RobotoRegular, sizeof(g_RobotoRegular), 24.0f, &fontConfig);
+	ImFont *robotoFont36px =
+		io.Fonts->AddFontFromMemoryTTF((void *)g_RobotoRegular, sizeof(g_RobotoRegular), 36.0f, &fontConfig);
+	ImFont *robotoFont48px =
+		io.Fonts->AddFontFromMemoryTTF((void *)g_RobotoRegular, sizeof(g_RobotoRegular), 48.0f, &fontConfig);
+	ImFont *robotoFont60px =
+		io.Fonts->AddFontFromMemoryTTF((void *)g_RobotoRegular, sizeof(g_RobotoRegular), 60.0f, &fontConfig);
+	ImFont *robotoFont72px =
+		io.Fonts->AddFontFromMemoryTTF((void *)g_RobotoRegular, sizeof(g_RobotoRegular), 72.0f, &fontConfig);
+
+	io.FontDefault = robotoFont22px;
+}
+
 };
