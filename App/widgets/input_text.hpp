@@ -44,7 +44,7 @@ private:
 	{
 		Font::set_font_size(m_font_size);
 		calculate_size();
-		Layout::set_layout_position(get_layout(), m_position, get_size());
+		Layout::set_position(get_layout(), m_position, get_size());
 		ImGui::InputTextWithHint(fmt::format("##{}", m_label).c_str(), m_hint.c_str(), &m_text, m_flags);
 		Font::clean_font(m_font_size);
 	}

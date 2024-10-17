@@ -58,7 +58,7 @@ public:
 private:
 	void render() override
 	{
-		Layout::set_layout_position(m_gravity, m_position, get_size());
+		Layout::set_position(m_gravity, m_position, get_size());
 		if (ImGui::Button(get_label().c_str(), get_size())) {
 			if (m_callback) {
 				m_callback();

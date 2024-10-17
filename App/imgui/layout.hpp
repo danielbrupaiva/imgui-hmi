@@ -20,11 +20,11 @@ enum class Gravity
 	RIGHT
 };
 
-static void set_layout_position(const Layout::Gravity &layout, const ImVec2 &ref_position, ImVec2 widget_size)
+static void set_position(const Layout::Gravity &layout, const ImVec2 &ref_position, const ImVec2 &widget_size)
 {
 	ImVec2 position{0.0f, 0.0f};
 	switch (layout) {
-		case Layout::Gravity::NONE: position = ImGui::GetCursorPos();
+		case Layout::Gravity::NONE: position = ref_position == position ? ImGui::GetCursorPos() : ref_position;
 			break;
 		case Layout::Gravity::WINDOW_CENTER:
 			position = {(ImGui::GetWindowSize().x - widget_size.x) * 0.5f,

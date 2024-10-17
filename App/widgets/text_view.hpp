@@ -53,7 +53,7 @@ private:
 	{
 		Font::set_font_size(m_font_size);
 		calculate_size();
-		Layout::set_layout_position(m_gravity, m_position, get_size());
+		Layout::set_position(m_gravity, m_position, get_size());
 		ImGui::Text("%s", get_label().c_str());
 		Font::clean_font(m_font_size);
 	}
@@ -71,7 +71,7 @@ private:
 		// Update size according new font size
 		set_size(ImGui::CalcTextSize(get_label().c_str()));
 	}
-	
+
 private:
 	Font::Size m_font_size = Font::Size::DEFAULT;
 };
