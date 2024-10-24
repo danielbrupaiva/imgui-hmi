@@ -9,8 +9,8 @@ namespace App
 class Screen2: public IScreen
 {
 public:
-	Screen2(const std::string_view &title, const ImVec2 &size)
-		: IScreen(title, size)
+	Screen2(IMGUI &ui, const std::string_view &title, const ImVec2 &size)
+		: IScreen(ui, title, size)
 	{
 		logger.debug("Constructor {}", get_title());
 	}
@@ -24,11 +24,11 @@ public:
 		text_view6(Widget::Layout::Gravity::WINDOW_BOTTON);
 	}
 private:
-	Widget::TextView text_view1{get_title()};
-	Widget::TextView text_view2{get_title(), Font::Size::_36px};
-	Widget::TextView text_view3{get_title(), Font::Size::_36px};
-	Widget::TextView text_view4{get_title(), Font::Size::_36px};
-	Widget::TextView text_view5{get_title(), Font::Size::_36px};
-	Widget::TextView text_view6{get_title(), Font::Size::_36px};
+	Widget::TextView text_view1{m_ui, get_title()};
+	Widget::TextView text_view2{m_ui, get_title(), Font::Size::_36px};
+	Widget::TextView text_view3{m_ui, get_title(), Font::Size::_36px};
+	Widget::TextView text_view4{m_ui, get_title(), Font::Size::_36px};
+	Widget::TextView text_view5{m_ui, get_title(), Font::Size::_36px};
+	Widget::TextView text_view6{m_ui, get_title(), Font::Size::_36px};
 };
 }

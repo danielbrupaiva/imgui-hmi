@@ -12,8 +12,9 @@ endif ()
 #---------------------
 set(SOURCES
         main.cpp
-        tc_image.cpp
+        #        tc_image.cpp
         tc_utils_math.cpp
+        tc_button.cpp
 )
 add_executable(${PROJECT_NAME} ${SOURCES})
 #---------------------

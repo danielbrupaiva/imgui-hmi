@@ -7,16 +7,13 @@ namespace App::Widget
 class TextView: public IWidget
 {
 public:
-	explicit TextView(const std::string_view label)
-	{
-		m_label = label;
-	}
+	explicit TextView(IMGUI &ui, const std::string_view label)
+		: IWidget(ui, label)
+	{}
 
-	explicit TextView(const std::string_view label, const Font::Size &font_size)
-		: m_font_size(font_size)
-	{
-		m_label = label;
-	}
+	explicit TextView(IMGUI &ui, const std::string_view label, const Font::Size &font_size)
+		: IWidget(ui, label), m_font_size(font_size)
+	{}
 
 	virtual void operator()()
 	{
@@ -53,23 +50,23 @@ private:
 	{
 		Font::set_font_size(m_font_size);
 		calculate_size();
-		Layout::set_position(m_gravity, m_position, get_size());
-		ImGui::Text("%s", get_label().c_str());
+		Layout::set_position(m_gravity, m_position, m_size);
+		ImGui::Text("%s", m_label.c_str());
 		Font::clean_font(m_font_size);
 	}
 
 	inline void calculate_size()
 	{
 		// If size not init
-		if (get_size().x == 0.0f && get_size().y == 0.0f) {
-			set_size(ImGui::CalcTextSize(get_label().c_str()));
+		if (m_size.x == 0.0f && m_size.y == 0.0f) {
+			set_size(ImGui::CalcTextSize(m_label.c_str()));
 		}
 		// If default font return
 		if (m_font_size == Font::Size::DEFAULT) {
 			return;
 		}
 		// Update size according new font size
-		set_size(ImGui::CalcTextSize(get_label().c_str()));
+		set_size(ImGui::CalcTextSize(m_label.c_str()));
 	}
 
 private:

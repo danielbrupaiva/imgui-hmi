@@ -39,6 +39,7 @@ add_executable(${PROJECT_NAME}
         screens/screen_3.hpp
         screens/screen_4.hpp
         screens/screen_5.hpp
+        widgets/imgui_widget_wrapper.hpp
 )
 #---------------------
 include_directories(

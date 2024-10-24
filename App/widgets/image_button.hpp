@@ -9,44 +9,54 @@ namespace App::Widget
 class ImageButton: public Button
 {
 public:
-	ImageButton(const std::string_view &label,
-				const std::string_view filename,
-				const std::function<void()> &callback = nullptr)
-		: Button(label, callback), m_texture(std::make_unique<Widget::Image>(filename))
+	explicit ImageButton(IMGUI &ui,
+						 const std::filesystem::path &&filename,
+						 const Layout::Gravity &gravity,
+						 const std::function<void()> &callback = nullptr)
+		: Button(ui, filename.stem().c_str(), ImVec2(0, 0), callback),
+		  m_texture(std::make_unique<Widget::Image>(m_ui, filename.c_str()))
 	{
 		assert(m_texture);
+		set_gravity(gravity);
 	}
 
-	ImageButton(const std::string_view &label,
-				const std::string_view filename,
-				const ImVec2 &size,
-				const std::function<void()> &callback = nullptr)
-		: Button(label, size, callback), m_texture(std::make_unique<Widget::Image>(filename))
+	explicit ImageButton(IMGUI &ui,
+						 const std::filesystem::path &&filename,
+						 const ImVec2 &size = ImVec2(0.0f, 0.0f),
+						 const std::function<void()> &callback = nullptr)
+		: Button(ui, filename.stem().c_str(), size, callback),
+		  m_texture(std::make_unique<Widget::Image>(m_ui, filename.c_str()))
 	{
 		assert(m_texture);
 		m_texture->set_size(size);
 	}
 
-	bool operator()() override
+	void operator()() override
 	{
 		render();
-		return m_state;
 	}
 
-	bool operator()(const ImVec2 &size, const ImVec2 &position) override
+	virtual void operator()(const Layout::Gravity &gravity)
 	{
-		set_size(size);
+		set_gravity(gravity);
+		operator()();
+	}
+
+	void operator()(const ImVec2 &size, const ImVec2 &position) override
+	{
+		m_texture->resize(size);
+		set_size(m_texture->get_size());
 		set_position(position);
-		return operator()();
+		operator()();
 	}
 
 private:
 	void render() override
 	{
-		Layout::set_position(m_gravity, m_position, get_size());
-		if (ImGui::ImageButton(m_label.c_str(), m_texture->ID(), get_size())) {
-			if (m_callback) {
-				m_callback();
+		Layout::set_position(m_gravity, m_position, m_size);
+		if (ImGui::ImageButton(m_label.c_str(), m_texture->ID(), m_size)) {
+			if (get_callback()) {
+				get_callback().operator()();
 			}
 		}
 	}

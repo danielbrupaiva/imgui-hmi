@@ -46,12 +46,26 @@ static void set_position(const Layout::Gravity &layout, const ImVec2 &ref_positi
 			position = {(ImGui::GetWindowSize().x - widget_size.x) * 1.0f,
 						(ImGui::GetWindowSize().y - widget_size.y) * 0.5f};
 			break;
-			//TODO: Implement others strategies
-		case Layout::Gravity::CENTER:break;
-		case Layout::Gravity::TOP:break;
-		case Layout::Gravity::BOTTON:break;
-		case Layout::Gravity::LEFT:break;
-		case Layout::Gravity::RIGHT:break;
+		case Layout::Gravity::CENTER:
+			position = {(ImGui::GetContentRegionAvail().x - widget_size.x) * 0.5f,
+						(ImGui::GetContentRegionAvail().y - widget_size.y) * 0.5f};
+			break;
+		case Layout::Gravity::TOP:
+			position = {(ImGui::GetContentRegionAvail().x - widget_size.x) * 0.5f,
+						(ImGui::GetContentRegionAvail().y - widget_size.y) * 0.0f};
+			break;
+		case Layout::Gravity::BOTTON:
+			position = {(ImGui::GetContentRegionAvail().x - widget_size.x) * 0.5f,
+						(ImGui::GetContentRegionAvail().y - widget_size.y) * 1.0f};
+			break;
+		case Layout::Gravity::LEFT:
+			position = {(ImGui::GetContentRegionAvail().x - widget_size.x) * 0.0f,
+						(ImGui::GetContentRegionAvail().y - widget_size.y) * 0.5f};
+			break;
+		case Layout::Gravity::RIGHT:
+			position = {(ImGui::GetContentRegionAvail().x - widget_size.x) * 1.0f,
+						(ImGui::GetContentRegionAvail().y - widget_size.y) * 0.5f};
+			break;
 	}
 	ImGui::SetCursorPos(position);
 };

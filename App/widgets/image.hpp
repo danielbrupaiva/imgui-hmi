@@ -23,20 +23,21 @@ public:
 	};
 
 public:
-	explicit Image(const std::filesystem::path &&filename)
-		: m_filename(filename)
+	explicit Image(IMGUI &ui, std::filesystem::path &&filename)
+		: IWidget(ui), m_filename(filename)
 	{
 		set_id(load_texture_from_file(m_filename));
 		set_label(m_filename.stem().string());
 	};
 
-	explicit Image(const std::filesystem::path &&filename, const ImVec2 &size)
-		: m_filename(filename)
+	explicit Image(IMGUI &ui,
+				   const ImVec2 &size,
+				   const ImVec2 &position,
+				   const std::filesystem::path &&filename)
+		: IWidget(ui, filename.stem().string(), size, position), m_filename(filename)
 	{
 		set_id(load_texture_from_file(m_filename));
-		set_label(m_filename.stem().string());
-		set_size(size);
-	};
+	}
 
 	virtual void operator()()
 	{
@@ -50,7 +51,6 @@ public:
 		operator()();
 	}
 
-private:
 	void resize(const ImVec2 &size)
 	{
 		// Calculate resize ratio
@@ -65,8 +65,8 @@ private:
 
 	void render() override
 	{
-		ImGui::SetCursorPos(get_position());
-		ImGui::Image(ID(), get_size());
+		Layout::set_position(m_gravity, m_position, m_size);
+		ImGui::Image(ID(), m_size);
 	}
 
 	uint32_t load_texture_from_file(const std::filesystem::path &filename)

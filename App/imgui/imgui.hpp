@@ -11,24 +11,12 @@
 
 #include "font.hpp"
 #include "layout.hpp"
+#include "imgui_widget_wrapper.hpp"
 
 namespace App
 {
 class IMGUI
 {
-private:
-	std::unique_ptr<Spec> m_spec;
-	std::unique_ptr<GLFW> m_api;
-	bool m_entire_viewport = true;
-	std::unique_ptr<bool> m_open = nullptr;
-	ImVec2 m_position = ImVec2(0, 0);
-	ImGuiWindowFlags m_flags = ImGuiWindowFlags_NoDecoration
-		| ImGuiWindowFlags_NoCollapse
-		| ImGuiWindowFlags_NoMove
-		| ImGuiWindowFlags_NoBringToFrontOnFocus;
-//		| ImGuiWindowFlags_NoBackground;
-	bool m_is_init = false;
-
 public:
 	~IMGUI()
 	{
@@ -45,7 +33,7 @@ public:
 	IMGUI &operator=(const IMGUI &) = delete;
 	// Render method
 	template<typename Func>
-	void run(Func &&Render);
+	void render(Func &&Render);
 
 	/*Getter and Setters*/
 	[[nodiscard]] inline bool is_close() const
@@ -58,8 +46,11 @@ public:
 	{
 		return m_spec;
 	}
-	inline bool is_init()
+	[[nodiscard]] inline bool is_init() const
 	{ return m_is_init; }
+
+	[[nodiscard]] inline WidgetsWrapper &widgets()
+	{ return m_widgets; }
 
 private:
 	bool init()
@@ -192,10 +183,23 @@ private:
 		}
 		return context;
 	}
+private:
+	WidgetsWrapper m_widgets;
+	std::unique_ptr<Spec> m_spec;
+	std::unique_ptr<GLFW> m_api;
+	bool m_entire_viewport = true;
+	std::unique_ptr<bool> m_open = nullptr;
+	ImVec2 m_position = ImVec2(0, 0);
+	ImGuiWindowFlags m_flags = ImGuiWindowFlags_NoDecoration
+		| ImGuiWindowFlags_NoCollapse
+		| ImGuiWindowFlags_NoMove
+		| ImGuiWindowFlags_NoBringToFrontOnFocus;
+//		| ImGuiWindowFlags_NoBackground;
+	bool m_is_init = false;
 };
 
 template<typename Func>
-void IMGUI::run(Func &&Render)
+void IMGUI::render(Func &&Render)
 {
 	glfwPollEvents();
 	// Start the Dear ImGui frame

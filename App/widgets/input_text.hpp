@@ -7,27 +7,24 @@ namespace App::Widget
 class InputText: public IWidget
 {
 public:
-	explicit InputText(const std::string_view label, std::string &text)
-		: m_text(text)
-	{
-		m_label = label;
-	}
+	explicit InputText(IMGUI &ui, const std::string_view label, std::string &text)
+		: IWidget(ui, label), m_text(text)
+	{}
 
-	explicit InputText(const std::string_view label,
+	explicit InputText(IMGUI &ui,
+					   const std::string_view label,
 					   std::string &text,
 					   const Font::Size &font_size = Font::Size::DEFAULT,
 					   ImGuiInputTextFlags flags = ImGuiInputTextFlags_None)
-		: m_font_size(font_size), m_text(text), m_flags(flags)
-	{
-		m_label = label;
-	}
+		: IWidget(ui, label), m_font_size(font_size), m_text(text), m_flags(flags)
+	{}
 
 	virtual void operator()()
 	{
 		render();
 	}
 
-	virtual bool operator()(const ImVec2 &size, const ImVec2 &position)
+	virtual void operator()(const ImVec2 &size, const ImVec2 &position)
 	{
 		set_size(size);
 		set_position(position);
@@ -44,7 +41,7 @@ private:
 	{
 		Font::set_font_size(m_font_size);
 		calculate_size();
-		Layout::set_position(get_layout(), m_position, get_size());
+		Layout::set_position(m_gravity, m_position, m_size);
 		ImGui::InputTextWithHint(fmt::format("##{}", m_label).c_str(), m_hint.c_str(), &m_text, m_flags);
 		Font::clean_font(m_font_size);
 	}
@@ -52,15 +49,15 @@ private:
 	inline void calculate_size()
 	{
 		// If size not init
-		if (get_size().x == 0.0f && get_size().y == 0.0f) {
-			set_size(ImGui::CalcTextSize(get_label().c_str()));
+		if (m_size.x == 0.0f && m_size.y == 0.0f) {
+			set_size(ImGui::CalcTextSize(m_label.c_str()));
 		}
 		// If default font return
 		if (m_font_size == Font::Size::DEFAULT) {
 			return;
 		}
 		// Update size according new font size
-		set_size(ImGui::CalcTextSize(get_label().c_str()));
+		set_size(ImGui::CalcTextSize(m_label.c_str()));
 	}
 
 private:

@@ -10,17 +10,20 @@ namespace App
 class IWidget
 {
 public:
-	explicit IWidget() = default;
-	explicit IWidget(const std::string_view label,
-					 const ImVec2 &size,
-					 const ImVec2 &position)
-		: m_label(label), m_position(position)
-	{
-		set_size(size);
-	};
-private:
+	IWidget() = default;
+	explicit IWidget(IMGUI &ui)
+		: m_ui(ui)
+	{}
+
+	explicit IWidget(IMGUI &ui,
+					 const std::string_view label,
+					 const ImVec2 &size = ImVec2(0, 0),
+					 const ImVec2 &position = ImVec2(0, 0))
+		: m_ui(ui), m_label(label), m_size(size), m_position(position)
+	{}
+
 	virtual void render() = 0;
-public:
+
 	[[nodiscard]] inline std::string &get_label()
 	{
 		return m_label;
@@ -78,7 +81,11 @@ public:
 		m_gravity = gravity;
 	}
 
+	[[nodiscard]] inline IMGUI &ui()
+	{ return m_ui; }
+
 protected:
+	App::IMGUI &m_ui;
 	std::string m_label;
 	uint32_t m_id = 0;
 	ImVec2 m_size = ImVec2(0.0f, 0.0f);

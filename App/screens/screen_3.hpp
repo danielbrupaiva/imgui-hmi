@@ -9,8 +9,8 @@ namespace App
 class Screen3: public IScreen
 {
 public:
-	Screen3(const std::string_view &title, const ImVec2 &size)
-		: IScreen(title, size)
+	Screen3(IMGUI &ui, const std::string_view &title, const ImVec2 &size)
+		: IScreen(ui, title, size)
 	{
 		logger.debug("Constructor {}", get_title());
 	}
@@ -24,12 +24,12 @@ public:
 	}
 private:
 	std::string m_username;
-	Widget::InputText input_text{"Username", m_username, Font::Size::_36px};
-	Widget::TextView text_view{"Enter text here", Font::Size::_36px};
+	Widget::InputText input_text{m_ui, "Username", m_username, Font::Size::_36px};
+	Widget::TextView text_view{m_ui, "Enter text here", Font::Size::_36px};
 
 	std::string m_password;
-	Widget::InputText input_text2{"Password", m_password, Font::Size::_36px, ImGuiInputTextFlags_Password};
-	Widget::TextView text_view2{"Enter text here", Font::Size::_36px};
+	Widget::InputText input_text2{m_ui, "Password", m_password, Font::Size::_36px, ImGuiInputTextFlags_Password};
+	Widget::TextView text_view2{m_ui, "Enter text here", Font::Size::_36px};
 
 };
 }

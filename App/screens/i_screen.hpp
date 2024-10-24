@@ -8,14 +8,9 @@ namespace App
 {
 class IScreen
 {
-	uint32_t m_id;
-	static uint32_t m_nextID;
-	std::string m_title;
-	ImVec2 m_size;
-
 public:
-	explicit IScreen(const std::string_view title, const ImVec2 &size)
-		: m_title(title), m_size(size)
+	explicit IScreen(IMGUI &ui, const std::string_view title, const ImVec2 &size)
+		: m_ui(ui), m_title(title), m_size(size)
 	{
 		m_id = m_nextID++;
 		assert(ImGui::GetCurrentContext());
@@ -35,6 +30,13 @@ public:
 	{ return m_size; }
 	inline void set_size(const ImVec2 &size)
 	{ m_size = size; }
+
+protected:
+	App::IMGUI &m_ui;
+	uint32_t m_id;
+	static uint32_t m_nextID;
+	std::string m_title;
+	ImVec2 m_size;
 };
 
 } // App
