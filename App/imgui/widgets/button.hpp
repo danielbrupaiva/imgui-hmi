@@ -1,30 +1,41 @@
 #pragma once
 
+#include <functional>
 #include "i_widget.hpp"
+
+struct ImVec2;
 
 namespace App::Widget
 {
 class Button: public IWidget
 {
 public:
-	explicit Button(IMGUI &ui,
-					const std::string_view &label,
-					const ImVec2 &size,
-					const ImVec2 &position,
-					const std::function<void()> &callback = nullptr)
+	explicit Button(IMGUImpl &ui,
+	                const std::string_view &label,
+	                const ImVec2 &size,
+	                const ImVec2 &position,
+	                const std::function<void()> &callback = nullptr)
 		: IWidget(ui, label, size, position), m_callback(callback)
-	{}
+	{
+	}
 
-	explicit Button(IMGUI &ui,
-					const std::string_view &label,
-					const ImVec2 &size = ImVec2(0.0f, 0.0f),
-					const std::function<void()> &callback = nullptr)
+	explicit Button(IMGUImpl &ui,
+	                const std::string_view &label,
+	                const ImVec2 &size = ImVec2(0.0f, 0.0f),
+	                const std::function<void()> &callback = nullptr)
 		: IWidget(ui, label, size), m_callback(callback)
-	{}
+	{
+	}
 
 	virtual void operator()()
 	{
 		render();
+	}
+
+	virtual void operator()(const Layout::Gravity &gravity)
+	{
+		set_gravity(gravity);
+		operator()();
 	}
 
 	virtual void operator()(const ImVec2 &size, const ImVec2 &position)

@@ -4,13 +4,11 @@
 
 #pragma once
 
-#include <iostream>
 #include <map>
 #include "imgui.h"
 
 namespace App
 {
-
 enum class BackendType
 {
 	OPENGL, OPENGLES, VULKAN

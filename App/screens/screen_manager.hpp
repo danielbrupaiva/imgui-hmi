@@ -4,7 +4,7 @@
 #include <memory>
 
 #include "logger.hpp"
-#include "imgui.hpp"
+#include "IMGUImpl.hpp"
 #include "screen_1.hpp"
 #include "screen_2.hpp"
 #include "screen_3.hpp"
@@ -24,7 +24,7 @@ public:
 
 public:
 	//TODO: Improve constructor
-	explicit ScreenManager(IMGUI &ui, const eState initial_state)
+	explicit ScreenManager(IMGUImpl &ui, const eState initial_state)
 		: m_ui(ui), m_current_state(initial_state)
 	{
 		m_screens.reserve(NUM_SCREENS);
@@ -56,7 +56,7 @@ public:
 	}
 
 private:
-	IMGUI &m_ui;
+	IMGUImpl &m_ui;
 	volatile eState m_current_state = eState::INVALID;
 	std::vector<std::unique_ptr<App::IScreen>> m_screens;
 };

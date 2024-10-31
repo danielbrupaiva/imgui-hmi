@@ -9,51 +9,58 @@
 #include "imgui_impl_opengl3.h"
 #include "imgui_internal.h"
 
+#include "IMGUI.hpp"
 #include "font.hpp"
-#include "layout.hpp"
-#include "imgui_widget_wrapper.hpp"
+#include "widgets_wrapper.hpp"
 
 namespace App
 {
-class IMGUI
+class IMGUImpl: public IMGUI
 {
 public:
-	~IMGUI()
+	~IMGUImpl() override
 	{
-		shutdown();
+		IMGUImpl::shutdown();
 	};
-	explicit IMGUI(Spec &spec)
+	explicit IMGUImpl(Spec &spec)
 		: m_spec{std::make_unique<Spec>(spec)}, m_api{std::make_unique<GLFW>(spec)}
 	{
-		m_is_init = init();
+		m_is_init = IMGUImpl::init();
 		IM_ASSERT(m_is_init);
 	};
 	// Prevent copying
-	IMGUI(const IMGUI &) = delete;
-	IMGUI &operator=(const IMGUI &) = delete;
+	IMGUImpl(const IMGUImpl &) = delete;
+	IMGUImpl &operator=(const IMGUImpl &) = delete;
 	// Render method
-	template<typename Func>
-	void render(Func &&Render);
+	void render(const std::function<void()> &render) override;
 
 	/*Getter and Setters*/
 	[[nodiscard]] inline bool is_close() const
-	{ return m_api->is_close(); }
+	{
+		return m_api->is_close();
+	}
 
-	inline void close()
-	{ m_api->close(); }
+	inline void close() const
+	{
+		m_api->close();
+	}
 
 	inline const std::unique_ptr<Spec> &get_spec()
 	{
 		return m_spec;
 	}
 	[[nodiscard]] inline bool is_init() const
-	{ return m_is_init; }
+	{
+		return m_is_init;
+	}
 
-	[[nodiscard]] inline WidgetsWrapper &widgets()
-	{ return m_widgets; }
+	[[nodiscard]] inline WidgetsWrapperImpl &widgets()
+	{
+		return m_widgets;
+	}
 
 private:
-	bool init()
+	bool init() override
 	{
 		if (!m_api) {
 			throw std::runtime_error("No API avaiable! Could not initialize IMGUI");;
@@ -62,7 +69,7 @@ private:
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
 		ImGuiIO &io = ImGui::GetIO();
-		(void)io;
+		(void) io;
 		io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
 		io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;
 
@@ -70,14 +77,14 @@ private:
 
 		Font::init(io);
 
-		IM_ASSERT(setup_render_backend());
+		IM_ASSERT(setup_backend());
 
 		IM_ASSERT(get_imgui_context());
 
 		return true;
 	};
 
-	void shutdown()
+	void shutdown() override
 	{
 		ImGui_ImplOpenGL3_Shutdown();
 		ImGui_ImplGlfw_Shutdown();
@@ -151,8 +158,8 @@ private:
 		colors[ImGuiCol_PlotHistogram] = ImVec4(0.90f, 0.70f, 0.00f, 1.00f);
 		colors[ImGuiCol_PlotHistogramHovered] = ImVec4(1.00f, 0.60f, 0.00f, 1.00f);
 		colors[ImGuiCol_TableHeaderBg] = ImVec4(0.19f, 0.19f, 0.20f, 1.00f);
-		colors[ImGuiCol_TableBorderStrong] = ImVec4(0.31f, 0.31f, 0.35f, 1.00f);   // Prefer using Alpha=1.0 here
-		colors[ImGuiCol_TableBorderLight] = ImVec4(0.23f, 0.23f, 0.25f, 1.00f);   // Prefer using Alpha=1.0 here
+		colors[ImGuiCol_TableBorderStrong] = ImVec4(0.31f, 0.31f, 0.35f, 1.00f); // Prefer using Alpha=1.0 here
+		colors[ImGuiCol_TableBorderLight] = ImVec4(0.23f, 0.23f, 0.25f, 1.00f); // Prefer using Alpha=1.0 here
 		colors[ImGuiCol_TableRowBg] = ImVec4(0.00f, 0.00f, 0.00f, 0.00f);
 		colors[ImGuiCol_TableRowBgAlt] = ImVec4(1.00f, 1.00f, 1.00f, 0.06f);
 		colors[ImGuiCol_TextSelectedBg] = ImVec4(0.26f, 0.59f, 0.98f, 0.35f);
@@ -163,15 +170,18 @@ private:
 		colors[ImGuiCol_ModalWindowDimBg] = ImVec4(0.80f, 0.80f, 0.80f, 0.35f);
 	};
 
-	bool setup_render_backend()
-	{   // Setup Platform/Renderer backends
+	bool setup_backend() override
+	{
+		// Setup Platform/Renderer backends
 		ImGui_ImplGlfw_InitForOpenGL(get_glfw_window_from_api(), true);
 		ImGui_ImplOpenGL3_Init(m_spec->shader_version.c_str());
 		return true;
 	};
 
 	[[nodiscard]] inline GLFWwindow *get_glfw_window_from_api() const
-	{ return m_api->get_window(); }
+	{
+		return m_api->get_window();
+	}
 
 	[[nodiscard]] static ImGuiContext *get_imgui_context()
 	{
@@ -183,8 +193,9 @@ private:
 		}
 		return context;
 	}
+
 private:
-	WidgetsWrapper m_widgets;
+	WidgetsWrapperImpl m_widgets;
 	std::unique_ptr<Spec> m_spec;
 	std::unique_ptr<GLFW> m_api;
 	bool m_entire_viewport = true;
@@ -194,28 +205,27 @@ private:
 		| ImGuiWindowFlags_NoCollapse
 		| ImGuiWindowFlags_NoMove
 		| ImGuiWindowFlags_NoBringToFrontOnFocus;
-//		| ImGuiWindowFlags_NoBackground;
+	//		| ImGuiWindowFlags_NoBackground;
 	bool m_is_init = false;
 };
 
-template<typename Func>
-void IMGUI::render(Func &&Render)
+void IMGUImpl::render(const std::function<void()> &render)
 {
 	glfwPollEvents();
 	// Start the Dear ImGui frame
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
-//TODO: Create auto ajusted windows strategy
-//    const ImGuiViewport *viewport = ImGui::GetMainViewport();
-//    ImGui::SetNextWindowPos(m_entire_viewport ? viewport->WorkPos : viewport->Pos);
-//    ImGui::SetNextWindowSize(m_entire_viewport ? viewport->WorkSize : viewport->Size);
+	//TODO: Create auto ajusted windows strategy
+	//    const ImGuiViewport *viewport = ImGui::GetMainViewport();
+	//    ImGui::SetNextWindowPos(m_entire_viewport ? viewport->WorkPos : viewport->Pos);
+	//    ImGui::SetNextWindowSize(m_entire_viewport ? viewport->WorkSize : viewport->Size);
 	// Hardcoded position and window size
 	ImGui::SetNextWindowPos(m_position);
 	ImGui::SetNextWindowSize(m_spec->window_size, ImGuiCond_Always);
 
 	if (ImGui::Begin("MAIN", m_open.get(), m_flags)) {
-		Render();
+		render();
 	}
 	ImGui::End();
 	// Rendering
@@ -224,8 +234,9 @@ void IMGUI::render(Func &&Render)
 	glfwGetFramebufferSize(get_glfw_window_from_api(), &display_w, &display_h);
 	glViewport(0, 0, display_w, display_h);
 	glClearColor(m_spec->bg_color.x * m_spec->bg_color.w,
-				 m_spec->bg_color.y * m_spec->bg_color.w,
-				 m_spec->bg_color.z * m_spec->bg_color.w, m_spec->bg_color.w);
+	             m_spec->bg_color.y * m_spec->bg_color.w,
+	             m_spec->bg_color.z * m_spec->bg_color.w,
+	             m_spec->bg_color.w);
 
 	glClear(GL_COLOR_BUFFER_BIT);
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

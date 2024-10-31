@@ -5,7 +5,7 @@ using namespace Global;
 
 static const std::string TAG = "Main";
 
-void debug_screen(IMGUI *app)
+void debug_screen(IMGUImpl *app)
 {
 	static bool show_demo_window = false;
 	if (show_demo_window)

@@ -9,7 +9,7 @@ namespace App
 class Screen2: public IScreen
 {
 public:
-	Screen2(IMGUI &ui, const std::string_view &title, const ImVec2 &size)
+	Screen2(IMGUImpl &ui, const std::string_view &title, const ImVec2 &size)
 		: IScreen(ui, title, size)
 	{
 		logger.debug("Constructor {}", get_title());

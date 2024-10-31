@@ -1,7 +1,7 @@
 #pragma once
 
 #include <iostream>
-#include "imgui.hpp"
+#include "IMGUImpl.hpp"
 #include "logger.hpp"
 
 namespace App
@@ -9,7 +9,7 @@ namespace App
 class IScreen
 {
 public:
-	explicit IScreen(IMGUI &ui, const std::string_view title, const ImVec2 &size)
+	explicit IScreen(IMGUImpl &ui, const std::string_view title, const ImVec2 &size)
 		: m_ui(ui), m_title(title), m_size(size)
 	{
 		m_id = m_nextID++;
@@ -32,7 +32,7 @@ public:
 	{ m_size = size; }
 
 protected:
-	App::IMGUI &m_ui;
+	App::IMGUImpl &m_ui;
 	uint32_t m_id;
 	static uint32_t m_nextID;
 	std::string m_title;

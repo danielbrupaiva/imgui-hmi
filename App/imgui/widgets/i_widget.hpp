@@ -1,26 +1,27 @@
 #pragma once
 
-#include <iostream>
-#include "imgui.hpp"
+#include "IMGUImpl.hpp"
+#include "layout.hpp"
 #include "logger.hpp"
-#include "utils.hpp"
 
 namespace App
 {
 class IWidget
 {
 public:
-	IWidget() = default;
+	virtual ~IWidget() = default;
 	explicit IWidget(IMGUI &ui)
 		: m_ui(ui)
-	{}
+	{
+	}
 
 	explicit IWidget(IMGUI &ui,
-					 const std::string_view label,
-					 const ImVec2 &size = ImVec2(0, 0),
-					 const ImVec2 &position = ImVec2(0, 0))
+	                 const std::string_view label,
+	                 const ImVec2 &size = ImVec2(0, 0),
+	                 const ImVec2 &position = ImVec2(0, 0))
 		: m_ui(ui), m_label(label), m_size(size), m_position(position)
-	{}
+	{
+	}
 
 	virtual void render() = 0;
 
@@ -82,7 +83,9 @@ public:
 	}
 
 	[[nodiscard]] inline IMGUI &ui()
-	{ return m_ui; }
+	{
+		return m_ui;
+	}
 
 protected:
 	App::IMGUI &m_ui;

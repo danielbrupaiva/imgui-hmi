@@ -9,10 +9,10 @@ namespace App::Widget
 class ImageButton: public Button
 {
 public:
-	explicit ImageButton(IMGUI &ui,
-						 const std::filesystem::path &&filename,
-						 const Layout::Gravity &gravity,
-						 const std::function<void()> &callback = nullptr)
+	explicit ImageButton(IMGUImpl &ui,
+	                     const std::filesystem::path &&filename,
+	                     const Layout::Gravity &gravity,
+	                     const std::function<void()> &callback = nullptr)
 		: Button(ui, filename.stem().c_str(), ImVec2(0, 0), callback),
 		  m_texture(std::make_unique<Widget::Image>(m_ui, filename.c_str()))
 	{
@@ -20,10 +20,10 @@ public:
 		set_gravity(gravity);
 	}
 
-	explicit ImageButton(IMGUI &ui,
-						 const std::filesystem::path &&filename,
-						 const ImVec2 &size = ImVec2(0.0f, 0.0f),
-						 const std::function<void()> &callback = nullptr)
+	explicit ImageButton(IMGUImpl &ui,
+	                     const std::filesystem::path &&filename,
+	                     const ImVec2 &size = ImVec2(0.0f, 0.0f),
+	                     const std::function<void()> &callback = nullptr)
 		: Button(ui, filename.stem().c_str(), size, callback),
 		  m_texture(std::make_unique<Widget::Image>(m_ui, filename.c_str()))
 	{
@@ -36,7 +36,7 @@ public:
 		render();
 	}
 
-	virtual void operator()(const Layout::Gravity &gravity)
+	void operator()(const Layout::Gravity &gravity) override
 	{
 		set_gravity(gravity);
 		operator()();
