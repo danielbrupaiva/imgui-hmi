@@ -4,7 +4,7 @@ if (CMAKE_BINARY_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
     message(FATAL_ERROR "-- In-source builds are not allowed.")
 endif ()
 #---------------------
-set(PROJECT_NAME Core)
+set(PROJECT_NAME core)
 project(${PROJECT_NAME} C CXX)
 message("${BoldGreen}-- ${PROJECT_NAME} BUILD ${ColourReset}")
 #---------------------

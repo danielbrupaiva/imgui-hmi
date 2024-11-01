@@ -14,6 +14,7 @@ set(SOURCES
         main.cpp
         tc_utils_math.cpp
         tc_button.cpp
+        tc_image.cpp
 )
 add_executable(${PROJECT_NAME} ${SOURCES})
 #---------------------

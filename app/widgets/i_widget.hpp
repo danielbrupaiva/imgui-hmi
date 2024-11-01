@@ -82,7 +82,7 @@ public:
 		m_gravity = gravity;
 	}
 
-	[[nodiscard]] inline IMGUI &ui()
+	[[nodiscard]] inline IMGUI &UI()
 	{
 		return m_ui;
 	}

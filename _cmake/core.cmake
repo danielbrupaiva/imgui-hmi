@@ -1,10 +1,10 @@
 include(FetchContent)
 #---------------------------------------------------------------------------------------------
 FetchContent_Declare(
-        Core
+        core
         SOURCE_DIR $ENV{CORE_FOLDER}
 )
-FetchContent_MakeAvailable(Core)
-FetchContent_GetProperties(Core)
+FetchContent_MakeAvailable(core)
+FetchContent_GetProperties(core)
 #---------------------------------------------------------------------------------------------
-target_link_libraries(${PROJECT_NAME} PUBLIC Core)
+target_link_libraries(${PROJECT_NAME} PUBLIC core)

@@ -11,7 +11,7 @@ namespace App::Widget
 class Button: public IWidget
 {
 public:
-	Button(IMGUI &ui,
+	explicit Button(IMGUI &ui,
 	                const std::string_view &label,
 	                const ImVec2 &size,
 	                const ImVec2 &position,
@@ -20,7 +20,7 @@ public:
 	{
 	}
 
-	Button(IMGUI &ui,
+	explicit Button(IMGUI &ui,
 	                const std::string_view &label,
 	                const ImVec2 &size = ImVec2(0.0f, 0.0f),
 	                const std::function<void()> &callback = nullptr)
@@ -73,7 +73,7 @@ public:
 	void render() override
 	{
 		Layout::set_position(m_gravity, m_position, m_size);
-		if (m_ui.widgets().Button(m_label, m_size)) {
+		if (UI().widgets().Button(m_label, m_size)) {
 			if (m_callback)
 				m_callback();
 		}
