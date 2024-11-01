@@ -26,14 +26,13 @@ add_executable(${PROJECT_NAME}
         imgui/spec.hpp
         imgui/font.hpp
         imgui/layout.hpp
-        imgui/widgets/widgets_wrapper.hpp
-        imgui/widgets/i_widget.hpp
-        imgui/widgets/widgets.hpp
-        imgui/widgets/image.hpp
-        imgui/widgets/button.hpp
-        imgui/widgets/image_button.hpp
-        imgui/widgets/text_view.hpp
-        imgui/widgets/input_text.hpp
+        widgets/i_widget.hpp
+        widgets/widgets.hpp
+        widgets/image.hpp
+        widgets/button.hpp
+        widgets/image_button.hpp
+        widgets/text_view.hpp
+        widgets/input_text.hpp
         screens/screen_manager.hpp
         screens/i_screen.hpp
         screens/screen_1.hpp
@@ -46,9 +45,9 @@ add_executable(${PROJECT_NAME}
 include_directories(
         $ENV{APP_FOLDER}
         $ENV{APP_FOLDER}/backend
-        $ENV{APP_FOLDER}/imgui
-        $ENV{APP_FOLDER}/imgui/widgets
+        $ENV{APP_FOLDER}/widgets
         $ENV{APP_FOLDER}/screens
+        $ENV{APP_FOLDER}/imgui
 )
 #---------------------
 include(core)

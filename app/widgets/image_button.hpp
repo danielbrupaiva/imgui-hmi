@@ -9,7 +9,7 @@ namespace App::Widget
 class ImageButton: public Button
 {
 public:
-	explicit ImageButton(IMGUImpl &ui,
+	explicit ImageButton(IMGUI &ui,
 	                     const std::filesystem::path &&filename,
 	                     const Layout::Gravity &gravity,
 	                     const std::function<void()> &callback = nullptr)
@@ -20,7 +20,7 @@ public:
 		set_gravity(gravity);
 	}
 
-	explicit ImageButton(IMGUImpl &ui,
+	explicit ImageButton(IMGUI &ui,
 	                     const std::filesystem::path &&filename,
 	                     const ImVec2 &size = ImVec2(0.0f, 0.0f),
 	                     const std::function<void()> &callback = nullptr)

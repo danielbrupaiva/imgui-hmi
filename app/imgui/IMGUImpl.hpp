@@ -9,9 +9,9 @@
 #include "imgui_impl_opengl3.h"
 #include "imgui_internal.h"
 
-#include "IMGUI.hpp"
 #include "font.hpp"
-#include "widgets_wrapper.hpp"
+#include "IMGUI.hpp"
+#include "widgets/widgets.hpp"
 
 namespace App
 {
@@ -54,7 +54,7 @@ public:
 		return m_is_init;
 	}
 
-	[[nodiscard]] inline WidgetsWrapperImpl &widgets()
+	[[nodiscard]] inline Widget::Wrapper &widgets() override
 	{
 		return m_widgets;
 	}
@@ -195,7 +195,7 @@ private:
 	}
 
 private:
-	WidgetsWrapperImpl m_widgets;
+	Widget::WrapperImpl m_widgets;
 	std::unique_ptr<Spec> m_spec;
 	std::unique_ptr<GLFW> m_api;
 	bool m_entire_viewport = true;
@@ -209,7 +209,7 @@ private:
 	bool m_is_init = false;
 };
 
-void IMGUImpl::render(const std::function<void()> &render)
+inline void IMGUImpl::render(const std::function<void()> &render)
 {
 	glfwPollEvents();
 	// Start the Dear ImGui frame

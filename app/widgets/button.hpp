@@ -1,6 +1,7 @@
 #pragma once
 
 #include <functional>
+#include "IMGUI.hpp"
 #include "i_widget.hpp"
 
 struct ImVec2;
@@ -10,7 +11,7 @@ namespace App::Widget
 class Button: public IWidget
 {
 public:
-	explicit Button(IMGUImpl &ui,
+	Button(IMGUI &ui,
 	                const std::string_view &label,
 	                const ImVec2 &size,
 	                const ImVec2 &position,
@@ -19,7 +20,7 @@ public:
 	{
 	}
 
-	explicit Button(IMGUImpl &ui,
+	Button(IMGUI &ui,
 	                const std::string_view &label,
 	                const ImVec2 &size = ImVec2(0.0f, 0.0f),
 	                const std::function<void()> &callback = nullptr)

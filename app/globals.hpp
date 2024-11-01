@@ -4,7 +4,6 @@
 #include "spec.hpp"
 #include "IMGUImpl.hpp"
 #include "screen_manager.hpp"
-#include "image.hpp"
 
 using namespace App;
 
@@ -23,5 +22,4 @@ static IMGUImpl hmi{hmi_spec};
 
 static ScreenManager screen_manager(hmi, ScreenManager::eState::SCREEN1);
 
-static std::map<std::string, std::unique_ptr<Widget::Image> > GL_Textures;
 }; //namespace Global

@@ -3,8 +3,8 @@
 
 using namespace fakeit;
 
-#include "button.hpp"
-#include "widgets_wrapper.hpp"
+#include "IMGUI.hpp"
+#include "widgets/button.hpp"
 
 TEST_CASE("Button class")
 {
@@ -22,30 +22,32 @@ TEST_CASE("Button class")
 
 	Mock<App::IWidget> mockButton;
 	When(Method(mockButton, render)).AlwaysReturn();
-	// App::Widget::Button btn0{ui, label0, size0, position0, NULL};
-	//
-	// SECTION("btn0") {
-	// 	REQUIRE(btn0.get_label() == label0);
-	// 	REQUIRE(btn0.get_size().x == size0.x);
-	// 	REQUIRE(btn0.get_size().y == size0.y);
-	// 	REQUIRE(btn0.get_position().x == position0.x);
-	// 	REQUIRE(btn0.get_position().y == position0.y);
-	// 	REQUIRE(btn0.is_clicked() == false);
-	//
-	// 	btn0.toggle_state();
-	// 	REQUIRE(btn0.is_clicked() == true);
-	// 	btn0.set_state(false);
-	// 	REQUIRE(btn0.is_clicked() == false);
-	//
-	// 	auto callback0 = [&]()
-	// 	{
-	// 		state = btn0.is_clicked();
-	// 	};
-	// 	btn0.set_callback(callback0);
-	// 	btn0.get_callback().operator()();
-	// 	REQUIRE(state == btn0.is_clicked());
-	// }
+	// mockButton();
+	// Verify(Method(mockButton, render)).Exactly(1);
+	/*App::Widget::Button btn0{ui, label0, size0, position0};
 
+	SECTION("btn0") {
+		REQUIRE(btn0.get_label() == label0);
+		REQUIRE(btn0.get_size().x == size0.x);
+		REQUIRE(btn0.get_size().y == size0.y);
+		REQUIRE(btn0.get_position().x == position0.x);
+		REQUIRE(btn0.get_position().y == position0.y);
+		REQUIRE(btn0.is_clicked() == false);
+
+		btn0.toggle_state();
+		REQUIRE(btn0.is_clicked() == true);
+		btn0.set_state(false);
+		REQUIRE(btn0.is_clicked() == false);
+
+		auto callback0 = [&]()
+		{
+			state = btn0.is_clicked();
+		};
+		btn0.set_callback(callback0);
+		btn0.get_callback().operator()();
+		REQUIRE(state == btn0.is_clicked());
+	}
+*/
 	// SECTION("mockBtn0") {
 	// 	Mock<App::Widget::Button> mock(btn0);
 	// 	When(Method(mock, render)).AlwaysReturn();

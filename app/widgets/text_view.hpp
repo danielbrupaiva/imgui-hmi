@@ -7,11 +7,11 @@ namespace App::Widget
 class TextView: public IWidget
 {
 public:
-	explicit TextView(IMGUImpl &ui, const std::string_view label)
+	explicit TextView(IMGUI &ui, const std::string_view label)
 		: IWidget(ui, label)
 	{}
 
-	explicit TextView(IMGUImpl &ui, const std::string_view label, const Font::Size &font_size)
+	explicit TextView(IMGUI &ui, const std::string_view label, const Font::Size &font_size)
 		: IWidget(ui, label), m_font_size(font_size)
 	{}
 

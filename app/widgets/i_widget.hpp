@@ -1,6 +1,6 @@
 #pragma once
 
-#include "IMGUImpl.hpp"
+#include "IMGUI.hpp"
 #include "layout.hpp"
 #include "logger.hpp"
 

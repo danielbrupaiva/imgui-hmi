@@ -7,11 +7,11 @@ namespace App::Widget
 class InputText: public IWidget
 {
 public:
-	explicit InputText(IMGUImpl &ui, const std::string_view label, std::string &text)
+	explicit InputText(IMGUI &ui, const std::string_view label, std::string &text)
 		: IWidget(ui, label), m_text(text)
 	{}
 
-	explicit InputText(IMGUImpl &ui,
+	explicit InputText(IMGUI &ui,
 					   const std::string_view label,
 					   std::string &text,
 					   const Font::Size &font_size = Font::Size::DEFAULT,

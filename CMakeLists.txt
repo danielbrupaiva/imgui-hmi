@@ -12,7 +12,7 @@ message("${BoldGreen}-- ${PROJECT_NAME} BUILD ${ColourReset}")
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/_cmake)
 include(options)
 #---------------------
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/App)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/app)
 #---------------------
 enable_testing()
 add_subdirectory(tests)
@@ -37,5 +37,5 @@ file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/resources/images/logo.png
         ${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/close_reject.png
         ${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/warning.png
         ${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/danger.png
-        DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/App/resources)
+        DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/app/resources)
 #---------------------

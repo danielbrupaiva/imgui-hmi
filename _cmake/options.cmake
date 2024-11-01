@@ -19,10 +19,10 @@ if (NOT WIN32)
     set(BoldWhite "${Esc}[1;37m")
 endif ()
 #---------------------
-set(ENV{APP_FOLDER} ${CMAKE_CURRENT_SOURCE_DIR}/App)
+set(ENV{APP_FOLDER} ${CMAKE_CURRENT_SOURCE_DIR}/app)
 message("${BoldYellow}-- App folder: $ENV{APP_FOLDER}${ColourReset}")
 #---------------------
-set(ENV{CORE_FOLDER} ${CMAKE_CURRENT_SOURCE_DIR}/Core)
+set(ENV{CORE_FOLDER} ${CMAKE_CURRENT_SOURCE_DIR}/core)
 message("${BoldYellow}-- Core folder: $ENV{CORE_FOLDER}${ColourReset}")
 #---------------------
 set(ENV{VENDOR_FOLDER} ${CMAKE_CURRENT_SOURCE_DIR}/vendor)
