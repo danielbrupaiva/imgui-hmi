@@ -20,7 +20,7 @@ class GLFW
 		};
 	};
 	std::unique_ptr<GLFWwindow, WindowDeleter> m_window;
-	std::unique_ptr<Spec> m_spec;
+	Spec& m_spec;
 
 	/*
 	 * WindowHints
@@ -38,7 +38,7 @@ class GLFW
 public:
 	~GLFW() = default;
 	explicit GLFW(Spec &spec)
-		: m_spec{std::make_unique<Spec>(spec)}, m_window{nullptr}
+		: m_spec{spec}, m_window{nullptr}
 	{
 		init();
 	}

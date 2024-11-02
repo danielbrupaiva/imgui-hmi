@@ -215,15 +215,15 @@ int8_t App::GLFW::init()
 	hints.decorated = false;
 	hints.apply();
 
-	m_window = std::unique_ptr<GLFWwindow, WindowDeleter>(glfwCreateWindow((int32_t)m_spec->window_size.x,
-																		   (int32_t)m_spec->window_size.y,
-																		   m_spec->title.c_str(),
-																		   NULL,//glfwGetPrimaryMonitor(),
+	m_window = std::unique_ptr<GLFWwindow, WindowDeleter>(glfwCreateWindow(static_cast<int32_t>(m_spec.window_size.x),
+																		   static_cast<int32_t>(m_spec.window_size.y),
+																		   m_spec.title.c_str(),
+																		   nullptr,//glfwGetPrimaryMonitor(),
 																		   nullptr), WindowDeleter());
 	if (nullptr == m_window) { throw std::runtime_error("GLFW window not created"); }
 	glfwMakeContextCurrent(m_window.get());
 
-	glfwSwapInterval(m_spec->vsync); // Enable vsync
+	glfwSwapInterval(m_spec.vsync); // Enable vsync
 
 	return EXIT_SUCCESS;
 }
