@@ -1,14 +1,14 @@
 #pragma once
 
-#include "i_widget.hpp"
+#include "base_widget.hpp"
 
 namespace App::Widget
 {
-class InputText: public IWidget
+class InputText: public BaseWidget
 {
 public:
 	explicit InputText(IMGUI &ui, const std::string_view label, std::string &text)
-		: IWidget(ui, label), m_text(text)
+		: BaseWidget(ui, label), m_text(text)
 	{}
 
 	explicit InputText(IMGUI &ui,
@@ -16,7 +16,7 @@ public:
 					   std::string &text,
 					   const Font::Size &font_size = Font::Size::DEFAULT,
 					   ImGuiInputTextFlags flags = ImGuiInputTextFlags_None)
-		: IWidget(ui, label), m_font_size(font_size), m_text(text), m_flags(flags)
+		: BaseWidget(ui, label), m_font_size(font_size), m_text(text), m_flags(flags)
 	{}
 
 	virtual void operator()()
@@ -41,7 +41,7 @@ private:
 	{
 		Font::set_font_size(m_font_size);
 		calculate_size();
-		Layout::set_position(m_gravity, m_position, m_size);
+		UI().layout().set_cursor_position(m_gravity, m_position, m_size);
 		ImGui::InputTextWithHint(fmt::format("##{}", m_label).c_str(), m_hint.c_str(), &m_text, m_flags);
 		Font::clean_font(m_font_size);
 	}

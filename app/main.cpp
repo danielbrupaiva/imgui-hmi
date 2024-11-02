@@ -41,29 +41,6 @@ void debug_screen(IMGUImpl *app)
 	}
 	ImGui::End();
 }
-//static void load_gl_textures_resources(std::map<std::string, std::unique_ptr<Widget::Image> > &textures)
-//{
-//	GL_Textures.insert({"morpheus", std::make_unique<Widget::Image>("./resources/morpheus.jpg")});
-//	//https://www.flaticon.com/br/packs/functional-ui
-//	GL_Textures.insert({"profile", std::make_unique<Widget::Image>("./resources/profile.png")});
-//	GL_Textures.insert({"maintenance_person", std::make_unique<Widget::Image>("./resources/maintenance_person.png")});
-//	GL_Textures.insert({"restricted_person", std::make_unique<Widget::Image>("./resources/restricted_person.png")});
-//	GL_Textures.insert({"verify_person", std::make_unique<Widget::Image>("./resources/verify_person.png")});
-//	GL_Textures.insert({"add_person", std::make_unique<Widget::Image>("./resources/add_person.png")});
-//	GL_Textures.insert({"delete_person", std::make_unique<Widget::Image>("./resources/delete_person.png")});
-//	GL_Textures.insert({"view_password", std::make_unique<Widget::Image>("./resources/view.png")});
-//	GL_Textures.insert({"hidden_password", std::make_unique<Widget::Image>("./resources/hidden.png")});
-//	GL_Textures.insert({"login", std::make_unique<Widget::Image>("./resources/login.png")});
-//	GL_Textures.insert({"logout", std::make_unique<Widget::Image>("./resources/logout.png")});
-//	GL_Textures.insert({"hammer", std::make_unique<Widget::Image>("./resources/hammer.png")});
-//	GL_Textures.insert({"hammer_cristal", std::make_unique<Widget::Image>("./resources/hammer_cristal.png")});
-//	GL_Textures.insert({"hammer_red", std::make_unique<Widget::Image>("./resources/hammer_red.png")});
-//	GL_Textures.insert({"close_reject", std::make_unique<Widget::Image>("./resources/close_reject.png")});
-//	GL_Textures.insert({"warning", std::make_unique<Widget::Image>("./resources/warning.png")});
-//	GL_Textures.insert({"danger", std::make_unique<Widget::Image>("./resources/danger.png")});
-//
-//	logger.debug("{}: GL Textures loaded", TAG);
-//}
 
 int main()
 {

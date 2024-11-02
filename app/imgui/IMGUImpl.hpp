@@ -11,7 +11,7 @@
 
 #include "font.hpp"
 #include "IMGUI.hpp"
-#include "widgets/widgets.hpp"
+#include "widgets.hpp"
 
 namespace App
 {
@@ -23,7 +23,7 @@ public:
 		IMGUImpl::shutdown();
 	};
 	explicit IMGUImpl(Spec &spec)
-		: m_spec{std::make_unique<Spec>(spec)}, m_api{std::make_unique<GLFW>(spec)}
+		: m_spec{spec}, m_api{std::make_unique<GLFW>(spec)}
 	{
 		m_is_init = IMGUImpl::init();
 		IM_ASSERT(m_is_init);
@@ -45,10 +45,11 @@ public:
 		m_api->close();
 	}
 
-	inline const std::unique_ptr<Spec> &get_spec()
+	[[nodiscard]] inline const Spec &get_spec() const
 	{
 		return m_spec;
 	}
+
 	[[nodiscard]] inline bool is_init() const
 	{
 		return m_is_init;
@@ -57,6 +58,11 @@ public:
 	[[nodiscard]] inline Widget::Wrapper &widgets() override
 	{
 		return m_widgets;
+	}
+
+	[[nodiscard]] inline ILayout &layout() override
+	{
+		return m_layout;
 	}
 
 private:
@@ -174,7 +180,7 @@ private:
 	{
 		// Setup Platform/Renderer backends
 		ImGui_ImplGlfw_InitForOpenGL(get_glfw_window_from_api(), true);
-		ImGui_ImplOpenGL3_Init(m_spec->shader_version.c_str());
+		ImGui_ImplOpenGL3_Init(m_spec.shader_version.c_str());
 		return true;
 	};
 
@@ -195,18 +201,20 @@ private:
 	}
 
 private:
-	Widget::WrapperImpl m_widgets;
-	std::unique_ptr<Spec> m_spec;
-	std::unique_ptr<GLFW> m_api;
-	bool m_entire_viewport = true;
-	std::unique_ptr<bool> m_open = nullptr;
-	ImVec2 m_position = ImVec2(0, 0);
-	ImGuiWindowFlags m_flags = ImGuiWindowFlags_NoDecoration
-		| ImGuiWindowFlags_NoCollapse
-		| ImGuiWindowFlags_NoMove
-		| ImGuiWindowFlags_NoBringToFrontOnFocus;
-	//		| ImGuiWindowFlags_NoBackground;
-	bool m_is_init = false;
+	Spec					m_spec;
+	std::unique_ptr<GLFW>		m_api;
+	Widget::Wrapper			m_widgets;
+	Layout					m_layout;
+
+	bool					m_is_init = false;
+	bool					m_entire_viewport = true;
+	std::unique_ptr<bool>	m_open = nullptr;
+	ImVec2					m_position = ImVec2(0, 0);
+	ImGuiWindowFlags		m_flags = ImGuiWindowFlags_NoDecoration
+									| ImGuiWindowFlags_NoCollapse
+									| ImGuiWindowFlags_NoMove
+									| ImGuiWindowFlags_NoBringToFrontOnFocus;
+							//		| ImGuiWindowFlags_NoBackground;
 };
 
 inline void IMGUImpl::render(const std::function<void()> &render)
@@ -222,7 +230,7 @@ inline void IMGUImpl::render(const std::function<void()> &render)
 	//    ImGui::SetNextWindowSize(m_entire_viewport ? viewport->WorkSize : viewport->Size);
 	// Hardcoded position and window size
 	ImGui::SetNextWindowPos(m_position);
-	ImGui::SetNextWindowSize(m_spec->window_size, ImGuiCond_Always);
+	ImGui::SetNextWindowSize(m_spec.window_size, ImGuiCond_Always);
 
 	if (ImGui::Begin("MAIN", m_open.get(), m_flags)) {
 		render();
@@ -233,10 +241,10 @@ inline void IMGUImpl::render(const std::function<void()> &render)
 	int32_t display_w, display_h;
 	glfwGetFramebufferSize(get_glfw_window_from_api(), &display_w, &display_h);
 	glViewport(0, 0, display_w, display_h);
-	glClearColor(m_spec->bg_color.x * m_spec->bg_color.w,
-	             m_spec->bg_color.y * m_spec->bg_color.w,
-	             m_spec->bg_color.z * m_spec->bg_color.w,
-	             m_spec->bg_color.w);
+	glClearColor(m_spec.bg_color.x * m_spec.bg_color.w,
+	             m_spec.bg_color.y * m_spec.bg_color.w,
+	             m_spec.bg_color.z * m_spec.bg_color.w,
+	             m_spec.bg_color.w);
 
 	glClear(GL_COLOR_BUFFER_BIT);
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

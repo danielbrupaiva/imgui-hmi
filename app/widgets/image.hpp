@@ -9,11 +9,11 @@
 #endif
 
 #include "logger.hpp"
-#include "i_widget.hpp"
+#include "base_widget.hpp"
 
 namespace App::Widget
 {
-class Image: public IWidget
+class Image: public BaseWidget
 {
 public:
 	enum class Format
@@ -23,7 +23,7 @@ public:
 
 public:
 	explicit Image(IMGUI &ui, std::filesystem::path &&filename)
-		: IWidget(ui), m_filename(filename)
+		: BaseWidget(ui), m_filename(filename)
 	{
 		set_id(load_texture_from_file(m_filename));
 		set_label(m_filename.stem().string());
@@ -33,7 +33,7 @@ public:
 				   const ImVec2 &size,
 				   const ImVec2 &position,
 				   const std::filesystem::path &&filename)
-		: IWidget(ui, filename.stem().string(), size, position), m_filename(filename)
+		: BaseWidget(ui, filename.stem().string(), size, position), m_filename(filename)
 	{
 		set_id(load_texture_from_file(m_filename));
 	}
@@ -64,7 +64,7 @@ public:
 
 	void render() override
 	{
-		Layout::set_position(m_gravity, m_position, m_size);
+		UI().layout().set_cursor_position(m_gravity, m_position, m_size);
 		ImGui::Image(ID(), m_size);
 	}
 

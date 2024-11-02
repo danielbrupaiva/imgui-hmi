@@ -1,9 +1,7 @@
 #pragma once
 
 #include <functional>
-
-#include "imgui.h"
-#include "widgets/wrapper.hpp"
+#include "wrapper.hpp"
 
 namespace App
 {
@@ -14,6 +12,7 @@ struct IMGUI
     virtual void shutdown() = 0;
     virtual bool setup_backend() = 0;
     virtual void render(const std::function<void()> &render) = 0;
-    virtual Widget::Wrapper &widgets() = 0;
+    virtual Widget::Widgets &widgets() = 0;
+    virtual ILayout &layout() = 0;
 };
 }

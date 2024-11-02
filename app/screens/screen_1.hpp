@@ -26,7 +26,7 @@ public:
 private:
 	Widget::Image splash{m_ui, "./resources/morpheus.jpg"};
 	Widget::ImageButton splash_button{
-		m_ui, "./resources/morpheus.jpg", Widget::Layout::Gravity::CENTER, [&]
+		m_ui, "./resources/morpheus.jpg", ILayout::Gravity::CENTER, [&]
 		{
 			splash_button.toggle_state();
 			logger.info("{} state: {}", splash_button.get_label(), splash_button.is_clicked());

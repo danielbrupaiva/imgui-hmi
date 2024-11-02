@@ -1,21 +1,20 @@
 #pragma once
 
 #include "IMGUI.hpp"
-#include "layout.hpp"
 #include "logger.hpp"
 
-namespace App
+namespace App::Widget
 {
-class IWidget
+class BaseWidget
 {
 public:
-	virtual ~IWidget() = default;
-	explicit IWidget(IMGUI &ui)
+	virtual ~BaseWidget() = default;
+	explicit BaseWidget(IMGUI &ui)
 		: m_ui(ui)
 	{
 	}
 
-	explicit IWidget(IMGUI &ui,
+	explicit BaseWidget(IMGUI &ui,
 	                 const std::string_view label,
 	                 const ImVec2 &size = ImVec2(0, 0),
 	                 const ImVec2 &position = ImVec2(0, 0))
@@ -73,11 +72,11 @@ public:
 	{
 		m_visible = visible;
 	}
-	[[nodiscard]] inline Widget::Layout::Gravity get_layout() const
+	[[nodiscard]] inline Layout::Gravity get_layout() const
 	{
 		return m_gravity;
 	}
-	inline void set_gravity(const Widget::Layout::Gravity &gravity)
+	inline void set_gravity(const Layout::Gravity &gravity)
 	{
 		m_gravity = gravity;
 	}
@@ -94,6 +93,6 @@ protected:
 	ImVec2 m_size = ImVec2(0.0f, 0.0f);
 	ImVec2 m_position = ImVec2(0.0f, 0.0f);
 	bool m_visible = true;
-	Widget::Layout::Gravity m_gravity = Widget::Layout::Gravity::NONE;
+	Layout::Gravity m_gravity = Layout::Gravity::NONE;
 };
 }

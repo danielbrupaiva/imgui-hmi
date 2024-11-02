@@ -28,11 +28,11 @@ public:
 		: m_ui(ui), m_current_state(initial_state)
 	{
 		m_screens.reserve(NUM_SCREENS);
-		m_screens.emplace_back(std::make_unique<App::Screen1>(m_ui, "Screen1", m_ui.get_spec()->window_size));
-		m_screens.emplace_back(std::make_unique<App::Screen2>(m_ui, "Screen2", m_ui.get_spec()->window_size));
-		m_screens.emplace_back(std::make_unique<App::Screen3>(m_ui, "Screen3", m_ui.get_spec()->window_size));
-		m_screens.emplace_back(std::make_unique<App::Screen4>(m_ui, "Screen4", m_ui.get_spec()->window_size));
-		m_screens.emplace_back(std::make_unique<App::Screen5>(m_ui, "Screen5", m_ui.get_spec()->window_size));
+		m_screens.emplace_back(std::make_unique<App::Screen1>(m_ui, "Screen1", m_ui.get_spec().window_size));
+		m_screens.emplace_back(std::make_unique<App::Screen2>(m_ui, "Screen2", m_ui.get_spec().window_size));
+		m_screens.emplace_back(std::make_unique<App::Screen3>(m_ui, "Screen3", m_ui.get_spec().window_size));
+		m_screens.emplace_back(std::make_unique<App::Screen4>(m_ui, "Screen4", m_ui.get_spec().window_size));
+		m_screens.emplace_back(std::make_unique<App::Screen5>(m_ui, "Screen5", m_ui.get_spec().window_size));
 	};
 
 	void render()

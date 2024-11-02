@@ -1,6 +1,6 @@
 #pragma once
 
-#include "i_widget.hpp"
+#include "base_widget.hpp"
 #include "button.hpp"
 #include "image.hpp"
 
@@ -11,10 +11,10 @@ class ImageButton: public Button
 public:
 	explicit ImageButton(IMGUI &ui,
 	                     const std::filesystem::path &&filename,
-	                     const Layout::Gravity &gravity,
+	                     const ILayout::Gravity &gravity,
 	                     const std::function<void()> &callback = nullptr)
 		: Button(ui, filename.stem().c_str(), ImVec2(0, 0), callback),
-		  m_texture(std::make_unique<Widget::Image>(m_ui, filename.c_str()))
+		  m_texture(std::make_unique<Image>(m_ui, filename.c_str()))
 	{
 		assert(m_texture);
 		set_gravity(gravity);
@@ -25,7 +25,7 @@ public:
 	                     const ImVec2 &size = ImVec2(0.0f, 0.0f),
 	                     const std::function<void()> &callback = nullptr)
 		: Button(ui, filename.stem().c_str(), size, callback),
-		  m_texture(std::make_unique<Widget::Image>(m_ui, filename.c_str()))
+		  m_texture(std::make_unique<Image>(m_ui, filename.c_str()))
 	{
 		assert(m_texture);
 		m_texture->set_size(size);
@@ -36,7 +36,7 @@ public:
 		render();
 	}
 
-	void operator()(const Layout::Gravity &gravity) override
+	void operator()(const ILayout::Gravity &gravity) override
 	{
 		set_gravity(gravity);
 		operator()();
@@ -53,7 +53,7 @@ public:
 private:
 	void render() override
 	{
-		Layout::set_position(m_gravity, m_position, m_size);
+		UI().layout().set_cursor_position(m_gravity, m_position, m_size);
 		if (ImGui::ImageButton(m_label.c_str(), m_texture->ID(), m_size)) {
 			if (get_callback()) {
 				get_callback().operator()();
@@ -62,6 +62,6 @@ private:
 	}
 
 private:
-	std::unique_ptr<Widget::Image> m_texture;
+	std::unique_ptr<Image> m_texture;
 };
 }

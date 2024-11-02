@@ -1,18 +1,18 @@
 #pragma once
 
-#include "i_widget.hpp"
+#include "base_widget.hpp"
 
 namespace App::Widget
 {
-class TextView: public IWidget
+class TextView: public BaseWidget
 {
 public:
 	explicit TextView(IMGUI &ui, const std::string_view label)
-		: IWidget(ui, label)
+		: BaseWidget(ui, label)
 	{}
 
 	explicit TextView(IMGUI &ui, const std::string_view label, const Font::Size &font_size)
-		: IWidget(ui, label), m_font_size(font_size)
+		: BaseWidget(ui, label), m_font_size(font_size)
 	{}
 
 	virtual void operator()()
@@ -20,7 +20,7 @@ public:
 		render();
 	}
 
-	virtual void operator()(const Layout::Gravity &layout)
+	virtual void operator()(const ILayout::Gravity &layout)
 	{
 		set_gravity(layout);
 		operator()();
@@ -50,7 +50,7 @@ private:
 	{
 		Font::set_font_size(m_font_size);
 		calculate_size();
-		Layout::set_position(m_gravity, m_position, m_size);
+		UI().layout().set_cursor_position(m_gravity, m_position, m_size);
 		ImGui::Text("%s", m_label.c_str());
 		Font::clean_font(m_font_size);
 	}

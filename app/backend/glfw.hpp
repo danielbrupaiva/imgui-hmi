@@ -38,7 +38,7 @@ class GLFW
 public:
 	~GLFW() = default;
 	explicit GLFW(Spec &spec)
-		: m_spec{spec}, m_window{nullptr}
+		: m_window{nullptr}, m_spec{spec}
 	{
 		init();
 	}
@@ -48,9 +48,9 @@ public:
 
 	[[nodiscard]] inline GLFWwindow *get_window() const
 	{ return m_window.get(); }
-	inline bool is_close()
+	[[nodiscard]] bool is_close() const
 	{ return glfwWindowShouldClose(m_window.get()); };
-	inline void close()
+	inline void close() const
 	{ glfwSetWindowShouldClose(m_window.get(), GLFW_TRUE); };
 
 private:
