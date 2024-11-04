@@ -12,6 +12,7 @@ set(SOURCES
         logger.hpp
         utils.hpp
         sqlite.hpp
+        connection_pool.hpp
 )
 #---------------------
 add_library(${PROJECT_NAME} STATIC)
