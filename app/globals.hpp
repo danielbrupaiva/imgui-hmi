@@ -9,7 +9,7 @@ using namespace App;
 
 namespace Global
 {
-static Spec hmi_spec = {
+inline static Spec hmi_spec = {
 	.backend_type = BackendType::OPENGLES,
 	.shader_version = GLSL_VERSION["ES 3.0"],
 	.title = "IMGUI HMI",
@@ -18,8 +18,8 @@ static Spec hmi_spec = {
 	.vsync = 1
 };
 
-static IMGUImpl hmi{hmi_spec};
+inline static IMGUImpl hmi{hmi_spec};
 
-static ScreenManager screen_manager(hmi, ScreenManager::eState::SCREEN1);
+inline static ScreenManager screen_manager(hmi, ScreenManager::eState::SCREEN1);
 
 }; //namespace Global
