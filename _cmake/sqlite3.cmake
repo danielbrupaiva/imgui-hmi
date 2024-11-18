@@ -6,7 +6,6 @@ FetchContent_Declare(
         GIT_TAG version-3.47.0                                # the tag
 )
 FetchContent_MakeAvailable(sqlite3)
-FetchContent_GetProperties(Catch2)
 #---------------------
 target_link_libraries(${PROJECT_NAME} PRIVATE sqlite3)
 target_include_directories(${PROJECT_NAME} PRIVATE ${sqlite3_SOURCE_DIR})
