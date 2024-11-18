@@ -1,11 +1,27 @@
 #pragma once
 
-#include <iostream>
-#include <sqlite3.h>
-#include "fmt/format.h"
 #include "logger.hpp"
+#include <sqlite3.h>
 
 namespace Core::Database {
+
+    class SQLQueries{
+        public:
+        SQLQueries() = delete;
+        // CREATE
+        inline static const std::string CREATE_USERS_TABLE = "CREATE TABLE IF NOT EXISTS tb_users (id INTEGER PRIMARY KEY, name TEXT NOT NULL UNIQUE, type INTEGER NOT NULL);";
+        inline static const std::string INSERT_USER = "INSERT INTO tb_users (id, name, type) VALUES ('{}','{}','{}');";
+        // READ
+        inline static const std::string READ_ALL_USERNAMES = "SELECT username FROM tb_users;";
+        inline static const std::string READ_ALL_USERNAMES_ORDERED = "SELECT username FROM tb_users ORDER BY username ASC;";
+        inline static const std::string READ_ALL_USERNAMES_ORDERED_ID = "SELECT username FROM tb_users ORDER BY user_id;";
+        inline static const std::string READ_USER_INFO = "SELECT * FROM tb_users WHERE name={};";
+        // UPDATE
+        inline static const std::string UPDATE_USER = "UPDATE tb_users SET username='{}', security_level={}, password='{}' WHERE user_id=(SELECT user_id FROM tb_users WHERE username = '{}');";
+        // DELETE
+        inline static const std::string DROP_USERS_TABLE_IF_EXIT = "DROP TABLE IF EXISTS tb_users;";
+        inline static const std::string DELETE_USER = "DELETE FROM tb_users WHERE name={};";
+    };
 
     struct Spec {
         std::string dbname;
