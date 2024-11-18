@@ -13,12 +13,6 @@ namespace Core::Database {
         std::string password;
         std::string host;
         uint32_t port;
-#ifdef SQLITE_HASH
-        inline static std::string hash_value = SQLITE_HASH;
-#else
-        inline static std::string hash_value;
-#endif
-
     };
 
     class IDatabase {
