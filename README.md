@@ -69,7 +69,7 @@ Key features:
 
 Install dependencies [Dependencies](_docs/dependencies.md)
 
-    $ git clone --recursive https://github.com/danielbrupaiva/cpp-dev-garden.git -b imgui-hmi 
+    $ git clone --recursive https://github.com/danielbrupaiva/imgui-hmi.git -b imgui-hmi 
     $ cd /path/to/src
     $ mkdir /path/to/build_folder
 
