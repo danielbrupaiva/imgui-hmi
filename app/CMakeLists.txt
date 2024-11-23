@@ -53,4 +53,4 @@ include_directories(
 include(core)
 #---------------------
 # TODO: add compile option at cmake option during compilation (the hash bellow is a dev hash key only)
-add_compile_definitions(SQLITE_HASH="5fe11e9cfd6b6d1013865f687d0891bac8083ddfcdb83a5fcad89c2ed67b555e")
+add_compile_definitions(HASH="5fe11e9cfd6b6d1013865f687d0891bac8083ddfcdb83a5fcad89c2ed67b555e")
