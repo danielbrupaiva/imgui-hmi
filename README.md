@@ -79,13 +79,13 @@ Install dependencies [Dependencies](_docs/dependencies.md)
 
     [HOST]
     $ cmake -G Ninja -S /path/to/src -B /path/to/build_folder \
-                    -DCMAKE_BUILD_TYPE=Debug \
+                    -DCMAKE_BUILD_TYPE=Release \
                     -DBUILD_FROM_SRC:BOOL=ON \
     $ ninja
     
     [Cross-Compile] 
     $ cmake -G Ninja -S /path/to/src -B /path/to/build_folder \
-                    -DCMAKE_BUILD_TYPE=Debug \
+                    -DCMAKE_BUILD_TYPE=Release \
                     -DBUILD_FROM_SRC:BOOL=ON \
                     -DCROSS_COMPILER:BOOL=ON \
                     -DCMAKE_TOOLCHAIN_FILE=_cmake/rpi4.cmake                    

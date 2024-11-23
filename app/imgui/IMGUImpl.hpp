@@ -83,7 +83,7 @@ private:
 
 		Font::init(io);
 
-		IM_ASSERT(setup_backend());
+		IMGUImpl::setup_backend();
 
 		IM_ASSERT(get_imgui_context());
 
