@@ -23,7 +23,7 @@ class ConnectionPool
     int32_t                             m_server_port;
 
 public:
-    ~ConnectionPool(){};
+    ~ConnectionPool() = default;
     explicit ConnectionPool(const std::string_view server_ip, const int32_t server_port, const uint32_t pool_size)
         : m_server_port{server_port}, m_server_ip{server_ip}, m_pool_size{pool_size}
     {
@@ -46,7 +46,7 @@ public:
         logger.debug("[{}] {}", m_TAG, "Connection pool initialized");
     };
     /*get connection from the pool*/
-    std::shared_ptr<T> get_connection(uint32_t timeout) {
+    std::shared_ptr<T> get_connection(uint32_t timeout_ms) {
         /*lock thread*/
         std::unique_lock<std::mutex> lock(m_mutex);
 
@@ -57,7 +57,7 @@ public:
             return connection;
         }
         else{
-            if( m_condition.wait_for(lock, std::chrono::milliseconds(timeout),[&](){ return m_connections.empty(); })){
+            if( m_condition.wait_for(lock, std::chrono::milliseconds(timeout_ms),[&](){ return m_connections.empty(); })){
                 std::string msg = "Connection pool timeout exceed";
                 logger.error("[{}] {}", m_TAG, msg);
                 throw std::runtime_error(msg);

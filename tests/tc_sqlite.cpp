@@ -6,14 +6,13 @@
 using namespace fakeit;
 
 TEST_CASE("SQLite class") {
-    Core::Database::Spec spec{"test.db","admin", "1234", "localhost", 5432};
-    Core::Database::SQLite sqlite{spec};
+    Core::Database::SQLite sqlite{{"test.db","admin", "1234", "localhost", 5432}};
 
-    REQUIRE(sqlite.get_spec().dbname == "test.db");
-    REQUIRE(sqlite.get_spec().host == "localhost");
-    REQUIRE(sqlite.get_spec().port == 5432);
-    REQUIRE(sqlite.get_spec().username == "admin");
-    REQUIRE(sqlite.get_spec().password == "1234");
+    REQUIRE(sqlite.spec().dbname == "test.db");
+    REQUIRE(sqlite.spec().host == "localhost");
+    REQUIRE(sqlite.spec().port == 5432);
+    REQUIRE(sqlite.spec().username == "admin");
+    REQUIRE(sqlite.spec().password == "1234");
     REQUIRE(sqlite.is_open() == true);
 
     REQUIRE_THROWS(sqlite.check_error(SQLITE_FAIL, "Fail"));

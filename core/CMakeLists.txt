@@ -11,13 +11,16 @@ message("${BoldGreen}-- ${PROJECT_NAME} BUILD ${ColourReset}")
 set(SOURCES
         logger.hpp
         utils.hpp
-        sqlite.hpp
-        connection_pool.hpp
+        database/sqlite.hpp
+        network/connection_pool.hpp
 )
 #---------------------
 add_library(${PROJECT_NAME} STATIC)
 target_sources(${PROJECT_NAME} PRIVATE ${SOURCES})
-target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(${PROJECT_NAME} PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}/database
+        ${CMAKE_CURRENT_SOURCE_DIR}/network
+        ${CMAKE_CURRENT_SOURCE_DIR})
 #---------------------
 include(spdlog)
 include(IMGUI)

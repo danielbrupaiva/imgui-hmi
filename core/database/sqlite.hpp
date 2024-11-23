@@ -1,7 +1,11 @@
 #pragma once
 
+#include <map>
+
 #include "logger.hpp"
 #include <sqlite3.h>
+
+#include "connection_pool.hpp"
 
 namespace Core::Database {
 
@@ -42,18 +46,19 @@ namespace Core::Database {
         virtual void check_error(int32_t result_code, std::string_view error_msg) = 0;
 
     //Getters and Setters
-        [[nodiscard]] Spec get_spec() const {
+        [[nodiscard]] Spec spec() const {
             return m_spec;
         }
         void set_spec(const Spec &spec) {
             m_spec = spec;
         }
 
-    protected:
+    private:
         Spec m_spec;
     };
 
-    class SQLite : public IDatabase {
+    class SQLite : public IDatabase
+    {
         using Row = std::map<std::string, std::string>;
         using ResultSet = std::vector<Row>;
     public:
@@ -62,12 +67,13 @@ namespace Core::Database {
         };
 
         explicit SQLite(const Spec &spec)
-            : IDatabase(spec) {
+            : IDatabase(spec)
+        {
             SQLite::open();
         }
 
         int32_t query(const std::string_view sql) override {
-
+            std::lock_guard lock(m_mutex);
             if(!is_open()) {
                 throw std::runtime_error("SQLite database not open");
             }
@@ -83,6 +89,7 @@ namespace Core::Database {
         }
 
         [[nodiscard]] std::pair<int32_t, std::vector<Row>> exec_query(const std::string_view sql) {
+            std::lock_guard lock(m_mutex);
             int32_t rc = SQLITE_ERROR;
             sqlite3_stmt* stmt = nullptr;
             ResultSet results;
@@ -113,12 +120,14 @@ namespace Core::Database {
         }
 
         int32_t open() override {
-            int32_t rc = sqlite3_open(m_spec.dbname.c_str(), &m_conn);
+            std::lock_guard lock(m_mutex);
+            const auto rc = sqlite3_open(spec().dbname.c_str(), &m_conn);
             SQLite::check_error(rc, "SQLite::init() DB not open");
             return rc;
         }
 
         int32_t close() override {
+            std::lock_guard lock(m_mutex);
             if(!is_open()) {
                 logger.error("SQLite::shutdown() DB not open");
                 return SQLITE_OK;
@@ -135,6 +144,7 @@ namespace Core::Database {
 
     private:
         sqlite3* m_conn{nullptr};
+        std::mutex m_mutex;
     };
 } // Core
 
