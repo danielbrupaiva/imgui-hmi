@@ -202,7 +202,7 @@ private:
 
 private:
 	Spec					m_spec;
-	std::unique_ptr<GLFW>		m_api;
+	std::unique_ptr<GLFW>	m_api;
 	Widget::Wrapper			m_widgets;
 	Layout					m_layout;
 
