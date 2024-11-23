@@ -7,16 +7,20 @@ Key features:
 - [x] Modern C++20
 - [x] CMake -> FetchContent (~ package management)
 - [x] Native (x86_64) and Cross (arm64) compilation
-- [x] App-Core architecture
+- [x] App-Core-Data architecture
 - [x] Immediate-mode GUI (Dear IMGUI)
-- [x] GLFW3 renderer graphics backend
 - [x] OpenGL ES3.0
+- [x] GLFW3 renderer graphics backend
+- [x] STB_image
+- [ ] ~~PostgreSQL database (PQXX)~~
+- [x] SQLite3
+- [x] bcrypt
+- [x] Spdlog
 - [ ] Vulkan
-- [ ] PostgreSQL database (PQXX)
 - [ ] Modbus TCP/IP connection
 - [ ] CAN-BUS connection (to be implemented)
-- [ ] Custom Linux Preempt-RT patch
-- [ ] zRAM enabled
+- [x] Custom Linux Preempt-RT patch
+- [x] zRAM enabled
 - [ ] Remote access via OpenVPN (to be implemented)
 
 ## Targets
@@ -43,7 +47,7 @@ Key features:
 - CMake -> FetchContent (~package manager)
 - https://cmake.org/cmake/help/latest/module/FetchContent.html
 
-### Libraries
+### Libraries (TODO update list)
 
 - OpenGL / OpenGL ES https://www.opengl.org/
 - GLFW3
@@ -75,13 +79,13 @@ Install dependencies [Dependencies](_docs/dependencies.md)
 
     [HOST]
     $ cmake -G Ninja -S /path/to/src -B /path/to/build_folder \
-                    -DCMAKE_BUILD_TYPE=Release \
+                    -DCMAKE_BUILD_TYPE=Debug \
                     -DBUILD_FROM_SRC:BOOL=ON \
     $ ninja
-
+    
     [Cross-Compile] 
     $ cmake -G Ninja -S /path/to/src -B /path/to/build_folder \
-                    -DCMAKE_BUILD_TYPE=Release \
+                    -DCMAKE_BUILD_TYPE=Debug \
                     -DBUILD_FROM_SRC:BOOL=ON \
                     -DCROSS_COMPILER:BOOL=ON \
                     -DCMAKE_TOOLCHAIN_FILE=_cmake/rpi4.cmake                    
