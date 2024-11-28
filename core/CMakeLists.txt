@@ -11,6 +11,7 @@ message("${BoldGreen}-- ${PROJECT_NAME} BUILD ${ColourReset}")
 set(SOURCES
         logger.hpp
         utils.hpp
+        uuid.hpp
         database/sqlite.hpp
         network/connection_pool.hpp
 )
