@@ -12,9 +12,7 @@
 #define AND(a, b) ((a) && (b))
 #define OR(a, b)  ((a) || (b))
 
-namespace Core
-{
-namespace Utils
+namespace Core::Utils
 {
 namespace Math
 {
@@ -50,6 +48,5 @@ static constexpr double AVG(Type value)
 template<typename Type, typename... Args>
 static constexpr double AVG(Type first, Args... args)
 { return (static_cast<double>(first) + average_value(args...)) / (sizeof...(args) + 1); };
-};
 };
 };
