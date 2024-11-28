@@ -6,7 +6,7 @@
 #include <condition_variable>
 #include <chrono>
 
-#include "utils.hpp"
+#include "math.hpp"
 #include "logger.hpp"
 
 namespace Core {
