@@ -1,6 +1,6 @@
 #include <catch2/catch_test_macros.hpp>
 
-#include "utils.hpp"
+#include "math.hpp"
 
 TEST_CASE("Math utils class")
 {
