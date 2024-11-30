@@ -39,11 +39,13 @@ public:
 private:
 	void render() override
 	{
-		Font::set_font_size(m_font_size);
-		calculate_size();
-		UI().layout().set_cursor_position(m_gravity, m_position, m_size);
-		ImGui::InputTextWithHint(fmt::format("##{}", m_label).c_str(), m_hint.c_str(), &m_text, m_flags);
-		Font::clean_font(m_font_size);
+		if (m_visible) {
+			Font::set_font_size(m_font_size);
+			calculate_size();
+			UI().layout().set_cursor_position(m_gravity, m_position, m_size);
+			ImGui::InputTextWithHint(fmt::format("##{}", m_label).c_str(), m_hint.c_str(), &m_text, m_flags);
+			Font::clean_font(m_font_size);
+		}
 	}
 
 	inline void calculate_size()

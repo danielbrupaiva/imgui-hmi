@@ -23,10 +23,9 @@ public:
 
 public:
 	explicit Image(IMGUI &ui, std::filesystem::path &&filename)
-		: BaseWidget(ui), m_filename(filename)
+		: BaseWidget(ui, filename.stem().string()), m_filename(filename)
 	{
 		set_id(load_texture_from_file(m_filename));
-		set_label(m_filename.stem().string());
 	};
 
 	explicit Image(IMGUI &ui,
