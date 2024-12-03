@@ -16,6 +16,13 @@ public:
 	explicit Button(IMGUI &ui,
 			const std::string_view label,
 			const ImVec2 &size = ImVec2(),
+			const std::function<void()> &callback = nullptr)
+	: BaseWidget(ui, label, size, ImVec2(), Layout::Gravity::NONE, {}, true), m_callback(callback)
+	{}
+
+	explicit Button(IMGUI &ui,
+			const std::string_view label,
+			const ImVec2 &size = ImVec2(),
 			Layout::Gravity gravity = Layout::Gravity::NONE,
 			const std::vector<StyleColor> & style_colors = {},
 			const std::function<void()> &callback = nullptr,
