@@ -17,6 +17,7 @@ set(SOURCES
         tc_image.cpp
         tc_sqlite.cpp
         tc_uuid.cpp
+        tc_users.cpp
 )
 add_executable(${PROJECT_NAME} ${SOURCES})
 #---------------------
