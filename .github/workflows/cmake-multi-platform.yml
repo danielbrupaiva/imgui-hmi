@@ -57,7 +57,7 @@ jobs:
         run: |
           sudo apt install ca-certificates 
           sudo apt update && sudo apt full-upgrade -y
-          sudo apt install -y libtool pkg-config build-essential autoconf automake make ninja-build cmake gcc git bison python3 libreadline-dev gawk texinfo bison file wget libssl-dev curl extra-cmake-modules 
+          sudo apt install -y libtool pkg-config build-essential autoconf automake make ninja-build cmake gcc git bison python3 libreadline-dev gawk texinfo bison file wget libssl-dev curl extra-cmake-modules libfmt-dev 
 
       - name: Install OpenGL dependencies
         run: |
