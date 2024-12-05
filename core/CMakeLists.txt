@@ -14,6 +14,7 @@ set(SOURCES
         utils/uuid.hpp
         database/sqlite.hpp
         network/connection_pool.hpp
+        user.hpp
 )
 #---------------------
 add_library(${PROJECT_NAME} STATIC)
