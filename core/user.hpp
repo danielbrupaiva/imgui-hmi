@@ -1,7 +1,7 @@
 #pragma once
 
 #include <bcrypt.h>
-#include "fmt/format.h"
+#include "logger.hpp"
 #include "uuid.hpp"
 
 namespace Core {
