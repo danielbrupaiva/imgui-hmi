@@ -12,9 +12,12 @@ set(SOURCES
         logger.hpp
         utils/math.hpp
         utils/uuid.hpp
+        database/spec.hpp
+        database/database.hpp
         database/sqlite.hpp
         network/connection_pool.hpp
         user.hpp
+        user_manager.hpp
 )
 #---------------------
 add_library(${PROJECT_NAME} STATIC)

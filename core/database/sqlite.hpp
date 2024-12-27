@@ -3,70 +3,18 @@
 #include <map>
 
 #include "logger.hpp"
+#include "database.hpp"
 #include <sqlite3.h>
 
-#include "connection_pool.hpp"
-
 namespace Core::Database {
-
-    class SQLQueries{
-        public:
-        SQLQueries() = delete;
-        // CREATE
-        inline static const std::string CREATE_USERS_TABLE = "CREATE TABLE IF NOT EXISTS tb_users (id INTEGER PRIMARY KEY, name TEXT NOT NULL UNIQUE, type INTEGER NOT NULL);";
-        inline static const std::string INSERT_USER = "INSERT INTO tb_users (id, name, type) VALUES ('{}','{}','{}');";
-        // READ
-        inline static const std::string READ_ALL_USERNAMES = "SELECT username FROM tb_users;";
-        inline static const std::string READ_ALL_USERNAMES_ORDERED = "SELECT username FROM tb_users ORDER BY username ASC;";
-        inline static const std::string READ_ALL_USERNAMES_ORDERED_ID = "SELECT username FROM tb_users ORDER BY user_id;";
-        inline static const std::string READ_USER_INFO = "SELECT * FROM tb_users WHERE name={};";
-        // UPDATE
-        inline static const std::string UPDATE_USER = "UPDATE tb_users SET username='{}', security_level={}, password='{}' WHERE user_id=(SELECT user_id FROM tb_users WHERE username = '{}');";
-        // DELETE
-        inline static const std::string DROP_USERS_TABLE_IF_EXIT = "DROP TABLE IF EXISTS tb_users;";
-        inline static const std::string DELETE_USER = "DELETE FROM tb_users WHERE name={};";
-    };
-
-    struct Spec {
-        std::string dbname;
-        std::string username;
-        std::string password;
-        std::string host;
-        uint32_t port;
-    };
-
-    class IDatabase {
-    public:
-        virtual ~IDatabase() = default;
-        explicit IDatabase(const Spec& spec) : m_spec(spec){}
-        virtual int32_t open() = 0;
-        virtual bool is_open() = 0;
-        virtual int32_t close() = 0;
-        virtual int32_t query(std::string_view sql) = 0;
-        virtual void check_error(int32_t result_code, std::string_view error_msg) = 0;
-
-    //Getters and Setters
-        [[nodiscard]] Spec spec() const {
-            return m_spec;
-        }
-        void set_spec(const Spec &spec) {
-            m_spec = spec;
-        }
-
-    private:
-        Spec m_spec;
-    };
-
     class SQLite : public IDatabase
     {
-        using Row = std::map<std::string, std::string>;
-        using ResultSet = std::vector<Row>;
     public:
         ~SQLite() override {
             SQLite::close();
         };
 
-        explicit SQLite(const Spec &spec)
+        explicit SQLite(const Spec &&spec)
             : IDatabase(spec)
         {
             SQLite::open();
@@ -88,7 +36,7 @@ namespace Core::Database {
             return rc;
         }
 
-        [[nodiscard]] std::pair<int32_t, std::vector<Row>> exec_query(const std::string_view sql) {
+        std::pair<int32_t, std::vector<Row>> exec_query(const std::string_view sql) override {
             std::lock_guard lock(m_mutex);
             int32_t rc = SQLITE_ERROR;
             sqlite3_stmt* stmt = nullptr;
@@ -121,18 +69,23 @@ namespace Core::Database {
 
         int32_t open() override {
             std::lock_guard lock(m_mutex);
-            const auto rc = sqlite3_open(spec().dbname.c_str(), &m_conn);
+            int32_t rc = SQLITE_ERROR;
+            if(spec().dbname.empty()) {
+                throw std::runtime_error("SQLite database not open");
+            }
+            rc = sqlite3_open(spec().dbname.c_str(), &m_conn);
             SQLite::check_error(rc, "SQLite::init() DB not open");
             return rc;
         }
 
         int32_t close() override {
             std::lock_guard lock(m_mutex);
+            int32_t rc = SQLITE_ERROR;
             if(!is_open()) {
-                logger.error("SQLite::shutdown() DB not open");
+                logger.info("SQLite::shutdown() DB not open");
                 return SQLITE_OK;
             }
-            int32_t rc = sqlite3_close(m_conn);
+            rc = sqlite3_close(m_conn);
             SQLite::check_error(rc, "SQLite::close() DB closed");
             m_conn = nullptr;
             return rc;

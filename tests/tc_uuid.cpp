@@ -25,6 +25,4 @@ TEST_CASE("UUID")
       REQUIRE(Core::UUID::is_valid_uuid_v4(uuid) == true);
     }
   }
-
-
 }
