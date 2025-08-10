@@ -13,6 +13,8 @@ if (GLFW)
         set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
         set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
         set(GLFW_BUILD_WAYLAND ON CACHE BOOL "" FORCE)
+        set(GLFW_BUILD_X11 ON CACHE BOOL "" FORCE)
+        set(GLFW_BUILD_KMSDRM ON CACHE BOOL "" FORCE)
 
         FetchContent_Declare(
                 glfw
