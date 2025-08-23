@@ -4,9 +4,22 @@ services:
     container_name: imgui
     env_file:
       - env_file
+    environment:
+      # Common
+      - DISPLAY=${DISPLAY}
+      - XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR}
+      - WAYLAND_DISPLAY=${WAYLAND_DISPLAY}
     volumes:
+      # Wayland socket
+      - ${XDG_RUNTIME_DIR}/${WAYLAND_DISPLAY}:${XDG_RUNTIME_DIR}/${WAYLAND_DISPLAY}
+      # X11 socket
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      # GPU access
+      - /dev/dri:/dev/dri
       - ./:/home/dev/workspace
       - ./entrypoint.sh:/home/dev/entrypoint.sh
+    devices:
+      - /dev/dri
     restart: unless-stopped
     ulimits:
       nofile:
