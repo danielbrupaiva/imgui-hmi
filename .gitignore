@@ -36,3 +36,4 @@ _build/*
 build/*
 vendor/*
 /sysroots/
+*.db
