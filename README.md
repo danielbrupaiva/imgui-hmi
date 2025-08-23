@@ -88,14 +88,17 @@ cd imgui-hmi
 ```
 
 [Docker]
-Install docker according Docker documentation at your system (prefered OS Linux, not tested at Windows)
+
+* Recommend use docker image provide at bootoolz/docker -toolchain-full:v0.2
+* Install docker according Docker documentation at your system (prefered OS Linux, not tested at Windows)
+
 ```bash
 docker compose up -d
 docker exec -it imgui bash
 ```
 Notes:
-Source folder: /home/dev/workspace
-Build folder: /home/dev/workspace/build/
+* Source folder: /home/dev/workspace
+* Build folder: /home/dev/workspace/build/
 
 [HOST]
 Release
