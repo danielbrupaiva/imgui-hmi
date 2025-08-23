@@ -84,11 +84,21 @@ sudo apt install -y --no-install-recommends libsqlite3-dev libgl1-mesa-dev libeg
 
 ```bash
 git clone --recursive -b imgui-hmi https://github.com/danielbrupaiva/imgui-hmi.git
-cd /path/to/src
-mkdir /path/to/build_folder
+cd imgui-hmi
 ```
+
+[Docker]
+Install docker according Docker documentation at your system (prefered OS Linux, not tested at Windows)
+```bash
+docker compose up -d
+docker exec -it imgui bash
+```
+Notes:
+Source folder: /home/dev/workspace
+Build folder: /home/dev/workspace/build/
+
 [HOST]
-
+Release
 ```bash
 cmake -G Ninja -S /home/dev/workspace -B /home/dev/workspace/build/host \
             -DCMAKE_BUILD_TYPE=Release \
@@ -96,23 +106,24 @@ cmake -G Ninja -S /home/dev/workspace -B /home/dev/workspace/build/host \
 ninja -C /home/dev/workspace/build/host
 ```
 
+Debug
 ```bash
-cmake -G Ninja -S /home/dev/workspace -B /home/dev/workspace/build/host \
-            -DCMAKE_BUILD_TYPE=Release \
+cmake -G Ninja -S /home/dev/workspace -B /home/dev/workspace/build/host-debug \
+            -DCMAKE_BUILD_TYPE=Debug \
             -DBUILD_FROM_SRC:BOOL=ON 
-ninja -C /home/dev/workspace/build/host
+ninja -C /home/dev/workspace/build/host-debug
 ```
 
 For TDD/coverage
 ```bash
-cmake -G Ninja -S /home/dev/workspace -B /home/dev/workspace/build/host \
-      -DCMAKE_BUILD_TYPE=Debug \
-      -DCMAKE_MAKE_PROGRAM=/usr/bin/ninja \
-      -DCMAKE_C_COMPILER=/usr/bin/gcc \
-      -DCMAKE_CXX_COMPILER=/usr/bin/g++ \
-      -DBUILD_FROM_SRC:BOOL=ON \
-      -DCMAKE_CXX_FLAGS=--coverage \ 
-      -DCMAKE_C_FLAGS=--coverage 
+cmake -G Ninja -S /home/dev/workspace -B /home/dev/workspace/build/host-coverage \
+            -DCMAKE_BUILD_TYPE=Debug \
+            -DBUILD_FROM_SRC:BOOL=ON \
+            -DCMAKE_C_FLAGS=--coverage 
+
+ninja -C /home/dev/workspace/build/host-coverage
+
+/home/dev/workspace/build/host-coverage/tests/tests
 ```
 
 [Cross-Compile]     
@@ -121,7 +132,6 @@ cmake -G Ninja -S /home/dev/workspace -B /home/dev/workspace/build/host \
 cmake -G Ninja -S /home/dev/workspace/ -B /home/dev/workspace/build/target \
   -DCMAKE_BUILD_TYPE=Release \
   -DBUILD_FROM_SRC:BOOL=ON \
-  -DCROSS_COMPILER:BOOL=ON \
   -DTARGET_SYSROOT=/opt/sysroots/beagleplay \
   -DCMAKE_TOOLCHAIN_FILE=cmake/beagleplay.cmake               
 
@@ -138,3 +148,4 @@ ninja -C /home/dev/workspace/build/target
 - https://www.youtube.com/@ulasdikme7307
 - https://www.youtube.com/@DavesGarage
 - https://www.youtube.com/@ZenSepiol
+
