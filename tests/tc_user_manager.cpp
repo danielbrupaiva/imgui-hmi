@@ -17,6 +17,18 @@ TEST_CASE("User Manager")
     user_manager.drop_if_exit_user_table();
     user_manager.init();
 
+    // Login
+    REQUIRE(user_manager.is_logged() == false);
+    // User not exit at database
+    // Wrong password
+    REQUIRE(user_manager.login("root", "1234") == false);
+    // Correct password
+    REQUIRE(user_manager.login("root", "root") == true);
+    REQUIRE(user_manager.is_logged() == true);
+    // Logout
+    user_manager.logout();
+    REQUIRE(user_manager.is_logged() == false);
+
     // Add New Users
     User user1{"user#1", "1234"};
     User user2{"user#2", "1234"};
@@ -39,9 +51,12 @@ TEST_CASE("User Manager")
     // Exception if user exit in table
     User new_root_user{"root", "1234"};
     REQUIRE_THROWS(user_manager.add_user(new_root_user));
+
     // Read User
     // User doesn't exit
+
     // Update User
+
     // Delete User
     REQUIRE(user_manager.login("user#3", "1234") == true);
     REQUIRE(user_manager.delete_user("user#3") == true);
@@ -55,17 +70,6 @@ TEST_CASE("User Manager")
     REQUIRE(user_manager.delete_user("user#2") == true);
     user_manager.logout();
 
-    // Login
-    REQUIRE(user_manager.is_logged() == false);
-    // User not exit at database
-    // Wrong password
-    REQUIRE(user_manager.login("root", "1234") == false);
-    // Correct password
-    REQUIRE(user_manager.login("root", "root") == true);
-    REQUIRE(user_manager.is_logged() == true);
-    // Logout
-    user_manager.logout();
-    REQUIRE(user_manager.is_logged() == false);
 
 
 }

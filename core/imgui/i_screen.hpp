@@ -4,7 +4,7 @@
 #include "IMGUImpl.hpp"
 #include "logger.hpp"
 
-namespace App
+namespace Core
 {
 class IScreen
 {
@@ -32,7 +32,7 @@ public:
 	{ m_size = size; }
 
 protected:
-	App::IMGUImpl &m_ui;
+	IMGUImpl &m_ui;
 	uint32_t m_id;
 	static uint32_t m_nextID;
 	std::string m_title;
@@ -41,4 +41,4 @@ protected:
 
 } // App
 
-uint32_t App::IScreen::m_nextID = 0;
+uint32_t Core::IScreen::m_nextID = 0;

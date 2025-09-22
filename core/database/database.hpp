@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <vector>
 #include "spec.hpp"
 
 namespace Core::Database {
@@ -19,7 +20,7 @@ struct IDatabase {
     virtual bool is_open() = 0;
     virtual int32_t close() = 0;
     virtual int32_t query(std::string_view sql) = 0;
-    virtual std::pair<int32_t, std::vector<Row>> exec_query(const std::string_view sql) = 0;
+    virtual std::pair<int32_t, std::vector<Row>> exec_query(std::string_view sql) = 0;
     virtual void check_error(int32_t result_code, std::string_view error_msg) = 0;
 
     //Getters and Setters

@@ -11,6 +11,8 @@
 #include "screen_4.hpp"
 #include "screen_5.hpp"
 
+using namespace Core;
+
 namespace App
 {
 class ScreenManager
@@ -58,6 +60,6 @@ public:
 private:
 	IMGUImpl &m_ui;
 	volatile eState m_current_state = eState::INVALID;
-	std::vector<std::unique_ptr<App::IScreen>> m_screens;
+	std::vector<std::unique_ptr<IScreen>> m_screens;
 };
 } // App

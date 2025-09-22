@@ -5,7 +5,7 @@
 #include "logger.hpp"
 #include <algorithm>
 
-namespace App::Widget
+namespace Core::Widget
 {
 class BaseWidget
 {

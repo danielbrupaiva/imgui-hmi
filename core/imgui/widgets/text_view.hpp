@@ -2,7 +2,7 @@
 
 #include "base_widget.hpp"
 
-namespace App::Widget
+namespace Core::Widget
 {
 class TextView: public BaseWidget
 {

@@ -4,6 +4,8 @@
 #include "logger.hpp"
 #include "../imgui/layout.hpp"
 
+using namespace Core;
+
 namespace App
 {
 class Screen4: public IScreen

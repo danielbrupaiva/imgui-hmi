@@ -8,14 +8,14 @@ static const std::string TAG = "GLFW";
  * WindowHints
  * Code from glfwpp lib at glfwpp/windows.h
  * */
-enum class App::GLFW::ClientApi
+enum class Core::GLFW::ClientApi
 {
 	OpenGl = GLFW_OPENGL_API,
 	OpenGles = GLFW_OPENGL_ES_API,
 	None = GLFW_NO_API
 };
 
-enum class App::GLFW::ContextCreationApi
+enum class Core::GLFW::ContextCreationApi
 {
 	Native = GLFW_NATIVE_CONTEXT_API,
 	Egl = GLFW_EGL_CONTEXT_API,
@@ -23,26 +23,26 @@ enum class App::GLFW::ContextCreationApi
 	OsMesa = GLFW_OSMESA_CONTEXT_API
 #endif
 };
-enum class App::GLFW::ContextRobustness
+enum class Core::GLFW::ContextRobustness
 {
 	NoRobustness = GLFW_NO_ROBUSTNESS,
 	NoResetNotification = GLFW_NO_RESET_NOTIFICATION,
 	LoseContextOnReset = GLFW_LOSE_CONTEXT_ON_RESET
 };
-enum class App::GLFW::ContextReleaseBehavior
+enum class Core::GLFW::ContextReleaseBehavior
 {
 	Any = GLFW_ANY_RELEASE_BEHAVIOR,
 	Flush = GLFW_RELEASE_BEHAVIOR_FLUSH,
 	None = GLFW_RELEASE_BEHAVIOR_NONE
 };
-enum class App::GLFW::OpenGlProfile
+enum class Core::GLFW::OpenGlProfile
 {
 	Any = GLFW_OPENGL_ANY_PROFILE,
 	Compat = GLFW_OPENGL_COMPAT_PROFILE,
 	Core = GLFW_OPENGL_CORE_PROFILE
 };
 
-struct App::GLFW::WindowHints
+struct Core::GLFW::WindowHints
 {
 	bool resizable = true;
 	bool visible = true;
@@ -170,7 +170,7 @@ struct App::GLFW::WindowHints
  * ErrorHandler
  * Code from glfwpp lib at glfwpp/error.h
  * */
-void App::GLFW::glfw_error_callback(int errorCode_, const char *what_)
+void Core::GLFW::glfw_error_callback(int errorCode_, const char *what_)
 {
 	// Error handling philosophy as per http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2019/p0709r4.pdf (section 1.1)
 
@@ -202,7 +202,7 @@ void App::GLFW::glfw_error_callback(int errorCode_, const char *what_)
 	}
 };
 
-int8_t App::GLFW::init()
+int8_t Core::GLFW::init()
 {
 	glfwSetErrorCallback(glfw_error_callback);
 	if (!glfwInit()) { throw GLFW::Error("Could not initialize GLFW"); }

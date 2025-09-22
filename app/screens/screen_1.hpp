@@ -4,6 +4,8 @@
 #include "style_color.hpp"
 #include "logger.hpp"
 
+using namespace Core;
+
 namespace App
 {
 class Screen1: public IScreen

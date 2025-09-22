@@ -1,5 +1,9 @@
 #pragma once
 
+#include "i_screen.hpp"
+
+using namespace Core;
+
 namespace App
 {
 class Screen2: public IScreen

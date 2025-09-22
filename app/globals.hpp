@@ -1,11 +1,11 @@
 #pragma once
 
-#include "logger.hpp"
 #include "spec.hpp"
 #include "IMGUImpl.hpp"
 #include "screen_manager.hpp"
 
 using namespace App;
+using namespace Core;
 
 namespace Global
 {

@@ -6,18 +6,18 @@ using namespace fakeit;
 #include "IMGUI.hpp"
 #include "widgets/image.hpp"
 
-CATCH_REGISTER_ENUM(App::Widget::Image::Format,
-					App::Widget::Image::Format::None,
-					App::Widget::Image::Format::RGBA,
-					App::Widget::Image::Format::RGBA32F)
+CATCH_REGISTER_ENUM(Core::Widget::Image::Format,
+					Core::Widget::Image::Format::None,
+					Core::Widget::Image::Format::RGBA,
+					Core::Widget::Image::Format::RGBA32F)
 
 TEST_CASE("Image class")
 {
 	// Setup
-	Mock<App::IMGUI> mockIMGUI;
+	Mock<Core::IMGUI> mockIMGUI;
 	auto &ui = mockIMGUI.get();
 	std::string filename = "./resources/morpheus.jpg";
-	// App::Widget::Image image{ui, filename};
+	// Core::Widget::Image image{ui, filename};
 	// int32_t width = 1920;
 	// int32_t height = 1080;
 	//
@@ -45,7 +45,7 @@ TEST_CASE("Image class")
 	// SECTION("Load image from a file with a given size")
 	// {
 	// 	ImVec2 size{1280, 720};
-	// 	App::Widget::Image image1
+	// 	Core::Widget::Image image1
 	// 		{<#initializer#>, std::string_view(), <#initializer#>, <#initializer#>, filename, size};
 	//
 	// 	REQUIRE(image1.ID() != 0);
@@ -57,12 +57,12 @@ TEST_CASE("Image class")
 	// SECTION("Invalid file name")
 	// {
 	// 	std::string invalid_filename = "logo.png";
-	// 	REQUIRE_THROWS_AS(App::Widget::Image{ui, invalid_filename}, std::runtime_error);
+	// 	REQUIRE_THROWS_AS(Core::Widget::Image{ui, invalid_filename}, std::runtime_error);
 	// }
 	//
 	// SECTION("Render image")
 	// {
-	// 	Mock<App::Widget::Image> mockImage;
+	// 	Mock<Core::Widget::Image> mockImage;
 	// 	Fake(Method(mockImage, render));
 	// 	auto &img = mockImage.get();
 	// 	img.operator()();

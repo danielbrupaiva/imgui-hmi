@@ -3,6 +3,8 @@
 #include "i_screen.hpp"
 #include "logger.hpp"
 
+using namespace Core;
+
 namespace App
 {
 class Screen5: public IScreen

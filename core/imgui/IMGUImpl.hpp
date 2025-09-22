@@ -11,9 +11,9 @@
 
 #include "font.hpp"
 #include "IMGUI.hpp"
-#include "widgets_impl.hpp"
+#include "widgets/widgets_impl.hpp"
 
-namespace App
+namespace Core
 {
 class IMGUImpl: public IMGUI
 {
@@ -55,7 +55,7 @@ public:
 		return m_is_init;
 	}
 
-	[[nodiscard]] inline Widget::Wrapper &widgets() override
+	[[nodiscard]] inline Core::Widget::Wrapper &widgets() override
 	{
 		return m_widgets;
 	}

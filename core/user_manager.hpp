@@ -68,12 +68,12 @@ public:
         return m_current_user.is_logged();
     }
 
-    [[nodiscard]] bool drop_if_exit_user_table() const
+    bool drop_if_exit_user_table() const
     {
         return m_db.query(SQLQueries::DROP_USERS_TABLE_IF_EXIT) == SQLITE_OK;
     }
 
-    [[nodiscard]] bool init() const
+    bool init() const
     {
         int32_t rc = SQLITE_ERROR;
         // INIT TABLE
@@ -95,6 +95,15 @@ public:
         return rc == SQLITE_OK;
     }
 
+    [[nodiscard]] std::optional<User> get_user(const std::string_view username) const
+    {
+        auto [rc, result] = m_db.exec_query(fmt::format(SQLQueries::READ_USER_INFO, username));
+        if (rc == SQLITE_OK) {
+            User user{result[0].find("username")->second, result[0].find("password")->second, static_cast<User::SecurityLevel>(stoi(result[0].find("security_level")->second))};
+            return user;
+        }
+        return std::nullopt;
+    }
     bool read_user(const std::string_view username)
     {
         auto [rc, result] = m_db.exec_query(fmt::format(SQLQueries::READ_USER_INFO, username));

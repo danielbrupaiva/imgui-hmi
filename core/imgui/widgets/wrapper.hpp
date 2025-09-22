@@ -3,12 +3,12 @@
 #include <imgui.h>
 #include "layout.hpp"
 
-namespace App::Widget
+namespace Core::Widget
 {
 struct Widgets
 {
     virtual ~Widgets() = default;
-    virtual App::Layout &Layout() = 0;
+    virtual Core::Layout &Layout() = 0;
     virtual void Image(uint32_t texture_id, const ImVec2 &size) = 0;
     virtual bool Button(std::string_view label, const ImVec2 &size) = 0;
     virtual void ImageButton(std::string_view label, uint32_t texture_id, const ImVec2 &size) = 0;
@@ -16,11 +16,11 @@ struct Widgets
 
 class Wrapper: public Widgets
 {
-    App::Layout m_layout;
+    Core::Layout m_layout;
 public:
     Wrapper() = default;
 
-    App::Layout& Layout() override
+    Core::Layout& Layout() override
     {
         return m_layout;
     };

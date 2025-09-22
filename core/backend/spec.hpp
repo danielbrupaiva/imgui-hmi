@@ -4,10 +4,11 @@
 
 #pragma once
 
+#include <iostream>
 #include <map>
 #include "imgui.h"
 
-namespace App
+namespace Core
 {
 enum class BackendType
 {

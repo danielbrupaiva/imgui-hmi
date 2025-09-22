@@ -7,7 +7,7 @@ using namespace fakeit;
 
 TEST_CASE("Button class")
 {
-	Mock<App::IMGUI> mockIMGUI;
+	Mock<Core::IMGUI> mockIMGUI;
 	auto &ui = mockIMGUI.get();
 
 	When(Method(mockIMGUI, layout)).AlwaysReturn();
@@ -18,8 +18,8 @@ TEST_CASE("Button class")
 	ImVec2 position0{32.0f, 48.0f};
 	static bool state = false;
 
-	App::Widget::Button btn{ui, label0, size0, position0};
-	Mock<App::Widget::Button> mockBtn(btn);
+	Core::Widget::Button btn{ui, label0, size0, position0};
+	Mock<Core::Widget::Button> mockBtn(btn);
 	When(Method(mockBtn, render)).AlwaysReturn();
 	auto& btn0 = mockBtn.get();
 
@@ -67,7 +67,7 @@ TEST_CASE("Button class")
 		return false;
 	};
 
-	App::Widget::Button btn1{ui, label1, size1, callback1};
+	Core::Widget::Button btn1{ui, label1, size1, callback1};
 
 	REQUIRE(btn1.get_label() == label1);
 	REQUIRE(btn1.get_size().x == size1.x);

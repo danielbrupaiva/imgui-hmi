@@ -11,7 +11,7 @@
 #include "logger.hpp"
 #include "base_widget.hpp"
 
-namespace App::Widget
+namespace Core::Widget
 {
 class Image: public BaseWidget
 {

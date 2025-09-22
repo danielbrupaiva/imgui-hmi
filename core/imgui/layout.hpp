@@ -2,7 +2,7 @@
 
 #include "imgui.h"
 
-namespace App
+namespace Core
 {
 struct ILayout{
 	enum class Gravity

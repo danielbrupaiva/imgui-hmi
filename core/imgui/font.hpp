@@ -3,7 +3,7 @@
 // Embedded font
 #include "../resources/fonts/Roboto-Regular.embed"
 
-namespace App::Font
+namespace Core::Font
 {
 enum class Size
 {

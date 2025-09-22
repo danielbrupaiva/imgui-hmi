@@ -1,9 +1,9 @@
 #pragma once
 
 #include <functional>
-#include "wrapper.hpp"
+#include "widgets/wrapper.hpp"
 
-namespace App
+namespace Core
 {
 struct IMGUI
 {

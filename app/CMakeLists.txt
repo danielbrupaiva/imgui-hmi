@@ -19,23 +19,7 @@ message("${BoldGreen}-- ${PROJECT_NAME} BUILD ${ColourReset}")
 add_executable(${PROJECT_NAME}
         main.cpp
         globals.hpp
-        backend/glfw.hpp
-        backend/glfw.cpp
-        imgui/IMGUI.hpp
-        imgui/IMGUImpl.hpp
-        imgui/spec.hpp
-        imgui/font.hpp
-        imgui/style_color.hpp
-        imgui/layout.hpp
-        widgets/widgets_impl.hpp
-        widgets/base_widget.hpp
-        widgets/image.hpp
-        widgets/button.hpp
-        widgets/image_button.hpp
-        widgets/text_view.hpp
-        widgets/input_text.hpp
         screens/screen_manager.hpp
-        screens/i_screen.hpp
         screens/screen_1.hpp
         screens/screen_2.hpp
         screens/screen_3.hpp
@@ -45,10 +29,7 @@ add_executable(${PROJECT_NAME}
 #---------------------
 include_directories(
         $ENV{APP_FOLDER}
-        $ENV{APP_FOLDER}/backend
-        $ENV{APP_FOLDER}/widgets
         $ENV{APP_FOLDER}/screens
-        $ENV{APP_FOLDER}/imgui
 )
 #---------------------
 include(core)
