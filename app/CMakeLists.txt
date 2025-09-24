@@ -5,8 +5,10 @@ if (CMAKE_BINARY_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
 endif ()
 #---------------------
 set(PROJECT_NAME imgui-hmi)
+project(${PROJECT_NAME} LANGUAGES CXX)
+#---------------------
 set(CMAKE_CXX_STANDARD 20)
-project(${PROJECT_NAME} C CXX)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 #---------------------
 # define C/CXX flags
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
@@ -36,3 +38,27 @@ include(core)
 #---------------------
 # TODO: add compile option at cmake option during compilation (the hash bellow is a dev hash key only)
 add_compile_definitions(HASH="5fe11e9cfd6b6d1013865f687d0891bac8083ddfcdb83a5fcad89c2ed67b555e")
+
+#---------------------
+message("${BoldGreen}-- Copy external resources to build folder ${ColourReset}")
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/resources/images/logo.png
+    ${CMAKE_CURRENT_SOURCE_DIR}/resources/images/morpheus.jpg
+    ${CMAKE_CURRENT_SOURCE_DIR}/resources/images/tux.png
+    ${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/profile.png
+    ${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/restricted_person.png
+    ${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/verify_person.png
+    ${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/maintenance_person.png
+    ${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/add_person.png
+    ${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/delete_person.png
+    ${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/view.png
+    ${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/hidden.png
+    ${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/login.png
+    ${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/logout.png
+    ${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/hammer.png
+    ${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/hammer_cristal.png
+    ${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/hammer_red.png
+    ${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/close_reject.png
+    ${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/warning.png
+    ${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/danger.png
+    DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/resources)
+#---------------------

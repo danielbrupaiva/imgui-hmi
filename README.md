@@ -39,10 +39,10 @@ Open source Graphical User Interface in C++ using Dear ImGui Framework
   </td>
   <tr>
     <td style="text-align:center;">      
-      <img src="./resources/raspberry.png" width="400">
+      <img src="app/resources/raspberry.png" width="400">
     </td>
     <td style="text-align:center;">      
-      <img src="./resources/beagleplay.png" width="300" >
+      <img src="app/resources/beagleplay.png" width="300" >
     </td>
   </tr>
 
@@ -50,7 +50,7 @@ Open source Graphical User Interface in C++ using Dear ImGui Framework
 
 ## [Package Management](https://decovar.dev/blog/2021/03/08/cmake-cpp-library/)
 
-![cmake_lib.png](resources/cmake_lib.png)
+![cmake_lib.png](app/resources/cmake_lib.png)
 
 - CMake -> FetchContent (~package manager)
 - https://cmake.org/cmake/help/latest/module/FetchContent.html

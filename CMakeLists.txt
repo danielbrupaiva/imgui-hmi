@@ -18,27 +18,3 @@ if(NOT DEFINED CROSS_COMPILER OR "${CROSS_COMPILER}" STREQUAL "OFF")
     enable_testing()
     add_subdirectory(tests)
 endif()
-
-#---------------------
-message("${BoldGreen}-- Copy external resources to build folder ${ColourReset}")
-file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/resources/images/logo.png
-        ${CMAKE_CURRENT_SOURCE_DIR}/resources/images/morpheus.jpg
-        ${CMAKE_CURRENT_SOURCE_DIR}/resources/images/tux.png
-        ${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/profile.png
-        ${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/restricted_person.png
-        ${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/verify_person.png
-        ${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/maintenance_person.png
-        ${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/add_person.png
-        ${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/delete_person.png
-        ${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/view.png
-        ${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/hidden.png
-        ${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/login.png
-        ${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/logout.png
-        ${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/hammer.png
-        ${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/hammer_cristal.png
-        ${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/hammer_red.png
-        ${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/close_reject.png
-        ${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/warning.png
-        ${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/danger.png
-        DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/app/resources)
-#---------------------

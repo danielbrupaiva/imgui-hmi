@@ -35,7 +35,7 @@ Menuconfig
 
     $ make -j$(nproc) ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- menuconfig
 
-![menuconfig_rt.png](../resources/menuconfig_rt.png)
+![menuconfig_rt.png](../app/resources/menuconfig_rt.png)
 
 Build
 

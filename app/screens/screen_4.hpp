@@ -1,8 +1,8 @@
 #pragma once
 
-#include "i_screen.hpp"
 #include "logger.hpp"
-#include "../imgui/layout.hpp"
+#include "application/i_screen.hpp"
+#include "application/layout.hpp"
 
 using namespace Core;
 

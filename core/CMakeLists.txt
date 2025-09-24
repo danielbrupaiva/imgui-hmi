@@ -14,14 +14,16 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 #---------------------
 set(SOURCES
         ${CMAKE_CURRENT_SOURCE_DIR}/core.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/backend/glfw.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/application/glfw/glfw.cpp
 )
 #---------------------
 include_directories(
         ${CMAKE_CURRENT_SOURCE_DIR}
         ${CMAKE_CURRENT_SOURCE_DIR}/backend
         ${CMAKE_CURRENT_SOURCE_DIR}/database
-        ${CMAKE_CURRENT_SOURCE_DIR}/imgui
+        ${CMAKE_CURRENT_SOURCE_DIR}/application
+        ${CMAKE_CURRENT_SOURCE_DIR}/application/glfw
+        ${CMAKE_CURRENT_SOURCE_DIR}/application/imgui
         ${CMAKE_CURRENT_SOURCE_DIR}/network
         ${CMAKE_CURRENT_SOURCE_DIR}/patterns
         ${CMAKE_CURRENT_SOURCE_DIR}/utils
@@ -34,17 +36,23 @@ add_library(${PROJECT_NAME} STATIC
 target_sources(${PROJECT_NAME} PRIVATE ${SOURCES})
 target_include_directories(${PROJECT_NAME} PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}
-        ${CMAKE_CURRENT_SOURCE_DIR}/backend
+        ${CMAKE_CURRENT_SOURCE_DIR}/application
+        ${CMAKE_CURRENT_SOURCE_DIR}/application/glfw
+        ${CMAKE_CURRENT_SOURCE_DIR}/application/imgui
         ${CMAKE_CURRENT_SOURCE_DIR}/database
-        ${CMAKE_CURRENT_SOURCE_DIR}/imgui
         ${CMAKE_CURRENT_SOURCE_DIR}/network
         ${CMAKE_CURRENT_SOURCE_DIR}/patterns
         ${CMAKE_CURRENT_SOURCE_DIR}/utils
 )
 #---------------------
-include(spdlog)
+
 include(IMGUI)
-include(stb)
+
+find_package(spdlog REQUIRED)
+target_link_libraries(${PROJECT_NAME} PUBLIC spdlog::spdlog)
+
+find_package(SQLite3 REQUIRED)
+target_link_libraries(${PROJECT_NAME} PUBLIC SQLite::SQLite3)
+
 include(bcrypt)
-include(sqlite3)
 #---------------------

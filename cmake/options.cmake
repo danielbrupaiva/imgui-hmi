@@ -28,7 +28,7 @@ message("${BoldYellow}-- Core folder: $ENV{CORE_FOLDER}${ColourReset}")
 set(ENV{VENDOR_FOLDER} ${CMAKE_CURRENT_SOURCE_DIR}/vendor)
 message("${BoldYellow}-- Vendor folder: $ENV{VENDOR_FOLDER}${ColourReset}")
 #---------------------
-set(ENV{RESOURCES_FOLDER} ${CMAKE_CURRENT_SOURCE_DIR}/resources)
+set(ENV{RESOURCES_FOLDER} ${CMAKE_CURRENT_SOURCE_DIR}/app/resources)
 message("${BoldYellow}-- Resources folder: $ENV{RESOURCES_FOLDER}${ColourReset}")
 #---------------------
 option(CROSS_COMPILER "CROSS COMPILER" OFF)

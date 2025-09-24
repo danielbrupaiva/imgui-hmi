@@ -4,9 +4,9 @@
 #include "utils/math.hpp"
 #include "utils/uuid.hpp"
 
-#include "backend/glfw.hpp"
+#include "glfw.hpp"
 
-#include "imgui/IMGUImpl.hpp"
+#include "IMGUImpl.hpp"
 
 #include "database/spec.hpp"
 #include "database/database.hpp"
