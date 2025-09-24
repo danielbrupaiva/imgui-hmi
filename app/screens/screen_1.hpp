@@ -1,7 +1,7 @@
 #pragma once
 
-#include "application/i_screen.hpp"
-#include "application/style_color.hpp"
+#include "i_screen.hpp"
+#include "style_color.hpp"
 #include "logger.hpp"
 
 using namespace Core;

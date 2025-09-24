@@ -1,8 +1,8 @@
 #pragma once
 
 #include "logger.hpp"
-#include "application/i_screen.hpp"
-#include "application/layout.hpp"
+#include "i_screen.hpp"
+#include "layout.hpp"
 
 using namespace Core;
 

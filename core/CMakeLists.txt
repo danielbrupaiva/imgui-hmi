@@ -14,16 +14,15 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 #---------------------
 set(SOURCES
         ${CMAKE_CURRENT_SOURCE_DIR}/core.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/application/glfw/glfw.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/app/glfw/glfw.cpp
 )
 #---------------------
 include_directories(
         ${CMAKE_CURRENT_SOURCE_DIR}
         ${CMAKE_CURRENT_SOURCE_DIR}/backend
         ${CMAKE_CURRENT_SOURCE_DIR}/database
-        ${CMAKE_CURRENT_SOURCE_DIR}/application
-        ${CMAKE_CURRENT_SOURCE_DIR}/application/glfw
-        ${CMAKE_CURRENT_SOURCE_DIR}/application/imgui
+        ${CMAKE_CURRENT_SOURCE_DIR}/app
+        ${CMAKE_CURRENT_SOURCE_DIR}/app/glfw
         ${CMAKE_CURRENT_SOURCE_DIR}/network
         ${CMAKE_CURRENT_SOURCE_DIR}/patterns
         ${CMAKE_CURRENT_SOURCE_DIR}/utils
@@ -36,9 +35,8 @@ add_library(${PROJECT_NAME} STATIC
 target_sources(${PROJECT_NAME} PRIVATE ${SOURCES})
 target_include_directories(${PROJECT_NAME} PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}
-        ${CMAKE_CURRENT_SOURCE_DIR}/application
-        ${CMAKE_CURRENT_SOURCE_DIR}/application/glfw
-        ${CMAKE_CURRENT_SOURCE_DIR}/application/imgui
+        ${CMAKE_CURRENT_SOURCE_DIR}/app
+        ${CMAKE_CURRENT_SOURCE_DIR}/app/glfw
         ${CMAKE_CURRENT_SOURCE_DIR}/database
         ${CMAKE_CURRENT_SOURCE_DIR}/network
         ${CMAKE_CURRENT_SOURCE_DIR}/patterns
