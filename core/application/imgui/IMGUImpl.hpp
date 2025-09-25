@@ -180,7 +180,7 @@ private:
 	{
 		// Setup Platform/Renderer backends
 		ImGui_ImplGlfw_InitForOpenGL(get_glfw_window_from_api(), true);
-		ImGui_ImplOpenGL3_Init(Core::Application::GLSL_VERSION["3.30"].c_str());
+//		ImGui_ImplOpenGL3_Init(Core::Application::GLSL_VERSION["3.30"].c_str());
 		return true;
 	};
 
