@@ -2,6 +2,8 @@
 
 #include <memory>
 
+#include "logger.hpp"
+
 // Macro to disable copy and move semantics for a class
 #define DISABLE_COPY_AND_MOVE(ClassName)         \
     ClassName(const ClassName&) = delete;        \

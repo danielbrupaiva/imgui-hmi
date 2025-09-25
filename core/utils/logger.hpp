@@ -10,16 +10,13 @@
 
 #define PRINT(x) std::cout << x << std::endl;
 
-namespace Core
-{
-class Logger: public std::enable_shared_from_this<Logger>
-{
-	std::string m_logger_name;
-	std::string m_filename;
-	std::shared_ptr<spdlog::logger> m_logger;
-	spdlog::level::level_enum m_log_level;
-
+namespace Core {
+class Logger {
 public:
+    ~Logger() {
+        spdlog::drop_all();
+    };
+
 	explicit Logger(const std::string_view _logger_name, spdlog::level::level_enum _log_level = spdlog::level::info)
 		: m_logger_name{_logger_name}, m_log_level{_log_level}
 	{
@@ -38,56 +35,41 @@ public:
 		m_logger->set_level(m_log_level);
 	};
 
-	~Logger()
-	{
-		spdlog::drop_all();
-	};
 
-	static std::shared_ptr<Logger>
-	create(const std::string_view _logger_name, spdlog::level::level_enum _log_level)
-	{
-		return std::make_shared<Logger>(_logger_name, _log_level);
-	};
 
-	static std::shared_ptr<Logger> create(const std::string_view _logger_name, const std::string_view _filename,
-										  spdlog::level::level_enum _log_level)
-	{
-		return std::make_shared<Logger>(_logger_name, _filename, _log_level);
-	};
+	inline void set_log_level(spdlog::level::level_enum _level) { m_logger->set_level(_level); };
 
-	std::shared_ptr<Logger> get()
-	{
-		return shared_from_this();
-	};
-
-	inline void set_log_level(spdlog::level::level_enum _level)
-	{ m_logger->set_level(_level); };
 	/* Logger message*/
 	template<typename... Args>
 	inline void trace(spdlog::format_string_t<Args...> fmt, Args &&...args)
 	{
 		m_logger->trace(fmt, std::forward<Args>(args)...);
 	};
+
 	template<typename... Args>
 	inline void debug(spdlog::format_string_t<Args...> fmt, Args &&...args)
 	{
 		m_logger->debug(fmt, std::forward<Args>(args)...);
 	};
+
 	template<typename... Args>
 	inline void info(spdlog::format_string_t<Args...> fmt, Args &&...args)
 	{
 		m_logger->info(fmt, std::forward<Args>(args)...);
 	};
+
 	template<typename... Args>
 	inline void warn(spdlog::format_string_t<Args...> fmt, Args &&...args)
 	{
 		m_logger->warn(fmt, std::forward<Args>(args)...);
 	};
+
 	template<typename... Args>
 	inline void error(spdlog::format_string_t<Args...> fmt, Args &&...args)
 	{
 		m_logger->error(fmt, std::forward<Args>(args)...);
 	};
+
 	template<typename... Args>
 	inline void critical(spdlog::format_string_t<Args...> fmt, Args &&...args)
 	{
@@ -95,15 +77,17 @@ public:
 	};
 
 	/* Getters and Setters */
-	inline std::string get_logger_name() const
-	{ return m_logger_name; }
-	inline void set_logger_name(std::string_view _logger_name)
-	{ m_logger_name = _logger_name; };
-	inline std::string get_filename() const
-	{ return m_filename; }
-	inline void set_filename(std::string_view _filename)
-	{ m_filename = _filename; };
+	inline std::string get_logger_name() const { return m_logger_name; }
+	inline void set_logger_name(std::string_view _logger_name) { m_logger_name = _logger_name; };
+	inline std::string get_filename() const { return m_filename; }
+	inline void set_filename(std::string_view _filename) { m_filename = _filename; };
+
+private:
+    std::string m_logger_name;
+    std::string m_filename;
+    std::shared_ptr<spdlog::logger> m_logger;
+    spdlog::level::level_enum m_log_level;
 };
 };//Core namespace
 
-inline Core::Logger logger{"App", spdlog::level::debug};
+static Core::Logger logger{"App", spdlog::level::debug};

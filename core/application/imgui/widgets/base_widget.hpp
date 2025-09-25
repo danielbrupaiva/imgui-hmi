@@ -1,7 +1,7 @@
 #pragma once
 
-#include "IMGUI.hpp"
-#include "style_color.hpp"
+#include "application/imgui/IMGUI.hpp"
+#include "application/imgui/style_color.hpp"
 #include "logger.hpp"
 #include <algorithm>
 

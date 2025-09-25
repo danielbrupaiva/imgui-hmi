@@ -13,7 +13,7 @@
 #include <atomic>
 #include <algorithm>
 
-#include "IEventPublisher.h"
+#include "IEventPublisher.hpp"
 
 namespace Core {
 

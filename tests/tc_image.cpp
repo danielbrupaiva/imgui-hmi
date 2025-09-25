@@ -3,7 +3,7 @@
 
 using namespace fakeit;
 
-#include "IMGUI.hpp"
+#include "application/imgui/IMGUI.hpp"
 #include "widgets/image.hpp"
 
 CATCH_REGISTER_ENUM(Core::Widget::Image::Format,

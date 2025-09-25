@@ -1,6 +1,6 @@
 #pragma once
 
-#include "i_screen.hpp"
+#include "application/imgui/screen.hpp"
 
 using namespace Core;
 

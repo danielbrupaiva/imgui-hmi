@@ -14,7 +14,6 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 #---------------------
 set(SOURCES
         ${CMAKE_CURRENT_SOURCE_DIR}/core.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/application/glfw/glfw.cpp
 )
 #---------------------
 include_directories(
@@ -23,7 +22,7 @@ include_directories(
         ${CMAKE_CURRENT_SOURCE_DIR}/database
         ${CMAKE_CURRENT_SOURCE_DIR}/application
         ${CMAKE_CURRENT_SOURCE_DIR}/application/glfw
-        ${CMAKE_CURRENT_SOURCE_DIR}/application/widgets
+        application/imgui/widgets
         ${CMAKE_CURRENT_SOURCE_DIR}/network
         ${CMAKE_CURRENT_SOURCE_DIR}/patterns
         ${CMAKE_CURRENT_SOURCE_DIR}/utils
@@ -38,7 +37,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}
         ${CMAKE_CURRENT_SOURCE_DIR}/application
         ${CMAKE_CURRENT_SOURCE_DIR}/application/glfw
-        ${CMAKE_CURRENT_SOURCE_DIR}/application/widgets
+        application/imgui/widgets
         ${CMAKE_CURRENT_SOURCE_DIR}/database
         ${CMAKE_CURRENT_SOURCE_DIR}/network
         ${CMAKE_CURRENT_SOURCE_DIR}/patterns
@@ -48,6 +47,12 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 
 include(IMGUI)
 
+find_package(glad)
+target_link_libraries(${PROJECT_NAME} PUBLIC glad::glad)
+
+find_package(glm)
+target_link_libraries(${PROJECT_NAME} PUBLIC glm::glm)
+
 find_package(spdlog REQUIRED)
 target_link_libraries(${PROJECT_NAME} PUBLIC spdlog::spdlog)
 
@@ -55,4 +60,6 @@ find_package(SQLite3 REQUIRED)
 target_link_libraries(${PROJECT_NAME} PUBLIC SQLite::SQLite3)
 
 include(bcrypt)
+#find_package(libxcrypt REQUIRED)
+#target_link_libraries(${PROJECT_NAME} PUBLIC  libxcrypt::libxcrypt)
 #---------------------

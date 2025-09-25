@@ -4,7 +4,7 @@
 #include <memory>
 
 #include "logger.hpp"
-#include "IMGUImpl.hpp"
+#include "application/imgui/IMGUImpl.hpp"
 #include "screen_1.hpp"
 #include "screen_2.hpp"
 #include "screen_3.hpp"
@@ -30,11 +30,13 @@ public:
 		: m_ui(ui), m_current_state(initial_state)
 	{
 		m_screens.reserve(NUM_SCREENS);
-		m_screens.emplace_back(std::make_unique<App::Screen1>(m_ui, "Screen1", m_ui.get_spec().window_size));
-		m_screens.emplace_back(std::make_unique<App::Screen2>(m_ui, "Screen2", m_ui.get_spec().window_size));
-		m_screens.emplace_back(std::make_unique<App::Screen3>(m_ui, "Screen3", m_ui.get_spec().window_size));
-		m_screens.emplace_back(std::make_unique<App::Screen4>(m_ui, "Screen4", m_ui.get_spec().window_size));
-		m_screens.emplace_back(std::make_unique<App::Screen5>(m_ui, "Screen5", m_ui.get_spec().window_size));
+
+        ImVec2 size{static_cast<float>(m_ui.get_spec().width), static_cast<float>(m_ui.get_spec().height)};
+		m_screens.emplace_back(std::make_unique<App::Screen1>(m_ui, "Screen1", size));
+		m_screens.emplace_back(std::make_unique<App::Screen2>(m_ui, "Screen2", size));
+		m_screens.emplace_back(std::make_unique<App::Screen3>(m_ui, "Screen3", size));
+		m_screens.emplace_back(std::make_unique<App::Screen4>(m_ui, "Screen4", size));
+		m_screens.emplace_back(std::make_unique<App::Screen5>(m_ui, "Screen5", size));
 	};
 
 	void render()

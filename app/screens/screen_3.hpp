@@ -1,6 +1,6 @@
 #pragma once
 
-#include "i_screen.hpp"
+#include "application/imgui/screen.hpp"
 #include "logger.hpp"
 
 using namespace Core;

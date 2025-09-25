@@ -1,7 +1,7 @@
 #pragma once
 //https://github.com/ocornut/imgui/wiki/Image-Loading-and-Displaying-Examples#example-for-opengl-users
 #include <filesystem>
-#include "glfw.hpp"
+#include "glfw_window.hpp"
 #ifndef STB_IMAGE_IMPLEMENTATION
 #define STB_IMAGE_STATIC
 #define STB_IMAGE_IMPLEMENTATION

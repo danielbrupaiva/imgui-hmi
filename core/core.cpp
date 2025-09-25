@@ -1,12 +1,11 @@
 #include "core.hpp"
 
-#include "utils/logger.hpp"
 #include "utils/math.hpp"
 #include "utils/uuid.hpp"
 
-#include "glfw.hpp"
+#include "glfw_window.hpp"
 
-#include "IMGUImpl.hpp"
+#include "application/imgui/IMGUImpl.hpp"
 
 #include "database/spec.hpp"
 #include "database/database.hpp"
