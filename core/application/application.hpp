@@ -73,7 +73,7 @@ public:
     };
 
 //    virtual void OnEvent(EventType& event) {};
-    virtual void OnUpdate(double ts) {};
+    virtual void OnUpdate(double deltaTime_ms) {};
     virtual void OnRender() {};
 
     template<typename TLayer>

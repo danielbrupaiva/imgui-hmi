@@ -66,8 +66,8 @@ public:
         Destroy();
     };
 
-    explicit GLFW(const WindowSpecification& specification = WindowSpecification())
-        : m_handle{nullptr}, m_specification{specification} {
+    explicit GLFW(WindowSpecification specification = WindowSpecification())
+        : m_handle{nullptr}, m_specification{std::move(specification)} {
     }
 
     DISABLE_COPY_AND_MOVE(GLFW);
