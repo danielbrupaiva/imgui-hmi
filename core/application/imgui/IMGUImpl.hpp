@@ -230,18 +230,22 @@ inline void IMGUImpl::render(const std::function<void()> &render)
 	//    ImGui::SetNextWindowPos(m_entire_viewport ? viewport->WorkPos : viewport->Pos);
 	//    ImGui::SetNextWindowSize(m_entire_viewport ? viewport->WorkSize : viewport->Size);
 	// Hardcoded position and window size
-	ImGui::SetNextWindowPos(m_position);
-	ImGui::SetNextWindowSize({static_cast<float>(m_spec.width), static_cast<float>(m_spec.height)}, ImGuiCond_Always);
+    // Rendering
+    ImGui::SetNextWindowPos(m_position);
+    ImGui::SetNextWindowSize(m_spec.WindowSize(), ImGuiCond_Always);
 
-	if (ImGui::Begin("MAIN", m_open.get(), m_flags)) {
-		render();
-	}
-	ImGui::End();
-	// Rendering
+    if (ImGui::Begin("MAIN", m_open.get(), m_flags)) {
+        render();
+    }
+    ImGui::End();
+
 	ImGui::Render();
+
 	int32_t display_w, display_h;
 	glfwGetFramebufferSize(get_glfw_window_from_api(), &display_w, &display_h);
+
 	glViewport(0, 0, display_w, display_h);
+
     ImVec4 bg_color = ImVec4(0.0f, 0.0f, 0.0f, 1.0f),
 	glClearColor(bg_color.x * bg_color.w,
 	             bg_color.y * bg_color.w,
@@ -249,7 +253,9 @@ inline void IMGUImpl::render(const std::function<void()> &render)
 	             bg_color.w);
 
 	glClear(GL_COLOR_BUFFER_BIT);
+
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-	glfwSwapBuffers(get_glfw_window_from_api());
+
+    glfwSwapBuffers(get_glfw_window_from_api());
 };
 }

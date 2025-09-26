@@ -54,21 +54,39 @@ public:
     }
 
     void OnUpdate(double deltaTime_ms) override {
-//        logger.debug("ImGuiLayer updated: {} ms -> {} Hz", deltaTime_ms * 1000.0, 1 / deltaTime_ms);
+//        logger.trace("ImGuiLayer updated: {} ms -> {} Hz", deltaTime_ms * 1000.0, 1 / deltaTime_ms);
     }
 
     void OnRender() override {
-//        logger.debug("ImGuiLayer rendered");
+        logger.trace("ImGuiLayer rendered");
+        Begin();
+
+        End();
     };
 
     void Begin() {
-        logger.debug("ImGuiLayer Begin");
+        logger.trace("ImGuiLayer Begin");
+        ImGui_ImplOpenGL3_NewFrame();
+        ImGui_ImplGlfw_NewFrame();
+        ImGui::NewFrame();
+
+        ImGui::SetNextWindowPos({0,0});
+        ImGui::SetNextWindowSize(m_app.GetSpecification().window_spec.WindowSize(), ImGuiCond_Always);
+        ImGui::Begin("MAIN", nullptr, m_flags);
     }
 
     void End() {
-        logger.debug("ImGuiLayer End");
+        logger.trace("ImGuiLayer End");
+        ImGui::End();
+        ImGui::Render();
+        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
     }
 private:
     OpenGLApplication& m_app;
+    ImGuiWindowFlags m_flags = ImGuiWindowFlags_NoDecoration
+                                | ImGuiWindowFlags_NoCollapse
+                                | ImGuiWindowFlags_NoMove
+                                | ImGuiWindowFlags_NoBringToFrontOnFocus;
+                        //		| ImGuiWindowFlags_NoBackground;
 };
 }

@@ -7,6 +7,7 @@
 
 #include "glfw_error_handler.hpp"
 #include "glfw_window_hint.hpp"
+#include "imgui.h"
 
 //https://www.glfw.org/documentation.html
 //https://www.glfw.org/docs/latest/window_guide.html
@@ -43,6 +44,8 @@ struct WindowSpecification {
     bool fullscreen = false;
     bool is_resizeable = true;
     bool vsync = true;
+
+    [[nodiscard]] ImVec2 WindowSize() const { return ImVec2(static_cast<float>(width), static_cast<float>(height)); }
 };
 
 class IWindow : public std::enable_shared_from_this<IWindow> {
@@ -100,10 +103,10 @@ public:
 
     bool Init() final {
 
-        m_handler = glfwCreateWindow(m_specification.width,
-                                     m_specification.height,
+        m_handler = glfwCreateWindow(static_cast<int32_t>(m_specification.WindowSize().x),
+                                     static_cast<int32_t>(m_specification.WindowSize().y),
                                      m_specification.title.c_str(),
-                                    m_specification.fullscreen ? glfwGetPrimaryMonitor() : nullptr,
+                                     m_specification.fullscreen ? glfwGetPrimaryMonitor() : nullptr,
                                      nullptr);
 
         if (nullptr == m_handler) { throw Error("GLFW window not created"); }
