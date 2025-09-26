@@ -4,7 +4,7 @@
 #include "button.hpp"
 #include "image.hpp"
 
-namespace Core::Widget
+namespace Core::Application::ImGuiImpl::Widget
 {
 class ImageButton: public Button
 {

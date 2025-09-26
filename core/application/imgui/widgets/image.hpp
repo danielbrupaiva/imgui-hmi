@@ -11,7 +11,7 @@
 #include "logger.hpp"
 #include "base_widget.hpp"
 
-namespace Core::Widget
+namespace Core::Application::ImGuiImpl::Widget
 {
 class Image: public BaseWidget
 {

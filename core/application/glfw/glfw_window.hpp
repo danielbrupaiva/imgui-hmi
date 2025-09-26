@@ -58,54 +58,57 @@ public:
     virtual glm::vec2 GetFramebufferSize() = 0;
 
     std::shared_ptr<IWindow> Get() { return shared_from_this(); }
+
+    virtual void* Handler() = 0;
 };
 
 class GLFW : public IWindow {
 public:
 	~GLFW() {
         Destroy();
+        logger.debug("GLFW destroyed");
     };
 
     explicit GLFW(WindowSpecification specification = WindowSpecification())
-        : m_handle{nullptr}, m_specification{std::move(specification)} {
+        : m_handler{nullptr}, m_specification{std::move(specification)} {
     }
 
     DISABLE_COPY_AND_MOVE(GLFW);
 
 	[[nodiscard]] inline GLFWwindow* get_window() const
-	{ return m_handle; }
+	{ return m_handler; }
 
     void Destroy() final {
-        if (m_handle) {
-            glfwDestroyWindow(m_handle);
+        if (m_handler) {
+            glfwDestroyWindow(m_handler);
+            logger.debug("GLFW window destroyed");
+            m_handler = nullptr;
         }
-        m_handle = nullptr;
-        logger.debug("GLFW window destroyed");
     }
 
     void Update() final {
-        glfwSwapBuffers(m_handle);
+        glfwSwapBuffers(m_handler);
     }
 
     [[nodiscard]] bool ShouldClose() const final {
-        return glfwWindowShouldClose(m_handle) != 0;
+        return glfwWindowShouldClose(m_handler) != 0;
     }
 
     void Close() final {
-        glfwSetWindowShouldClose(m_handle, GLFW_TRUE);
+        glfwSetWindowShouldClose(m_handler, GLFW_TRUE);
     };
 
     bool Init() final {
 
-        m_handle = glfwCreateWindow(m_specification.width,
-                                    m_specification.height,
-                                    m_specification.title.c_str(),
+        m_handler = glfwCreateWindow(m_specification.width,
+                                     m_specification.height,
+                                     m_specification.title.c_str(),
                                     m_specification.fullscreen ? glfwGetPrimaryMonitor() : nullptr,
-                                    nullptr);
+                                     nullptr);
 
-        if (nullptr == m_handle) { throw Error("GLFW window not created"); }
+        if (nullptr == m_handler) { throw Error("GLFW window not created"); }
 
-        glfwMakeContextCurrent(m_handle);
+        glfwMakeContextCurrent(m_handler);
 
         glfwSwapInterval(m_specification.vsync ? 1 : 0); // Enable vsync
 
@@ -114,7 +117,7 @@ public:
 
     glm::vec2 GetFramebufferSize() override {
         int width, height;
-        glfwGetFramebufferSize(m_handle, &width, &height);
+        glfwGetFramebufferSize(m_handler, &width, &height);
         return { width, height };
     };
 
@@ -122,11 +125,14 @@ public:
 
     static std::shared_ptr<IWindow> Create(const WindowSpecification& specification = WindowSpecification()) {
         return std::make_shared<GLFW>(specification);
-    };
+    }
+
+    void *Handler() override {
+        return m_handler;
+    }
 
 private:
-
-    GLFWwindow* m_handle;
+    GLFWwindow* m_handler;
     WindowSpecification m_specification;
 };
 }

@@ -3,7 +3,7 @@
 #include "core.hpp"
 #include "application.hpp"
 
-class ImGuiHMI : public Core::Application::OpenGLApplication {
+class ImGuiHMI : public Core::Application::OpenGLApplication, public std::enable_shared_from_this<ImGuiHMI> {
 public:
     ~ImGuiHMI() = default;
     explicit ImGuiHMI(const Core::Application::ApplicationSpecification& specification = Core::Application::ApplicationSpecification())
@@ -26,4 +26,10 @@ public:
     void OnRender() override {
         OpenGLApplication::OnRender();
     }
+
+    static std::shared_ptr<ImGuiHMI> CreateApplication(const Core::Application::ApplicationSpecification& specification = Core::Application::ApplicationSpecification()) {
+        return std::make_shared<ImGuiHMI>(specification);
+    }
+
+    std::shared_ptr<ImGuiHMI> Get() {  return this->shared_from_this(); }
 };

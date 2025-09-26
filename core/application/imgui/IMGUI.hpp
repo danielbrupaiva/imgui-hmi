@@ -3,7 +3,7 @@
 #include <functional>
 #include "widgets/wrapper.hpp"
 
-namespace Core
+namespace Core::Application::ImGuiImpl
 {
 struct IMGUI
 {

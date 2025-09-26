@@ -2,7 +2,7 @@
 
 #include "base_widget.hpp"
 
-namespace Core::Widget
+namespace Core::Application::ImGuiImpl::Widget
 {
 class TextView: public BaseWidget
 {

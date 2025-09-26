@@ -6,7 +6,7 @@
 
 struct ImVec2;
 
-namespace Core  ::Widget
+namespace Core::Application::ImGuiImpl::Widget
 {
 class Button: public BaseWidget
 {

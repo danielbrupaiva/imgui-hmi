@@ -5,7 +5,7 @@
 #include "logger.hpp"
 #include <algorithm>
 
-namespace Core::Widget
+namespace Core::Application::ImGuiImpl::Widget
 {
 class BaseWidget
 {

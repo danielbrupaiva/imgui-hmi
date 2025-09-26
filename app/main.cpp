@@ -1,5 +1,5 @@
 #include "ImGuiHMI.hpp"
-#include "imgui/ImGuiLayer.hpp"
+#include "imgui/layer.hpp"
 
 int main() {
 
@@ -13,8 +13,9 @@ int main() {
     spec.glfw_window_hints.scaleToMonitor = true;
     spec.glfw_window_hints.decorated = true;
 
-    ImGuiHMI app{spec};
-    app.PushLayer<Core::Application::ImGuiLayer>();
+
+    ImGuiHMI app(spec);
+    app.PushLayer<Core::Application::ImGuiImpl::Layer>(app);
     app.Run();
 
 	return EXIT_SUCCESS;

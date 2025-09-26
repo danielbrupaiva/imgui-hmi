@@ -1,6 +1,11 @@
 #pragma once
 
+#include "application.hpp"
+
 namespace Core::Application {
+
+class OpenGLApplication;
+
 class ILayer {
 public:
     virtual ~ILayer() = default;

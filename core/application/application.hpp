@@ -17,12 +17,12 @@ struct ApplicationSpecification {
     std::string gl_shader_version = Core::Application::GLSL_VERSION["3.30"];
 };
 
-class OpenGLApplication : public std::enable_shared_from_this<OpenGLApplication> {
+class OpenGLApplication {
 public:
     ~OpenGLApplication() {
         m_window->Destroy();
         glfwTerminate();
-        logger.debug("GLFW terminated");
+        logger.debug("OpenGLApplication destroyed");
     };
 
     explicit OpenGLApplication(const ApplicationSpecification& specification = ApplicationSpecification())
@@ -35,9 +35,7 @@ public:
 
     virtual void Run() {
         isRunning = true;
-        logger.debug("Application started");
-
-        m_window->Init();
+        logger.debug("OpenGLApplication started");
 
         auto lastTime = GetTimeSec();
 
@@ -69,7 +67,7 @@ public:
 
     virtual void Stop() {
         isRunning = false;
-        logger.debug("Application stopped");
+        logger.debug("OpenGLApplication stopped");
     };
 
 //    virtual void OnEvent(EventType& event) {};
@@ -78,17 +76,21 @@ public:
 
     template<typename TLayer>
     requires(std::is_base_of_v<ILayer, TLayer>)
-    void PushLayer() {
-        m_layerStack.emplace_back(std::make_unique<TLayer>());
+    void PushLayer(OpenGLApplication& app) {
+        m_layerStack.emplace_back(std::make_unique<TLayer>(app));
+        m_layerStack.back()->OnAttach();
     }
 
     static double GetTimeSec() { return glfwGetTime(); }
 
     [[nodiscard]] inline const ApplicationSpecification& GetSpecification() const { return m_specification; }
 
-    std::shared_ptr<OpenGLApplication> Get() {  return this->shared_from_this(); }
+    std::shared_ptr<IWindow> &GetWindow() {
+        return m_window;
+    }
 
 private:
+
     void SetupGraphicBackend(const GlfwWindowHints& hints = GlfwWindowHints()) {
         // Set error callback
         glfwSetErrorCallback(glfw_error_callback);
@@ -99,6 +101,7 @@ private:
         hints.apply();
         // Create Window
         m_window = GLFW::Create();
+        m_window->Init();
     }
 
 private:

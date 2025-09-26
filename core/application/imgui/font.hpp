@@ -1,10 +1,9 @@
 #pragma once
-#include "logger.hpp"
+#include "core.hpp"
 // Embedded font
 #include "../resources/fonts/Roboto-Regular.embed"
 
-namespace Core::Font
-{
+namespace Core::Application::ImGuiImpl::Font {
 enum class Size
 {
 	DEFAULT = 0, _22px, _24px, _36px, _48px, _60px, _72px
@@ -40,7 +39,7 @@ static void clean_font(const Font::Size &font_size)
 	ImGui::PopFont();
 }
 
-static void init(ImGuiIO &io)
+static void SetFonts(ImGuiIO& io)
 {
 	// Load default font
 	ImFontConfig fontConfig;
@@ -59,6 +58,7 @@ static void init(ImGuiIO &io)
 		io.Fonts->AddFontFromMemoryTTF((void *)g_RobotoRegular, sizeof(g_RobotoRegular), 72.0f, &fontConfig);
 
 	io.FontDefault = robotoFont22px;
+    logger.debug("ImGuiImpl: Fonts Default, 22px, 24px, 36px, 48px, 60px, 72px defined");
 }
 
 };

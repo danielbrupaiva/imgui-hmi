@@ -13,7 +13,7 @@
 #include "IMGUI.hpp"
 #include "widgets/widgets_impl.hpp"
 
-namespace Core
+namespace Core::Application::ImGuiImpl
 {
 class IMGUImpl: public IMGUI
 {
@@ -55,7 +55,7 @@ public:
 		return m_is_init;
 	}
 
-	[[nodiscard]] inline Core::Widget::Wrapper &widgets() override
+	[[nodiscard]] inline Core::Application::ImGuiImpl::Widget::Wrapper &widgets() override
 	{
 		return m_widgets;
 	}
@@ -81,7 +81,7 @@ private:
 
 		set_style();
 
-		Font::init(io);
+		Font::SetFonts(io);
 
 		IMGUImpl::setup_backend();
 
