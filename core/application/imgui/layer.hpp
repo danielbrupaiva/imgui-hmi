@@ -39,6 +39,12 @@ public:
         Font::SetFonts(io);
 
         auto window = static_cast<GLFWwindow *>(m_app.GetWindow()->Handler());
+        // In case of GLFW Window hint set to scale to monitor, we need to query the content scale
+        float xscale, yscale;
+        glfwGetWindowContentScale(window, &xscale, &yscale);
+        m_windowSize.x = m_app.GetSpecification().window_spec.WindowSize().x * xscale;
+        m_windowSize.y = m_app.GetSpecification().window_spec.WindowSize().y * yscale;
+
         // Setup Platform/Renderer backends
         ImGui_ImplGlfw_InitForOpenGL(window, true);
 		ImGui_ImplOpenGL3_Init(m_app.GetSpecification().gl_shader_version.c_str());
@@ -71,7 +77,7 @@ public:
         ImGui::NewFrame();
 
         ImGui::SetNextWindowPos({0,0});
-        ImGui::SetNextWindowSize(m_app.GetSpecification().window_spec.WindowSize(), ImGuiCond_Always);
+        ImGui::SetNextWindowSize(m_windowSize, ImGuiCond_Always);
         ImGui::Begin("MAIN", nullptr, m_flags);
     }
 
@@ -83,6 +89,7 @@ public:
     }
 private:
     OpenGLApplication& m_app;
+    ImVec2 m_windowSize;
     ImGuiWindowFlags m_flags = ImGuiWindowFlags_NoDecoration
                                 | ImGuiWindowFlags_NoCollapse
                                 | ImGuiWindowFlags_NoMove
