@@ -3,27 +3,27 @@
 #include "core.hpp"
 #include "application.hpp"
 
-class ImGuiHMI : public Core::Application::Application {
+class ImGuiHMI : public Core::Application::OpenGLApplication {
 public:
-    ~ImGuiHMI() override = default;
+    ~ImGuiHMI() = default;
     explicit ImGuiHMI(const Core::Application::ApplicationSpecification& specification = Core::Application::ApplicationSpecification())
-            : Application(specification) {
+            : OpenGLApplication(specification) {
         logger.debug("IMGUI HMI Application created");
     }
 
     void Run() override {
-        Application::Run();
+        OpenGLApplication::Run();
     }
 
     void Stop() override {
-        Application::Stop();
+        OpenGLApplication::Stop();
     }
 
-    void OnUpdate(float ts) override {
-        Application::OnUpdate(ts);
+    void OnUpdate(double ts) override {
+        OpenGLApplication::OnUpdate(ts);
     }
 
     void OnRender() override {
-        Application::OnRender();
+        OpenGLApplication::OnRender();
     }
 };
