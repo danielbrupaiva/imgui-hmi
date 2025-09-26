@@ -22,7 +22,8 @@ include_directories(
         ${CMAKE_CURRENT_SOURCE_DIR}/database
         ${CMAKE_CURRENT_SOURCE_DIR}/application
         ${CMAKE_CURRENT_SOURCE_DIR}/application/glfw
-        application/imgui/widgets
+        ${CMAKE_CURRENT_SOURCE_DIR}/application/imgui
+        ${CMAKE_CURRENT_SOURCE_DIR}/application/imgui/widgets
         ${CMAKE_CURRENT_SOURCE_DIR}/network
         ${CMAKE_CURRENT_SOURCE_DIR}/patterns
         ${CMAKE_CURRENT_SOURCE_DIR}/utils
@@ -37,7 +38,8 @@ target_include_directories(${PROJECT_NAME} PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}
         ${CMAKE_CURRENT_SOURCE_DIR}/application
         ${CMAKE_CURRENT_SOURCE_DIR}/application/glfw
-        application/imgui/widgets
+        ${CMAKE_CURRENT_SOURCE_DIR}/application/imgui
+        ${CMAKE_CURRENT_SOURCE_DIR}/application/imgui/widgets
         ${CMAKE_CURRENT_SOURCE_DIR}/database
         ${CMAKE_CURRENT_SOURCE_DIR}/network
         ${CMAKE_CURRENT_SOURCE_DIR}/patterns

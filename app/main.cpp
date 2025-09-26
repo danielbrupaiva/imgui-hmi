@@ -1,5 +1,5 @@
 #include "ImGuiHMI.hpp"
-#include <thread>
+#include "imgui/ImGuiLayer.hpp"
 
 int main() {
 
@@ -14,6 +14,7 @@ int main() {
     spec.glfw_window_hints.decorated = true;
 
     ImGuiHMI app{spec};
+    app.PushLayer<Core::Application::ImGuiLayer>();
     app.Run();
 
 	return EXIT_SUCCESS;

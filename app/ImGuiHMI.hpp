@@ -19,8 +19,8 @@ public:
         OpenGLApplication::Stop();
     }
 
-    void OnUpdate(double ts) override {
-        OpenGLApplication::OnUpdate(ts);
+    void OnUpdate(double deltaTime_ms) override {
+        OpenGLApplication::OnUpdate(deltaTime_ms);
     }
 
     void OnRender() override {
