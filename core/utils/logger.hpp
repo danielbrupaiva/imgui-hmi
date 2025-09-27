@@ -20,6 +20,11 @@ public:
 	explicit Logger(const std::string_view _logger_name, spdlog::level::level_enum _log_level = spdlog::level::info)
 		: m_logger_name{_logger_name}, m_log_level{_log_level}
 	{
+        auto logger = spdlog::get(m_logger_name);
+        if(logger) {
+            m_logger = logger;
+            return;
+        }
 		m_logger = spdlog::stdout_color_mt(m_logger_name);
 		m_logger->set_level(m_log_level);
 	};
