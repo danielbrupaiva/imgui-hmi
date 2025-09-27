@@ -17,7 +17,7 @@ namespace Core::Application::ImGuiImpl {
 
 class Image : public Core::EnableSharedFromThis<Image> {
 public:
-    virtual ~Image() = default;
+    ~Image() override = default;
     explicit Image(std::filesystem::path &&filename) : m_filename(filename){
         m_textureID = load_texture_from_file(m_filename);
         logger.debug("Image {} loaded with ID: {}, size: {}x{}", m_filename.string(), m_textureID, m_size.x, m_size.y);
