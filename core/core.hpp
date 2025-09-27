@@ -28,4 +28,34 @@ namespace Core {
     {
         return std::make_shared<T>(std::forward<Args>(args)...);
     }
+
+
+    template <typename T>
+    class EnableSharedFromThis : public std::enable_shared_from_this<T> {
+    public:
+        using Ptr = std::shared_ptr<T>;
+
+        virtual ~EnableSharedFromThis() = default;
+
+        // Factory: perfectly forwards arguments to T’s constructor
+        template <typename... Args>
+        static Ptr Create(Args&&... args) {
+            return std::make_shared<T>(std::forward<Args>(args)...);
+        }
+
+        // Shortcut to get shared_ptr to this
+        Ptr Get() {
+            return this->shared_from_this();
+        }
+
+        // Delete copy & move
+        EnableSharedFromThis(const EnableSharedFromThis&) = delete;
+        EnableSharedFromThis& operator=(const EnableSharedFromThis&) = delete;
+        EnableSharedFromThis(EnableSharedFromThis&&) = delete;
+        EnableSharedFromThis& operator=(EnableSharedFromThis&&) = delete;
+
+    protected:
+        EnableSharedFromThis() = default;  // Only derived classes can construct
+    };
+
 }
