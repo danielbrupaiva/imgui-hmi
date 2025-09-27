@@ -15,13 +15,13 @@
 
 namespace Core::Application::ImGuiImpl {
 
-class Layer : public ILayer {
+class ImGuiLayer : public ILayer {
 public:
-    ~Layer() override {
+    ~ImGuiLayer() override {
         logger.debug("ImGuiLayer destroyed");
     };
 
-    explicit Layer(OpenGLApplication& app) : ILayer("ImGuiLayer"), m_app(app) {
+    explicit ImGuiLayer(OpenGLApplication& app) : ILayer("ImGuiLayer"), m_app(app) {
         logger.debug("ImGuiLayer created");
     };
 
@@ -65,29 +65,34 @@ public:
 
     void OnRender() override {
         logger.trace("ImGuiLayer rendered");
-        Begin();
-
-        End();
-    };
-
-    void Begin() {
-        logger.trace("ImGuiLayer Begin");
+        // Start the Dear ImGui frame
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
 
-        ImGui::SetNextWindowPos({0,0});
-        ImGui::SetNextWindowSize(m_windowSize, ImGuiCond_Always);
-        ImGui::Begin("MAIN", nullptr, m_flags);
-    }
+        // Main window
+        // Set window position and size according to application window
+        const ImGuiViewport *viewport = ImGui::GetMainViewport();
+        ImGui::SetNextWindowPos(m_app.GetSpecification().window_spec.fullscreen ? viewport->WorkPos : viewport->Pos);
+        ImGui::SetNextWindowSize(m_app.GetSpecification().window_spec.fullscreen ? viewport->WorkSize : viewport->Size);
 
-    void End() {
-        logger.trace("ImGuiLayer End");
-        ImGui::End();
+        ImGui::Begin("MainWindow", nullptr, m_flags);
+        {
+            // Add ImGui objects here
+            static bool show_demo_window = true;
+            ImGui::ShowDemoWindow(&show_demo_window);
+
+        }ImGui::End();
+        // End of Dear ImGui frame
         ImGui::Render();
+        // Call application render to clear the screen
+        m_app.OnRender();
+        // Render ImGui Draw Data
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-    }
+    };
+
 private:
+
     OpenGLApplication& m_app;
     ImVec2 m_windowSize;
     ImGuiWindowFlags m_flags = ImGuiWindowFlags_NoDecoration

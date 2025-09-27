@@ -1,5 +1,5 @@
 #include "ImGuiHMI.hpp"
-#include "imgui/layer.hpp"
+#include "imgui/imgui_layer.hpp"
 
 int main() {
 
@@ -15,7 +15,7 @@ int main() {
 
 
     ImGuiHMI app(spec);
-    app.PushLayer<Core::Application::ImGuiImpl::Layer>(app);
+    app.PushLayer<Core::Application::ImGuiImpl::ImGuiLayer>(app);
     app.Run();
 
 	return EXIT_SUCCESS;

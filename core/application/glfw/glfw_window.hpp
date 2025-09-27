@@ -119,9 +119,9 @@ public:
     }
 
     glm::vec2 GetFramebufferSize() override {
-        int width, height;
+        int32_t width, height;
         glfwGetFramebufferSize(m_handler, &width, &height);
-        return { width, height };
+        return { static_cast<float>(width), static_cast<float>(height) };
     };
 
     [[nodiscard]] inline const WindowSpecification &GetSpecification() const { return m_specification; }

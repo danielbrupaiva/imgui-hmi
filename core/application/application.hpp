@@ -72,7 +72,15 @@ public:
 
 //    virtual void OnEvent(EventType& event) {};
     virtual void OnUpdate(double deltaTime_ms) {};
-    virtual void OnRender() {};
+
+    virtual void OnRender() {
+        // Window clean up and prepare for new frame
+        auto displaySize = GetWindow()->GetFramebufferSize();
+        glViewport(0, 0, static_cast<int32_t>(displaySize.x), static_cast<int32_t>(displaySize.y));
+        ImVec4 bg_color =  ImVec4(0.173f, 0.173f, 0.173f, 1.0f);
+        glClearColor(bg_color.x * bg_color.w, bg_color.y * bg_color.w, bg_color.z * bg_color.w,bg_color.w);
+        glClear(GL_COLOR_BUFFER_BIT);
+    };
 
     template<typename TLayer>
     requires(std::is_base_of_v<ILayer, TLayer>)
