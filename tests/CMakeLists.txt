@@ -13,26 +13,19 @@ endif ()
 set(SOURCES
         main.cpp
         tc_utils_math.cpp
-        tc_button.cpp
-        tc_image.cpp
         tc_sqlite.cpp
         tc_uuid.cpp
         tc_user_manager.cpp
 )
 add_executable(${PROJECT_NAME} ${SOURCES})
 #---------------------
-include_directories(
-        $ENV{APP_FOLDER}
-        $ENV{APP_FOLDER}/imgui
-        $ENV{APP_FOLDER}/widgets
-        $ENV{APP_FOLDER}/screens
-        $ENV{APP_FOLDER}/backend
-)
 include(core)
 #---------------------
-include(catch2)
+find_package(Catch2)
+target_link_libraries(${PROJECT_NAME} PUBLIC Catch2::Catch2WithMain)
 #---------------------
-include(fakeit)
+find_package(fakeit)
+target_link_libraries(${PROJECT_NAME} PUBLIC fakeit::fakeit)
 #---------------------
 message("${BoldGreen}-- Copy external resources to build folder ${ColourReset}")
 message("${BoldGreen}-- Resources folder: ${CMAKE_CURRENT_BINARY_DIR}/resources ${ColourReset}")
