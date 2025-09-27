@@ -13,10 +13,9 @@ int main() {
     spec.glfw_window_hints.scaleToMonitor = true;
     spec.glfw_window_hints.decorated = true;
 
-
-    ImGuiHMI app(spec);
-    app.PushLayer<Core::Application::ImGuiImpl::ImGuiLayer>(app);
-    app.Run();
+    auto app = ImGuiHMI::CreateApplication(spec);
+    app->PushLayer<Core::Application::ImGuiImpl::ImGuiLayer>(*app);
+    app->Run();
 
 	return EXIT_SUCCESS;
 }
