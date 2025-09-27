@@ -9,9 +9,9 @@
 #include "application.hpp"
 #include "layer.hpp"
 
-#include <utility>
 #include "style_sheet.hpp"
 #include "font.hpp"
+#include "image.hpp"
 
 namespace Core::Application::ImGuiImpl {
 
@@ -60,7 +60,7 @@ public:
     }
 
     void OnUpdate(double deltaTime_ms) override {
-//        logger.trace("ImGuiLayer updated: {} ms -> {} Hz", deltaTime_ms * 1000.0, 1 / deltaTime_ms);
+        logger.trace("ImGuiLayer updated: {} ms -> {} Hz", deltaTime_ms * 1000.0, 1 / deltaTime_ms);
     }
 
     void OnRender() override {
@@ -80,7 +80,12 @@ public:
         {
             // Add ImGui objects here
             static bool show_demo_window = true;
-            ImGui::ShowDemoWindow(&show_demo_window);
+            if(show_demo_window) {
+                ImGui::ShowDemoWindow(&show_demo_window);
+            }
+
+            static auto morpheus = Image::Create("./resources/morpheus.jpg");
+            morpheus->operator()(m_windowSize);
 
         }ImGui::End();
         // End of Dear ImGui frame
@@ -94,7 +99,7 @@ public:
 private:
 
     OpenGLApplication& m_app;
-    ImVec2 m_windowSize;
+    glm::vec2 m_windowSize;
     ImGuiWindowFlags m_flags = ImGuiWindowFlags_NoDecoration
                                 | ImGuiWindowFlags_NoCollapse
                                 | ImGuiWindowFlags_NoMove
