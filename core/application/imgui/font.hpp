@@ -57,7 +57,7 @@ static void SetFonts(ImGuiIO& io)
 	ImFont *robotoFont72px =
 		io.Fonts->AddFontFromMemoryTTF((void *)g_RobotoRegular, sizeof(g_RobotoRegular), 72.0f, &fontConfig);
 
-	io.FontDefault = robotoFont22px;
+	io.FontDefault = robotoFont36px;
     logger.debug("ImGuiImpl: Fonts Default, 22px, 24px, 36px, 48px, 60px, 72px defined");
 }
 
