@@ -5,8 +5,6 @@
 
 #include "glfw_window.hpp"
 
-#include "application/imgui/IMGUImpl.hpp"
-
 #include "database/spec.hpp"
 #include "database/database.hpp"
 #include "database/sqlite.hpp"
