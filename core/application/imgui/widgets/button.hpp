@@ -1,7 +1,6 @@
 #pragma once
 
 #include <functional>
-#include "application/imgui/IMGUI.hpp"
 #include "base_widget.hpp"
 
 struct ImVec2;
