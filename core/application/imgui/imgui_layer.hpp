@@ -99,7 +99,7 @@ public:
 private:
 
     OpenGLApplication& m_app;
-    glm::vec2 m_windowSize;
+    glm::vec2 m_windowSize{};
     ImGuiWindowFlags m_flags = ImGuiWindowFlags_NoDecoration
                                 | ImGuiWindowFlags_NoCollapse
                                 | ImGuiWindowFlags_NoMove

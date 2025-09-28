@@ -66,7 +66,7 @@ public:
 class GLFW : public IWindow,
              public Core::EnableSharedFromThis<GLFW> {
 public:
-	~GLFW() {
+	~GLFW() override {
         Destroy();
         logger.debug("GLFW destroyed");
     };
