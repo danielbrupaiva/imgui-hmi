@@ -59,11 +59,11 @@ public:
         logger.debug("ImGuiLayer detached");
     }
 
-    void OnUpdate(double deltaTime_ms) override {
+    void Update(double deltaTime_ms) override {
         logger.trace("ImGuiLayer updated: {} ms -> {} Hz", deltaTime_ms * 1000.0, 1 / deltaTime_ms);
     }
 
-    void OnRender() override {
+    void Render() override {
         logger.trace("ImGuiLayer rendered");
         // Start the Dear ImGui frame
         ImGui_ImplOpenGL3_NewFrame();
@@ -91,7 +91,7 @@ public:
         // End of Dear ImGui frame
         ImGui::Render();
         // Call application render to clear the screen
-        m_app.OnRender();
+        m_app.Render();
         // Render ImGui Draw Data
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
     };

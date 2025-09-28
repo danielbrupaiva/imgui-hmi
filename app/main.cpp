@@ -13,7 +13,7 @@ int main() {
     spec.glfw_window_hints.scaleToMonitor = true;
     spec.glfw_window_hints.decorated = true;
 
-    auto app = ImGuiHMI::CreateApplication(spec);
+    auto app = ImGuiHMI::Create(spec);
     app->PushLayer<Core::Application::ImGuiImpl::ImGuiLayer>(*app);
     app->Run();
 

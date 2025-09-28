@@ -17,7 +17,7 @@ struct ApplicationSpecification {
     std::string gl_shader_version = Core::Application::GLSL_VERSION["3.30"];
 };
 
-class OpenGLApplication {
+class OpenGLApplication : public Core::EnableSharedFromThis<OpenGLApplication> {
 public:
     ~OpenGLApplication() {
         m_window->Destroy();
@@ -53,11 +53,11 @@ public:
             lastTime = currentTime;
 
             std::for_each(m_layerStack.begin(), m_layerStack.end(), [&](const std::unique_ptr<ILayer>& layer) {
-                layer->OnUpdate(timestep);
+                layer->Update(timestep);
             });
 
             std::for_each(m_layerStack.begin(), m_layerStack.end(), [&](const std::unique_ptr<ILayer>& layer) {
-                layer->OnRender();
+                layer->Render();
             });
 
             m_window->Update();
@@ -71,9 +71,9 @@ public:
     };
 
 //    virtual void OnEvent(EventType& event) {};
-    virtual void OnUpdate(double deltaTime_ms) {};
+    virtual void Update(double deltaTime_ms) {};
 
-    virtual void OnRender() {
+    virtual void Render() {
         // Window clean up and prepare for new frame
         auto displaySize = GetWindow()->GetFramebufferSize();
         glViewport(0, 0, static_cast<int32_t>(displaySize.x), static_cast<int32_t>(displaySize.y));

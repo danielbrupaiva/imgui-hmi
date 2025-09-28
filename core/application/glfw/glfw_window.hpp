@@ -48,7 +48,7 @@ struct WindowSpecification {
     [[nodiscard]] ImVec2 WindowSize() const { return ImVec2(static_cast<float>(width), static_cast<float>(height)); }
 };
 
-class IWindow : public std::enable_shared_from_this<IWindow> {
+class IWindow {
 public:
     ~IWindow() = default;
     IWindow() = default;
@@ -60,12 +60,11 @@ public:
     virtual void Close() = 0;
     virtual glm::vec2 GetFramebufferSize() = 0;
 
-    std::shared_ptr<IWindow> Get() { return shared_from_this(); }
-
     virtual void* Handler() = 0;
 };
 
-class GLFW : public IWindow {
+class GLFW : public IWindow,
+             public Core::EnableSharedFromThis<GLFW> {
 public:
 	~GLFW() {
         Destroy();
@@ -75,8 +74,6 @@ public:
     explicit GLFW(WindowSpecification specification = WindowSpecification())
         : m_handler{nullptr}, m_specification{std::move(specification)} {
     }
-
-    DISABLE_COPY_AND_MOVE(GLFW);
 
 	[[nodiscard]] inline GLFWwindow* get_window() const
 	{ return m_handler; }
@@ -125,10 +122,6 @@ public:
     };
 
     [[nodiscard]] inline const WindowSpecification &GetSpecification() const { return m_specification; }
-
-    static std::shared_ptr<IWindow> Create(const WindowSpecification& specification = WindowSpecification()) {
-        return std::make_shared<GLFW>(specification);
-    }
 
     void *Handler() override {
         return m_handler;
