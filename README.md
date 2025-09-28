@@ -6,7 +6,8 @@ Open source Graphical User Interface in C++ using Dear ImGui Framework
 
 - [x] App-Core-Data architecture
 - [x] Modern C++20
-- [x] CMake -> FetchContent (~ package management)
+- [x] Build system CMake 
+- [x] Package management Conan and CMake with FetchContent
 - [x] Dockerfile for Native (x86_64) and Cross compilation (aarch64)
 - [x] Immediate-mode GUI (Dear IMGUI)
 - [x] OpenGL ES3.0
@@ -17,9 +18,9 @@ Open source Graphical User Interface in C++ using Dear ImGui Framework
 
 ## System Software Layer
 
-- [x] Embedded Linux OS
-- [x] Preempt-RT patch
-- [x] zRAM enabled
+- [ ] Embedded Linux OS
+- [ ] Preempt-RT patch
+- [ ] zRAM enabled
 - [ ] Custom disto (Yocto or Buildroot) 
 - [ ] https://github.com/danielbrupaiva/yocto-garden
 - [ ] https://github.com/danielbrupaiva/buildroot
