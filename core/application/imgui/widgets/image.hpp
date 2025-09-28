@@ -13,7 +13,7 @@
 #include "GLFW/glfw3.h"
 #include "glm/glm.hpp"
 
-namespace Core::Application::ImGuiImpl {
+namespace Core::Application::ImGuiImpl::Widgets {
 
 class Image : public Core::EnableSharedFromThis<Image> {
 public:
@@ -23,12 +23,12 @@ public:
         logger.debug("Image {} loaded with ID: {}, size: {}x{}", m_filename.string(), m_textureID, m_size.x, m_size.y);
     }
 
-    void OnRender() const {
+    void Render() const {
         ImGui::Image(m_textureID, {m_size.x, m_size.y});
     }
 
     void operator()() const {
-        OnRender();
+        Render();
     }
 
     void operator()(const glm::vec2& size) {

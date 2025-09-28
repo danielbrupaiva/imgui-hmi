@@ -84,7 +84,7 @@ public:
                 ImGui::ShowDemoWindow(&show_demo_window);
             }
 
-            static auto morpheus = Image::Create("./resources/morpheus.jpg");
+            static auto morpheus = Widgets::Image::Create("./resources/morpheus.jpg");
             morpheus->operator()(m_windowSize);
 
         }ImGui::End();
