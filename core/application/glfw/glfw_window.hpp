@@ -72,7 +72,7 @@ public:
     };
 
     explicit GLFW(WindowSpecification specification = WindowSpecification())
-        : m_handler{nullptr}, m_specification{std::move(specification)} {
+        : m_handler(nullptr), m_specification(std::move(specification)) {
     }
 
 	[[nodiscard]] inline GLFWwindow* get_window() const
