@@ -15,7 +15,7 @@ if(NOT DEFINED CROSS_COMPILER)
   set(CMAKE_CROSSCOMPILING TRUE)
   set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
   # define target sysroot
-  set(TARGET_SYSROOT $ENV{SYSROOTS_FOLDER}/rpi4)
+  set(TARGET_SYSROOT $ENV{SYSROOTS_FOLDER}/rpi4})
   message("${BoldGreen}-- TARGET_SYSROOT: ${TARGET_SYSROOT} ${ColourReset}")
   set(CMAKE_SYSROOT ${TARGET_SYSROOT})
   message("${BoldGreen}-- CMAKE_SYSROOT: ${CMAKE_SYSROOT} ${ColourReset}")
@@ -75,7 +75,7 @@ if(NOT DEFINED CROSS_COMPILER)
   function(cmake_initialize_per_config_variable _PREFIX _DOCSTRING)
     if (_PREFIX MATCHES "CMAKE_(C|CXX|ASM)_FLAGS")
       set(CMAKE_${CMAKE_MATCH_1}_FLAGS_INIT "${QT_COMPILER_FLAGS}")
-          
+
       foreach (config DEBUG RELEASE MINSIZEREL RELWITHDEBINFO)
         if (DEFINED QT_COMPILER_FLAGS_${config})
           set(CMAKE_${CMAKE_MATCH_1}_FLAGS_${config}_INIT "${QT_COMPILER_FLAGS_${config}}")

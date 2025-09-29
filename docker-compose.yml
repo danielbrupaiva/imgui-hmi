@@ -1,6 +1,6 @@
 services:
   dev-tools:
-    image: bootoolz/docker-toolchain-full:v0.2
+    image: bootoolz/docker-toolchain:v0.4
     container_name: imgui
     env_file:
       - env_file
