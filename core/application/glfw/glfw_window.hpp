@@ -75,9 +75,6 @@ public:
         : m_handler(nullptr), m_specification(std::move(specification)) {
     }
 
-	[[nodiscard]] inline GLFWwindow* get_window() const
-	{ return m_handler; }
-
     void Destroy() final {
         if (m_handler) {
             glfwDestroyWindow(m_handler);
@@ -112,11 +109,23 @@ public:
 
         glfwSwapInterval(m_specification.vsync ? 1 : 0); // Enable vsync
 
+        ScaleWindowSizeToMonitor();
+
         return true;
     }
 
+    void ScaleWindowSizeToMonitor() {
+        // In case of GLFW Window hint set to scale to monitor, we need to query the content scale
+        float xscale = 1.0f; float yscale = 1.0f;
+        glfwGetWindowContentScale(m_handler, &xscale, &yscale);
+        // Resize application window to match the scaled size
+        glfwSetWindowSize(m_handler,
+                          static_cast<int32_t>(m_specification.WindowSize().x * xscale),
+                          static_cast<int32_t>(m_specification.WindowSize().y * yscale));
+    }
+
     glm::vec2 GetFramebufferSize() override {
-        int32_t width, height;
+        int32_t width = 0; int32_t height = 0;
         glfwGetFramebufferSize(m_handler, &width, &height);
         return { static_cast<float>(width), static_cast<float>(height) };
     };
