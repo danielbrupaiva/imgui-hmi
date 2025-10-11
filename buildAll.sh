@@ -11,6 +11,6 @@ conan install . --build=missing --output-folder=output/x86_64/Release --profile:
 cmake -B output/x86_64/Release -S .   -G "Ninja"  -DCMAKE_TOOLCHAIN_FILE=output/x86_64/Release/conan_toolchain.cmake  -DCMAKE_BUILD_TYPE=Release
 cmake --build output/x86_64/Release --parallel
 ## Conan install command for aarch64-beagleplay target
-#conan install . --build=missing --output-folder=output/aarch64-beagleplay/Debug --profile:build=profiles/release_x86_64 --profile:host=profiles/aarch64-beagleplay
-#cmake -B output/target/Debug -S .   -G "Ninja"   -DCMAKE_TOOLCHAIN_FILE=cmake/beagleplay.cmake   -DCMAKE_BUILD_TYPE=Debug
-#cmake --build output/target/Debug --parallel
+conan install . --build=missing --output-folder=output/target/Release --profile:build=profiles/release_x86_64 --profile:host=profiles/aarch64-beagleplay
+cmake -B output/target/Release -S .   -G "Ninja"   -DCMAKE_TOOLCHAIN_FILE=cmake/beagleplay.cmake   -DCMAKE_BUILD_TYPE=Release
+cmake --build output/target/Release --parallel
