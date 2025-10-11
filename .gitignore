@@ -38,3 +38,4 @@ output/*
 vendor/*
 /sysroots/
 *.db
+/CMakeUserPresets.json
