@@ -46,8 +46,8 @@ public:
         m_windowSize.y = m_app.GetSpecification().window_spec.WindowSize().y * yscale;
 
         // Setup Platform/Renderer backends
-        IM_ASSERT(ImGui_ImplGlfw_InitForOpenGL(window, true));
-        IM_ASSERT(ImGui_ImplOpenGL3_Init(m_app.GetSpecification().gl_shader_version.c_str()));
+        ImGui_ImplGlfw_InitForOpenGL(window, true);
+        ImGui_ImplOpenGL3_Init(m_app.GetSpecification().gl_shader_version.c_str());
 
         logger.debug("ImGuiLayer attached");
     }
