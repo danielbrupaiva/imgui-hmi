@@ -32,7 +32,7 @@ set(ENV{RESOURCES_FOLDER} ${CMAKE_CURRENT_SOURCE_DIR}/app/resources)
 message("${BoldYellow}-- Resources folder: $ENV{RESOURCES_FOLDER}${ColourReset}")
 #---------------------
 option(CROSS_COMPILER "CROSS COMPILER" OFF)
-message("${BoldYellow}-- CROSS COMPILER: ${CROSS_COMPILER}${ColourReset}")
+message("${BoldYellow}-- CROSS_COMPILER: ${CROSS_COMPILER}${ColourReset}")
 #---------------------
 option(BUILD_FROM_SRC "BUILD FROM SRC" OFF)
 message("${BoldYellow}-- BUILD_FROM_SRC: ${BUILD_FROM_SRC}${ColourReset}")
