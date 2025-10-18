@@ -40,8 +40,10 @@ public:
 
         auto window = static_cast<GLFWwindow *>(m_app.GetWindow()->Handler());
         // In case of GLFW Window hint set to scale to monitor, we need to query the content scale
-        float xscale, yscale;
-        glfwGetWindowContentScale(window, &xscale, &yscale);
+        float xscale = 1.0f; float yscale = 1.0f;
+        if(m_app.GetSpecification().glfw_window_hints.scaleToMonitor) {
+            glfwGetWindowContentScale(window, &xscale, &yscale);
+        }
         m_windowSize.x = m_app.GetSpecification().window_spec.WindowSize().x * xscale;
         m_windowSize.y = m_app.GetSpecification().window_spec.WindowSize().y * yscale;
 
