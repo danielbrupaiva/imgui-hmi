@@ -1,9 +1,0 @@
-{
-    "version": 4,
-    "vendor": {
-        "conan": {}
-    },
-    "include": [
-        "output/x86_64/Debug/CMakePresets.json"
-    ]
-}
