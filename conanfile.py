@@ -26,4 +26,6 @@ class ImguiHMI(ConanFile):
         self.tool_requires("cmake/3.27.9")
     # Generators for CMake
     def layout(self):
-        cmake_layout(self)
+        # Use cmake-layout
+        self.folders.source = "."
+        self.folders.build = "build"
